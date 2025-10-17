@@ -11,13 +11,9 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconFileDownload,
-  IconBook,
-  IconCompass,
-  IconTools,
-  IconPencil,
   IconChartBar,
 } from "@tabler/icons-react"
-import { SITE_CONFIG, MAIN_NAV_ITEMS, RESOURCES_NAV_GROUP } from "@/lib/constants"
+import { SITE_CONFIG } from "@/lib/constants"
 import { copy } from "@/content/copy"
 
 export function FloatingDockNav() {

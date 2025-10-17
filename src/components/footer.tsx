@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Github, Linkedin, Youtube, Mail } from "lucide-react"
 import { SITE_CONFIG, NAVIGATION_ITEMS } from "@/lib/constants"
 import { copy } from "@/content/copy"
+import { SmartLink } from "@/components/ui/smart-link"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -17,40 +18,34 @@ export function Footer() {
               <p className="text-sm text-foreground/60">{SITE_CONFIG.title}</p>
             </div>
             <div className="flex gap-4">
-              <a
+              <SmartLink
                 href={SITE_CONFIG.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground/60 transition-colors hover:text-foreground"
+                className="text-foreground/60 transition-colors hover:text-foreground inline-flex"
                 aria-label={copy.footer.ariaLinkedin}
               >
                 <Linkedin className="h-5 w-5" />
-              </a>
-              <a
+              </SmartLink>
+              <SmartLink
                 href={SITE_CONFIG.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground/60 transition-colors hover:text-foreground"
+                className="text-foreground/60 transition-colors hover:text-foreground inline-flex"
                 aria-label={copy.footer.ariaGithub}
               >
                 <Github className="h-5 w-5" />
-              </a>
-              <a
+              </SmartLink>
+              <SmartLink
                 href={SITE_CONFIG.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground/60 transition-colors hover:text-foreground"
+                className="text-foreground/60 transition-colors hover:text-foreground inline-flex"
                 aria-label={copy.footer.ariaYoutube}
               >
                 <Youtube className="h-5 w-5" />
-              </a>
-              <a
+              </SmartLink>
+              <SmartLink
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="text-foreground/60 transition-colors hover:text-foreground"
+                className="text-foreground/60 transition-colors hover:text-foreground inline-flex"
                 aria-label={copy.footer.ariaEmail}
               >
                 <Mail className="h-5 w-5" />
-              </a>
+              </SmartLink>
             </div>
           </div>
 

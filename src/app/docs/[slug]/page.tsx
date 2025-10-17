@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { CodeBlock } from '@/components/docs/code-block';
 import { CodeTabs } from '@/components/docs/code-tabs';
+import { SmartLink } from '@/components/ui/smart-link';
 
 type DocData = {
   content: string;
@@ -112,16 +113,18 @@ const components = {
   ul: ({ children }: ComponentProps) => <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>,
   ol: ({ children }: ComponentProps) => <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>,
   li: ({ children }: ComponentProps) => <li className="leading-7">{children}</li>,
-  a: ({ href, children }: ComponentProps) => (
-    <a
-      href={href}
-      className="text-primary hover:underline font-medium"
-      target={href?.startsWith('http') ? '_blank' : undefined}
-      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-    >
-      {children}
-    </a>
-  ),
+  a: ({ href, children }: ComponentProps) => {
+    if (!href) return <a>{children}</a>
+
+    return (
+      <SmartLink
+        href={href}
+        className="text-primary hover:underline font-medium"
+      >
+        {children}
+      </SmartLink>
+    )
+  },
   blockquote: ({ children }: ComponentProps) => (
     <blockquote className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground">
       {children}

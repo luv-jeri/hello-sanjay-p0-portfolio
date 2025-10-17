@@ -1,39 +1,29 @@
-import Link from "next/link"
 import * as React from "react"
+import { SmartLink } from "@/components/ui/smart-link"
 
 // ============================================================================
-// CTA LINK HELPER — Internal vs External Link Routing
+// CTA LINK HELPER — Internal vs External Link Routing with Preview
 // ============================================================================
 // Automatically determines whether to use Next.js Link or external anchor
-// based on the href pattern
+// with link preview support for external URLs
 
 type CtaLinkProps = {
   href: string
   children: React.ReactNode
   className?: string
   "aria-label"?: string
+  noPreview?: boolean
 }
 
-export function CtaLink({ href, children, className, "aria-label": ariaLabel }: CtaLinkProps) {
-  const isExternal = /^https?:\/\//.test(href)
-
-  if (isExternal) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-        aria-label={ariaLabel}
-      >
-        {children}
-      </a>
-    )
-  }
-
+export function CtaLink({ href, children, className, "aria-label": ariaLabel, noPreview }: CtaLinkProps) {
   return (
-    <Link href={href} className={className} aria-label={ariaLabel}>
+    <SmartLink
+      href={href}
+      className={className}
+      aria-label={ariaLabel}
+      noPreview={noPreview}
+    >
       {children}
-    </Link>
+    </SmartLink>
   )
 }

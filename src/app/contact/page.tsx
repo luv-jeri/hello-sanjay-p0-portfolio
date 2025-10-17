@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { SITE_CONFIG } from "@/lib/constants"
 import { copy } from "@/content/copy"
+import { SmartLink } from "@/components/ui/smart-link"
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -71,12 +72,12 @@ export default function ContactPage() {
                   <Mail className="mt-1 h-5 w-5 shrink-0 text-foreground/60" />
                   <div>
                     <p className="text-sm font-medium">{copy.contact.emailLabel}</p>
-                    <a
+                    <SmartLink
                       href={`mailto:${SITE_CONFIG.email}`}
                       className="text-sm text-foreground/70 hover:text-foreground"
                     >
                       {SITE_CONFIG.email}
-                    </a>
+                    </SmartLink>
                   </div>
                 </div>
 
@@ -84,12 +85,12 @@ export default function ContactPage() {
                   <Phone className="mt-1 h-5 w-5 shrink-0 text-foreground/60" />
                   <div>
                     <p className="text-sm font-medium">{copy.contact.phoneLabel}</p>
-                    <a
+                    <SmartLink
                       href={`tel:${SITE_CONFIG.phone}`}
                       className="text-sm text-foreground/70 hover:text-foreground"
                     >
                       {SITE_CONFIG.phone}
-                    </a>
+                    </SmartLink>
                   </div>
                 </div>
 
@@ -121,15 +122,15 @@ export default function ContactPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button className="w-full" asChild>
-                  <a href="[ADD BOOKING LINK]">
+                  <SmartLink href="[ADD BOOKING LINK]">
                     <Calendar className="h-5 w-5" />
                     {copy.contact.bookTimeButton}
-                  </a>
+                  </SmartLink>
                 </Button>
                 <Button variant="outline" className="w-full" asChild>
-                  <a href="/resume.pdf" download>
+                  <SmartLink href="/resume.pdf" noPreview>
                     {copy.contact.requestResumeButton}
-                  </a>
+                  </SmartLink>
                 </Button>
               </CardContent>
             </Card>
