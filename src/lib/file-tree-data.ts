@@ -1,5 +1,5 @@
 import { FileTreeNode } from "@/types/file-tree"
-import { projects } from "./projects-data"
+import { projects, getFeaturedProjects } from "@/content/projects"
 
 // ============================================================================
 // PROJECTS FILE TREE DATA
@@ -10,89 +10,114 @@ export const projectsFileTree: FileTreeNode = {
   id: "projects",
   name: "projects",
   path: "/projects",
-  children: projects
-    .filter((p) => p.featured) // Only show featured projects in tree
-    .map((project) => ({
-      type: "folder" as const,
-      id: project.id,
-      name: project.id,
-      path: `/projects/${project.id}`,
-      children: [
-        {
-          type: "file" as const,
-          id: `${project.id}-readme`,
-          name: "README.md",
-          path: `/projects/${project.id}/README.md`,
-          ext: "md" as const,
-          preview: {
-            type: "project" as const,
-            projectId: project.id,
+  children: getFeaturedProjects().map((project) => ({
+    type: "folder" as const,
+    id: project.slug,
+    name: project.slug,
+    path: `/projects/${project.slug}`,
+    children: [
+      {
+        type: "file" as const,
+        id: `${project.slug}-readme`,
+        name: "README.md",
+        path: `/projects/${project.slug}/README.md`,
+        ext: "md" as const,
+        preview: {
+          type: "markdown" as const,
+          content: `# ${project.title}
+
+## Summary
+${project.summary}
+
+## Role & Dates
+**${project.role}** | ${project.dates}${project.company ? ` | ${project.company}` : ""}
+
+## Domain & Stack
+**Domain:** ${project.domain}
+**Tech Stack:** ${project.stack.join(", ")}
+
+## Challenge
+${project.challenge || "N/A"}
+
+## Solution
+${project.solution || "N/A"}
+
+## Key Contributions
+${project.contributions.map((c, i) => `${i + 1}. ${c}`).join("\n")}
+
+## Results & Impact
+${project.results.map((r, i) => `${i + 1}. ${r}`).join("\n")}
+
+${project.nextSteps ? `## What's Next\n${project.nextSteps}` : ""}
+
+## Links
+${project.links.map((link) => `- [${link.label}](${link.href})`).join("\n")}
+`,
+        },
+        action: {
+          kind: "route" as const,
+          href: "/projects",
+        },
+      },
+      {
+        type: "file" as const,
+        id: `${project.slug}-architecture`,
+        name: "architecture.mdx",
+        path: `/projects/${project.slug}/architecture.mdx`,
+        ext: "mdx" as const,
+        preview: {
+          type: "markdown" as const,
+          content: `# Architecture & Tech Stack
+
+## Overview
+${project.architecture || "Architecture details coming soon."}
+
+## Tech Stack
+${project.stack.map((tech) => `- **${tech}**`).join("\n")}
+
+## Tags
+${project.tags.map((tag) => `\`${tag}\``).join(", ")}
+`,
+        },
+      },
+      {
+        type: "file" as const,
+        id: `${project.slug}-results`,
+        name: "results.json",
+        path: `/projects/${project.slug}/results.json`,
+        ext: "json" as const,
+        preview: {
+          type: "json" as const,
+          data: {
+            slug: project.slug,
+            title: project.title,
+            role: project.role,
+            dates: project.dates,
+            company: project.company,
+            domain: project.domain,
+            results: project.results,
+            contributions: project.contributions,
+            context: project.context,
+            nextSteps: project.nextSteps,
           },
+        },
+      },
+      ...(project.links
+        .filter((link) => link.href !== "[ADD LINK]")
+        .map((link, idx) => ({
+          type: "file" as const,
+          id: `${project.slug}-link-${idx}`,
+          name: `${link.label.toLowerCase().replace(/\s+/g, "-")}.url`,
+          path: `/projects/${project.slug}/${link.label.toLowerCase().replace(/\s+/g, "-")}.url`,
+          ext: "url" as const,
           action: {
-            kind: "route" as const,
-            href: "/projects",
+            kind: "link" as const,
+            href: link.href,
+            external: true,
           },
-        },
-        {
-          type: "file" as const,
-          id: `${project.id}-architecture`,
-          name: "architecture.mdx",
-          path: `/projects/${project.id}/architecture.mdx`,
-          ext: "mdx" as const,
-          preview: {
-            type: "markdown" as const,
-            content: project.architecture,
-          },
-        },
-        {
-          type: "file" as const,
-          id: `${project.id}-results`,
-          name: "results.json",
-          path: `/projects/${project.id}/results.json`,
-          ext: "json" as const,
-          preview: {
-            type: "json" as const,
-            data: {
-              results: project.results,
-              context: project.context,
-              nextSteps: project.nextSteps,
-            },
-          },
-        },
-        ...(project.demoUrl || project.liveUrl
-          ? [
-              {
-                type: "file" as const,
-                id: `${project.id}-demo`,
-                name: "demo.url",
-                path: `/projects/${project.id}/demo.url`,
-                ext: "url" as const,
-                action: {
-                  kind: "link" as const,
-                  href: (project.demoUrl || project.liveUrl) as string,
-                  external: true,
-                },
-              },
-            ]
-          : []),
-        ...(project.githubUrl
-          ? [
-              {
-                type: "file" as const,
-                id: `${project.id}-github`,
-                name: "github.url",
-                path: `/projects/${project.id}/github.url`,
-                ext: "url" as const,
-                action: {
-                  kind: "link" as const,
-                  href: project.githubUrl,
-                  external: true,
-                },
-              },
-            ]
-          : []),
-      ],
-    })),
+        }))),
+    ],
+  })),
 }
 
 // ============================================================================
