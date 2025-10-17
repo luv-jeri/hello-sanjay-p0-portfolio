@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { BlurFade } from '@/components/ui/blur-fade';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import {
   FileText,
   BookOpen,
@@ -14,6 +15,8 @@ import {
   Info,
   Code2,
   FolderOpen,
+  Search,
+  X,
 } from 'lucide-react';
 
 type DocCategory = 'all' | 'homepage' | 'terminal' | 'file-tree' | 'about' | 'other';
@@ -178,13 +181,27 @@ const categories = [
 
 export default function DocsPage() {
   const [selectedCategory, setSelectedCategory] = useState<DocCategory>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredDocs =
-    selectedCategory === 'all'
-      ? docs
-      : docs.filter((doc) => doc.category === selectedCategory);
+  // Filter by category and search query
+  const filteredDocs = docs.filter((doc) => {
+    // Category filter
+    const matchesCategory = selectedCategory === 'all' || doc.category === selectedCategory;
+
+    // Search filter (searches in title, description, and fileName)
+    const matchesSearch = searchQuery.trim() === '' ||
+      doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doc.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doc.fileName.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   const featuredDocs = docs.filter((doc) => doc.featured);
+
+  const clearSearch = () => {
+    setSearchQuery('');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -205,8 +222,42 @@ export default function DocsPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        {/* Search Bar */}
+        <BlurFade delay={0.15}>
+          <div className="mb-8 max-w-2xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search documentation by title, description, or filename..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-10 h-12 text-base"
+              />
+              {searchQuery && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearSearch}
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+
+            {/* Search Results Count */}
+            {searchQuery && (
+              <div className="mt-3 text-sm text-muted-foreground">
+                Found <strong className="text-foreground">{filteredDocs.length}</strong> {filteredDocs.length === 1 ? 'result' : 'results'} for "{searchQuery}"
+              </div>
+            )}
+          </div>
+        </BlurFade>
+
         {/* Featured Docs */}
-        {selectedCategory === 'all' && (
+        {selectedCategory === 'all' && !searchQuery && (
           <BlurFade delay={0.2}>
             <section className="mb-12">
               <div className="flex items-center gap-2 mb-6">
@@ -319,9 +370,30 @@ export default function DocsPage() {
             <div className="text-center py-12">
               <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
               <h3 className="text-lg font-medium mb-2">No documentation found</h3>
-              <p className="text-muted-foreground">
-                Try selecting a different category
+              <p className="text-muted-foreground mb-4">
+                {searchQuery
+                  ? `No results found for "${searchQuery}"`
+                  : 'Try selecting a different category'
+                }
               </p>
+              {(searchQuery || selectedCategory !== 'all') && (
+                <div className="flex gap-2 justify-center">
+                  {searchQuery && (
+                    <Button variant="outline" size="sm" onClick={clearSearch}>
+                      Clear search
+                    </Button>
+                  )}
+                  {selectedCategory !== 'all' && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSelectedCategory('all')}
+                    >
+                      View all categories
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           </BlurFade>
         )}
