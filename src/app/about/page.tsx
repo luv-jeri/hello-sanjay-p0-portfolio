@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Highlighter } from "@/components/ui/highlighter"
 import { copy } from "@/content/copy"
 
 export const metadata: Metadata = {
@@ -19,7 +20,14 @@ export default function AboutPage() {
             {copy.about.heading}
           </h1>
           <p className="text-xl text-foreground/70">
-            {copy.about.subheading}
+            Senior{" "}
+            <Highlighter action="circle" color="#87CEFA" animationDuration={800}>
+              full‑stack developer
+            </Highlighter>{" "}
+            who ships{" "}
+            <Highlighter action="underline" color="#FF9800">
+              complex products end‑to‑end
+            </Highlighter>
           </p>
         </div>
 
@@ -30,10 +38,34 @@ export default function AboutPage() {
               <CardTitle className="text-2xl">{copy.about.technicalLeaderTitle}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-foreground/80 leading-relaxed">
-              <p>{copy.about.technicalLeaderContent.paragraph1}</p>
+              <p>
+                I'm a senior full-stack developer with{" "}
+                <Highlighter action="highlight" color="#FFD700" isView>
+                  7+ years
+                </Highlighter>{" "}
+                building and scaling web and mobile products across SaaS, EdTech, EnergyTech, and TravelTech. Today I lead frontend and full-stack initiatives at{" "}
+                <Highlighter action="underline" color="#4CAF50">
+                  HighLevel
+                </Highlighter>
+                , owning a next-gen Courses platform and a Canva-style credentials/badge builder—from greenfield architecture to production and mobile parity. I focus on{" "}
+                <Highlighter action="highlight" color="#87CEFA" isView>
+                  micro-frontends (Module Federation)
+                </Highlighter>
+                , real-time WYSIWYG editors, accessibility, and performance.
+              </p>
               <p>{copy.about.technicalLeaderContent.paragraph2}</p>
               <p>{copy.about.technicalLeaderContent.paragraph3}</p>
-              <p>{copy.about.technicalLeaderContent.paragraph4}</p>
+              <p>
+                I work{" "}
+                <Highlighter action="highlight" color="#FFD700" isView>
+                  product-first
+                </Highlighter>
+                : clarify goals, model constraints, make architecture trade-offs, and ship. I integrate{" "}
+                <Highlighter action="underline" color="#FF9800">
+                  AI tools (Cursor/MCP/agents)
+                </Highlighter>{" "}
+                to speed analysis, prototyping, and code quality reviews—without compromising safety. My toolkit includes React/Next.js, TypeScript, Node/Nest, Firebase/GCP, WebSockets, Canvas APIs, GSAP/Three.js, and Capacitor for web-to-mobile.
+              </p>
               <p>{copy.about.technicalLeaderContent.paragraph5}</p>
             </CardContent>
           </Card>
@@ -47,7 +79,17 @@ export default function AboutPage() {
               <CardDescription>{copy.about.quickOverviewDescription}</CardDescription>
             </CardHeader>
             <CardContent className="text-foreground/80 leading-relaxed">
-              <p>{copy.about.quickOverviewContent}</p>
+              <p>
+                Senior full-stack (SDE III) with{" "}
+                <Highlighter action="underline" color="#87CEFA" isView>
+                  7+ years
+                </Highlighter>{" "}
+                building React/Next.js/TypeScript/Node apps at scale. I currently lead Courses and a credentials/badge platform at HighLevel, including micro-frontends (Module Federation), real-time editors, accessibility, and web→mobile via Capacitor. Past work includes a climate-tech platform at ReNew Power with SSR, Firebase, and GCP. I've{" "}
+                <Highlighter action="underline" color="#FF9800">
+                  mentored developers and taught MERN/MEAN
+                </Highlighter>{" "}
+                as a part-time trainer. Comfortable across frontend, backend, and cloud with strong collaboration across product, QA, mobile, and DevOps. Open to senior frontend/full-stack roles. English/Hindi; based in Indore, India (remote-friendly).
+              </p>
             </CardContent>
           </Card>
         </section>
