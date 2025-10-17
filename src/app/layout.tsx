@@ -9,6 +9,7 @@ import { FloatingDockNav } from "@/components/floating-dock-nav";
 import { PersonSchema, WebSiteSchema } from "@/components/schema-markup";
 import { SITE_CONFIG } from "@/lib/constants";
 import { copy } from "@/content/copy";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,6 +73,7 @@ export default function RootLayout({
               <Footer />
               <FloatingDockNav />
             </div>
+            <Toaster position="bottom-right" richColors />
           </TerminalProvider>
         </ThemeProvider>
       </body>

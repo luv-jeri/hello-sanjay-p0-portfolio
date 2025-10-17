@@ -22,6 +22,7 @@ export const NAVIGATION_ITEMS = [
   { name: "Skills", href: "/skills" },
   { name: "Experience", href: "/experience" },
   { name: "About", href: "/about" },
+  { name: "Docs", href: "/docs" },
   { name: "Contact", href: "/contact" },
 ] as const
 
