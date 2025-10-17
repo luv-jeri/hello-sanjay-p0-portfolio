@@ -51,7 +51,7 @@ export default function ContactPage() {
             Let&apos;s Connect
           </h1>
           <p className="text-xl text-foreground/70">
-            I respond fast and keep things simple. Choose what works for you.
+            I&apos;m based in Indore (IST, UTC+5:30). I typically reply within 1 business day.
           </p>
         </div>
 
@@ -120,14 +120,14 @@ export default function ContactPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button className="w-full" asChild>
-                  <a href="#schedule">
+                  <a href="[ADD BOOKING LINK]">
                     <Calendar className="h-5 w-5" />
-                    Schedule a call
+                    Book time
                   </a>
                 </Button>
                 <Button variant="outline" className="w-full" asChild>
                   <a href="/resume.pdf" download>
-                    Download Resume
+                    Request résumé
                   </a>
                 </Button>
               </CardContent>

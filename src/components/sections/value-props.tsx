@@ -8,40 +8,28 @@ const valueProps = [
   {
     icon: Briefcase,
     title: "For CTO/CXO",
-    color: "from-cyan-500 to-blue-600",
-    shadowColor: "shadow-cyan-500/30",
-    iconBg: "bg-gradient-to-br from-cyan-500/20 to-blue-600/20",
-    iconColor: "text-cyan-500",
     items: [
-      "De‑risk delivery with owned product lifecycles from greenfield to production",
-      "Micro‑frontend architecture and Module Federation for scalable teams",
-      "Convert web to mobile (Capacitor) without duplicating stacks",
+      "Architecture that balances speed, safety, and scale—micro-frontends, SSR, web→mobile with Capacitor, and performance budgets",
+      "Module Federation for independently deployable modules and reduced coupling",
+      "End-to-end ownership from architecture to production and mobile parity",
     ],
   },
   {
     icon: Users,
     title: "For HR/Recruiter",
-    color: "from-purple-500 to-pink-600",
-    shadowColor: "shadow-purple-500/30",
-    iconBg: "bg-gradient-to-br from-purple-500/20 to-pink-600/20",
-    iconColor: "text-purple-500",
     items: [
-      "7+ years; MERN/MEAN; React/Next/TypeScript/Node/Firebase/GCP; SSR; auth; real‑time",
-      "Experience across SaaS, EdTech, EnergyTech, TravelTech",
-      "English/Hindi; team collaboration, code reviews, mentoring",
+      "Senior full-stack (React/Next.js/TypeScript/Node/GCP/Firebase), SDE III ownership, cross-team delivery",
+      "Education & credentialing domain expertise with 7+ years across SaaS, EdTech, EnergyTech",
+      "English/Hindi fluent; mentored developers and taught MERN/MEAN as part-time trainer",
     ],
   },
   {
     icon: Wrench,
     title: "For Engineering Manager",
-    color: "from-emerald-500 to-teal-600",
-    shadowColor: "shadow-emerald-500/30",
-    iconBg: "bg-gradient-to-br from-emerald-500/20 to-teal-600/20",
-    iconColor: "text-emerald-500",
     items: [
-      "Built WYSIWYG editors, Canvas‑based Badge Builder, and threaded commenting",
-      "SSR with Next.js, performance optimizations, accessibility upgrades",
-      "Strong DX: TypeScript, Zod, modularization, caching, CI/CD",
+      "Own the lifecycle—scoping, building, testing, releasing, mentoring, and iterating with UI/UX, QA, backend, and DevOps",
+      "Real-time WYSIWYG editors, Canvas-based Badge Builder, and accessibility (keyboard navigation, screen readers)",
+      "AI-assisted workflows (Cursor/MCP/agents) for faster, safer delivery without compromising quality",
     ],
   },
 ]
@@ -88,21 +76,18 @@ export function ValueProps() {
         >
           {valueProps.map((prop) => (
             <motion.div key={prop.title} variants={item}>
-              <Card className={`group h-full border-2 transition-all hover:border-transparent hover:shadow-2xl ${prop.shadowColor}`}>
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${prop.color} opacity-0 transition-opacity duration-300 group-hover:opacity-10`} />
-                <CardHeader className="relative">
-                  <div className={`mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl ${prop.iconBg} shadow-lg`}>
-                    <prop.icon className={`h-7 w-7 ${prop.iconColor}`} />
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-foreground/5">
+                    <prop.icon className="h-6 w-6" />
                   </div>
-                  <CardTitle className="bg-gradient-to-r bg-clip-text text-transparent from-foreground to-foreground/70">
-                    {prop.title}
-                  </CardTitle>
+                  <CardTitle>{prop.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="relative">
+                <CardContent>
                   <ul className="space-y-3">
                     {prop.items.map((item, idx) => (
-                      <li key={idx} className="flex gap-3 text-sm text-foreground/70">
-                        <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full bg-gradient-to-br ${prop.color}`} />
+                      <li key={idx} className="flex gap-2 text-sm text-foreground/70">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40" />
                         <span>{item}</span>
                       </li>
                     ))}

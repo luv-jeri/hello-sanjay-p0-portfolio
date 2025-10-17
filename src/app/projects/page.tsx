@@ -1,16 +1,15 @@
 import type { Metadata } from "next"
-import Link from "next/link"
-import { ExternalLink, Github, ArrowRight } from "lucide-react"
+import Image from "next/image"
+import { ExternalLink, Github } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Compare } from "@/components/ui/compare"
 import { projects } from "@/lib/projects-data"
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "In‑depth case studies with architecture, decisions, and results.",
-  keywords: ["case study", "WYSIWYG", "canvas editor", "verification", "analytics"],
+  title: "Projects & Case Studies — Courses, Credentials, DMRV",
+  description: "In-depth architecture notes and results for education, credentialing, and climate-tech builds.",
+  keywords: ["case studies", "WYSIWYG editor", "certificate builder", "DMRV", "real-time", "analytics"],
 }
 
 export default function ProjectsPage() {
@@ -38,6 +37,16 @@ export default function ProjectsPage() {
           <div className="space-y-8">
             {featuredProjects.map((project) => (
               <Card key={project.id} className="overflow-hidden">
+                {project.image && (
+                  <div className="relative h-64 w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <CardHeader>
                   <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                     <div className="flex-1">
@@ -100,28 +109,6 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  {/* Before/After Comparison for Credentials Project */}
-                  {project.id === "credentials-platform" && (
-                    <div className="space-y-4">
-                      <h4 className="text-lg font-semibold text-foreground/90">
-                        Impact Visualization
-                      </h4>
-                      <div className="h-[400px] overflow-hidden rounded-lg">
-                        <Compare
-                          firstImage="/projects/credentials/before.jpg"
-                          secondImage="/projects/credentials/after.jpg"
-                          firstImageAlt="Before: Manual certificate creation"
-                          secondImageAlt="After: Automated canvas-based builder"
-                          className="h-full w-full"
-                          slideMode="hover"
-                        />
-                      </div>
-                      <p className="text-sm text-center text-foreground/60">
-                        Hover to compare: Manual process (left) vs. Automated builder (right)
-                      </p>
-                    </div>
-                  )}
-
                   <div className="rounded-lg border border-foreground/10 bg-muted/30 p-4">
                     <h4 className="mb-2 text-sm font-semibold text-foreground/90">
                       What&apos;s Next
@@ -133,12 +120,6 @@ export default function ProjectsPage() {
                 </CardContent>
 
                 <CardFooter className="gap-2">
-                  <Button size="sm" asChild>
-                    <Link href={`/projects/${project.id}`}>
-                      View Full Case Study
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
                   {project.liveUrl && (
                     <Button variant="outline" size="sm" asChild>
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
@@ -168,7 +149,17 @@ export default function ProjectsPage() {
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {otherProjects.map((project) => (
-              <Card key={project.id} className="flex flex-col">
+              <Card key={project.id} className="flex flex-col overflow-hidden">
+                {project.image && (
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <CardHeader>
                   <CardTitle className="text-xl">{project.title}</CardTitle>
                   <CardDescription>{project.shortDescription}</CardDescription>

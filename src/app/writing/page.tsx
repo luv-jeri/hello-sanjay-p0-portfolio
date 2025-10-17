@@ -1,9 +1,8 @@
 import type { Metadata } from "next"
-import { Book, Youtube, Github } from "lucide-react"
+import { Book, Youtube, Github, ExternalLink } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { LinkPreview } from "@/components/ui/link-preview"
 
 export const metadata: Metadata = {
   title: "Writing & Speaking",
@@ -147,11 +146,7 @@ export default function WritingPage() {
             {articles.map((article) => (
               <Card key={article.title}>
                 <CardHeader>
-                  <CardTitle className="text-lg">
-                    <LinkPreview url={article.link} className="hover:text-foreground/80">
-                      {article.title}
-                    </LinkPreview>
-                  </CardTitle>
+                  <CardTitle className="text-lg">{article.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="mb-4 text-sm text-foreground/70">
@@ -164,6 +159,12 @@ export default function WritingPage() {
                       </Badge>
                     ))}
                   </div>
+                  <Button variant="ghost" size="sm" asChild>
+                    <a href={article.link} target="_blank" rel="noopener noreferrer">
+                      Read article
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
                 </CardContent>
               </Card>
             ))}

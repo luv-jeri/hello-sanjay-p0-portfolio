@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { ResizableNavbar } from "@/components/ui/resizable-navbar";
+import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { FloatingDockWrapper } from "@/components/floating-dock-wrapper";
 import { PersonSchema, WebSiteSchema } from "@/components/schema-markup";
 import { SITE_CONFIG } from "@/lib/constants";
 
@@ -75,10 +74,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
-            <ResizableNavbar />
-            <main className="flex-1 pb-24">{children}</main>
+            <Navbar />
+            <main className="flex-1">{children}</main>
             <Footer />
-            <FloatingDockWrapper />
           </div>
         </ThemeProvider>
       </body>

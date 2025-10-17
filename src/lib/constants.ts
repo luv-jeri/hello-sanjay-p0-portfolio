@@ -1,12 +1,13 @@
 export const SITE_CONFIG = {
   name: "Sanjay Kumar",
-  title: "Senior Full-Stack Developer",
-  description: "SDE III delivering React/Next, Node, Firebase/GCP, micro-frontends, and Capacitor mobile. View projects and book a call.",
+  title: "Senior Full-Stack & Frontend Engineer",
+  description: "SDE III building scalable React/Next.js/Node apps with micro-frontends, SSR, real-time, and web→mobile via Capacitor.",
   url: "https://hellosanjay.com",
   email: "hellosanjaygautam@gmail.com",
   phone: "+91-7000122621",
   location: "Indore, India",
   timezone: "IST (UTC+5:30)",
+  education: "B.Tech, RGPV",
   social: {
     linkedin: "https://www.linkedin.com/in/luv-jeri",
     github: "[ADD GITHUB LINK]",
@@ -16,10 +17,9 @@ export const SITE_CONFIG = {
 
 export const NAVIGATION_ITEMS = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Experience", href: "/experience" },
-  { name: "Skills", href: "/skills" },
   { name: "Projects", href: "/projects" },
+  { name: "Experience", href: "/experience" },
+  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ] as const
 
@@ -48,6 +48,7 @@ export const SKILLS = {
 export const COMPANIES = [
   { name: "HighLevel", logo: "/logos/highlevel.svg" },
   { name: "ReNew Power", logo: "/logos/renew.svg" },
+  { name: "Climate Connect Digital", logo: "/logos/climate-connect.svg" },
   { name: "Haspr", logo: "/logos/haspr.svg" },
   { name: "Let's Upgrade", logo: "/logos/letsupgrade.svg" },
   { name: "Newton School", logo: "/logos/newton.svg" },

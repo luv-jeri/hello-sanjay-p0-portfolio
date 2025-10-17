@@ -1,75 +1,37 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, ExternalLink, Code2, Zap, Layers } from "lucide-react"
+import { ArrowRight, ExternalLink } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ExpandableCard } from "@/components/ui/expandable-card"
 
 const projects = [
   {
     title: "HighLevel: Courses Platform",
-    description: "Real-time WYSIWYG Course Builder with responsive previews and mobile parity",
-    tags: ["React", "TypeScript", "Module Federation", "Capacitor", "Firebase"],
-    impact: "10,000+ active users",
-    href: "/projects/highlevel-courses",
-    icon: <Layers className="h-6 w-6 text-cyan-500" />,
-    details: (
-      <div className="space-y-3">
-        <p className="text-sm text-foreground/70">
-          <strong>Architecture:</strong> Module Federation micro-frontends for scalable team development
-        </p>
-        <p className="text-sm text-foreground/70">
-          <strong>Key Features:</strong> Responsive device preview, multilingual subtitles, accessibility support
-        </p>
-        <p className="text-sm text-foreground/70">
-          <strong>Impact:</strong> Reduced authoring friction by 60%, serving 10k+ users
-        </p>
-      </div>
-    ),
+    description: "Creator-led course + community builder with multimedia, quizzes, drip, payments, and CRM analytics. Real-time WYSIWYG Course Builder with device previews.",
+    tags: ["React", "Next.js", "TypeScript", "Module Federation", "Capacitor"],
+    impact: "Faster authoring and improved engagement",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+    href: "/projects",
   },
   {
     title: "Credentials/Badge Platform",
-    description: "Canvas-style credential creator with bulk issuance and analytics",
-    tags: ["React", "Canvas APIs", "TypeScript", "Analytics"],
-    impact: "3x faster issuance",
-    href: "/projects/credentials-platform",
-    icon: <Code2 className="h-6 w-6 text-purple-500" />,
-    details: (
-      <div className="space-y-3">
-        <p className="text-sm text-foreground/70">
-          <strong>Technology:</strong> Canvas-based editor with CSV bulk upload system
-        </p>
-        <p className="text-sm text-foreground/70">
-          <strong>Key Features:</strong> Drag-drop designer, QR verification, recipient portal
-        </p>
-        <p className="text-sm text-foreground/70">
-          <strong>Impact:</strong> 3x improvement in credential issuance speed
-        </p>
-      </div>
-    ),
+    description: "Certifier/Canvas-style credentialing tool with visual editor, CSV bulk issuance, verification system, and analytics dashboard.",
+    tags: ["React", "Canvas APIs", "TypeScript", "Module Federation"],
+    impact: "Faster credential turnaround, better tracking",
+    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
+    href: "/projects",
   },
   {
     title: "DMRV Web App",
-    description: "Environmental data measurement and reporting platform",
+    description: "Digital Measurement, Reporting & Verification for environmental data with secure real-time reporting and high-performance data views.",
     tags: ["Next.js", "TypeScript", "SSR", "Shadcn UI"],
-    impact: "Real-time reporting",
-    href: "/projects/dmrv-platform",
-    icon: <Zap className="h-6 w-6 text-emerald-500" />,
-    details: (
-      <div className="space-y-3">
-        <p className="text-sm text-foreground/70">
-          <strong>Platform:</strong> Digital Measurement, Reporting & Verification
-        </p>
-        <p className="text-sm text-foreground/70">
-          <strong>Tech Stack:</strong> Next.js SSR, real-time APIs, secure access control
-        </p>
-        <p className="text-sm text-foreground/70">
-          <strong>Impact:</strong> High-performance UI with enterprise security
-        </p>
-      </div>
-    ),
+    impact: "High-performance UI, reliable reporting",
+    image: "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800&h=600&fit=crop",
+    href: "/projects",
   },
 ]
 
@@ -115,29 +77,44 @@ export function FeaturedProjects() {
         >
           {projects.map((project) => (
             <motion.div key={project.title} variants={item}>
-              <ExpandableCard
-                title={project.title}
-                description={project.description}
-                icon={project.icon}
-                expandedContent={
-                  <div className="space-y-4">
-                    {project.details}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    <Button className="w-full" asChild>
-                      <Link href={project.href}>
-                        View Full Case Study
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
+              <Card className="group h-full overflow-hidden transition-all hover:shadow-lg">
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="group-hover:text-foreground/80">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription className="line-clamp-3">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary">
+                        {tag}
+                      </Badge>
+                    ))}
                   </div>
-                }
-              />
+                  <p className="text-sm font-medium text-foreground/80">
+                    Impact: {project.impact}
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href={project.href}>
+                      Explore projects
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             </motion.div>
           ))}
         </motion.div>
