@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { FloatingDockNav } from "@/components/floating-dock-nav";
 import { PersonSchema, WebSiteSchema } from "@/components/schema-markup";
 import { SITE_CONFIG } from "@/lib/constants";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
+            <FloatingDockNav />
           </div>
         </ThemeProvider>
       </body>
