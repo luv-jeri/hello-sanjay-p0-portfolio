@@ -15,15 +15,58 @@ export const SITE_CONFIG = {
   },
 } as const
 
-export const NAVIGATION_ITEMS = [
+// ============================================================================
+// NAVIGATION STRUCTURE WITH GROUPING
+// ============================================================================
+
+export type NavItem = {
+  name: string
+  href: string
+}
+
+export type NavGroup = {
+  name: string
+  items: NavItem[]
+}
+
+export type NavItemOrGroup = NavItem | NavGroup
+
+// Type guard to check if item is a group
+export const isNavGroup = (item: NavItemOrGroup): item is NavGroup => {
+  return 'items' in item
+}
+
+// Main navigation items (primary routes)
+export const MAIN_NAV_ITEMS: NavItem[] = [
   { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
-  { name: "Services", href: "/services" },
   { name: "Skills", href: "/skills" },
   { name: "Experience", href: "/experience" },
-  { name: "About", href: "/about" },
-  { name: "Docs", href: "/docs" },
   { name: "Contact", href: "/contact" },
+]
+
+// Resources group (secondary routes)
+export const RESOURCES_NAV_GROUP: NavGroup = {
+  name: "Resources",
+  items: [
+    { name: "Documentation", href: "/docs" },
+    { name: "Projects Explorer", href: "/projects-explorer" },
+    { name: "Services", href: "/services" },
+    { name: "Writing & Speaking", href: "/writing" },
+  ],
+}
+
+// Complete navigation structure
+export const NAVIGATION_STRUCTURE: NavItemOrGroup[] = [
+  ...MAIN_NAV_ITEMS,
+  RESOURCES_NAV_GROUP,
+]
+
+// Flat list for backward compatibility
+export const NAVIGATION_ITEMS = [
+  ...MAIN_NAV_ITEMS,
+  ...RESOURCES_NAV_GROUP.items,
 ] as const
 
 export const SKILLS = {

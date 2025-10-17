@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Download } from 'lucide-react';
 import Link from 'next/link';
@@ -60,18 +60,20 @@ const components = {
   CodeTabs,
   pre: ({ children, ...props }: ComponentProps) => {
     // Check if this is a code block that wasn't converted to CodeBlock
-    const childProps = children?.props;
-    if (childProps?.className?.startsWith('language-')) {
-      const language = childProps.className.replace('language-', '');
-      const code = childProps.children;
+    if (React.isValidElement(children)) {
+      const childProps = children.props as any;
+      if (childProps?.className?.startsWith('language-')) {
+        const language = childProps.className.replace('language-', '');
+        const code = childProps.children;
 
-      return (
-        <CodeBlock
-          code={typeof code === 'string' ? code : String(code || '')}
-          language={language}
-          showLineNumbers={language !== 'bash' && language !== 'sh'}
-        />
-      );
+        return (
+          <CodeBlock
+            code={typeof code === 'string' ? code : String(code || '')}
+            language={language}
+            showLineNumbers={language !== 'bash' && language !== 'sh'}
+          />
+        );
+      }
     }
 
     // Fallback for non-code pre tags

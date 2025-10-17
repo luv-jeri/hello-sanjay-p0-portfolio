@@ -11,11 +11,17 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconFileDownload,
+  IconBook,
+  IconCompass,
+  IconTools,
+  IconPencil,
+  IconChartBar,
 } from "@tabler/icons-react"
-import { SITE_CONFIG } from "@/lib/constants"
+import { SITE_CONFIG, MAIN_NAV_ITEMS, RESOURCES_NAV_GROUP } from "@/lib/constants"
 import { copy } from "@/content/copy"
 
 export function FloatingDockNav() {
+  // Main navigation links (including Skills now)
   const links = [
     {
       title: copy.nav.home,
@@ -25,6 +31,13 @@ export function FloatingDockNav() {
       href: "/",
     },
     {
+      title: copy.nav.about,
+      icon: (
+        <IconUser className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "/about",
+    },
+    {
       title: copy.nav.projects,
       icon: (
         <IconCode className="h-full w-full text-neutral-500 dark:text-neutral-300" />
@@ -32,18 +45,18 @@ export function FloatingDockNav() {
       href: "/projects",
     },
     {
+      title: copy.nav.skills,
+      icon: (
+        <IconChartBar className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "/skills",
+    },
+    {
       title: copy.nav.experience,
       icon: (
         <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/experience",
-    },
-    {
-      title: copy.nav.about,
-      icon: (
-        <IconUser className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "/about",
     },
     {
       title: copy.nav.contact,
