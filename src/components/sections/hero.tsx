@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Calendar, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { copy } from "@/content/copy"
 
 const container = {
   hidden: { opacity: 0 },
@@ -30,7 +31,7 @@ export function Hero() {
       >
         <motion.div variants={item} className="mb-6">
           <span className="inline-block rounded-full bg-foreground/10 px-4 py-1.5 text-sm font-medium">
-            Available for new opportunities
+            {copy.hero.badge}
           </span>
         </motion.div>
 
@@ -38,9 +39,9 @@ export function Hero() {
           variants={item}
           className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
         >
-          Build it. Ship it.{" "}
+          {copy.hero.titlePart1}{" "}
           <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Scale it.
+            {copy.hero.titlePart2}
           </span>
         </motion.h1>
 
@@ -48,15 +49,14 @@ export function Hero() {
           variants={item}
           className="mb-8 text-lg text-foreground/70 sm:text-xl md:text-2xl"
         >
-          I lead modern web and mobile builds that scale and convert.
+          {copy.hero.subtitle}
         </motion.p>
 
         <motion.p
           variants={item}
           className="mb-12 text-base text-foreground/60 md:text-lg"
         >
-          Micro-frontends, SSR, and real-time UX without the drag.
-          React, Next.js, TypeScript, Node, Firebase, GCP.
+          {copy.hero.description}
         </motion.p>
 
         <motion.div
@@ -66,19 +66,19 @@ export function Hero() {
           <Button size="lg" asChild>
             <a href="/contact">
               <Calendar className="h-5 w-5" />
-              Request an interview
+              {copy.cta.requestInterview}
             </a>
           </Button>
           <Button variant="outline" size="lg" asChild>
             <a href="/projects">
-              See case studies
+              {copy.cta.seeCaseStudies}
               <ArrowRight className="h-5 w-5" />
             </a>
           </Button>
           <Button variant="ghost" size="lg" asChild>
             <a href="/resume.pdf" download>
               <Download className="h-5 w-5" />
-              Download résumé
+              {copy.cta.downloadResume}
             </a>
           </Button>
         </motion.div>

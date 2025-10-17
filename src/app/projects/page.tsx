@@ -5,11 +5,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { projects } from "@/lib/projects-data"
+import { copy } from "@/content/copy"
 
 export const metadata: Metadata = {
-  title: "Projects & Case Studies — Courses, Credentials, DMRV",
-  description: "In-depth architecture notes and results for education, credentialing, and climate-tech builds.",
-  keywords: ["case studies", "WYSIWYG editor", "certificate builder", "DMRV", "real-time", "analytics"],
+  title: copy.seo.projects.title,
+  description: copy.seo.projects.description,
+  keywords: copy.seo.projects.keywords,
 }
 
 export default function ProjectsPage() {
@@ -22,17 +23,17 @@ export default function ProjectsPage() {
         {/* Header */}
         <div className="mb-12">
           <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-            Projects & Case Studies
+            {copy.projects.heading}
           </h1>
           <p className="text-xl text-foreground/70">
-            In-depth case studies with architecture, decisions, and results
+            {copy.projects.subheading}
           </p>
         </div>
 
         {/* Featured Projects - Case Studies */}
         <section className="mb-20">
           <h2 className="mb-8 text-3xl font-bold tracking-tight">
-            Featured Case Studies
+            {copy.projects.featuredHeading}
           </h2>
           <div className="space-y-8">
             {featuredProjects.map((project) => (
@@ -57,7 +58,7 @@ export default function ProjectsPage() {
                         {project.fullDescription}
                       </CardDescription>
                     </div>
-                    <Badge className="shrink-0">Featured</Badge>
+                    <Badge className="shrink-0">{copy.projects.featuredBadge}</Badge>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
@@ -73,7 +74,7 @@ export default function ProjectsPage() {
                     <div className="space-y-4">
                       <div>
                         <h4 className="mb-2 font-semibold text-foreground/90">
-                          Context & Goals
+                          {copy.projects.contextLabel}
                         </h4>
                         <p className="text-sm text-foreground/70">
                           {project.context}
@@ -81,7 +82,7 @@ export default function ProjectsPage() {
                       </div>
                       <div>
                         <h4 className="mb-2 font-semibold text-foreground/90">
-                          Role & Decisions
+                          {copy.projects.roleLabel}
                         </h4>
                         <p className="text-sm text-foreground/70">
                           {project.role}
@@ -92,7 +93,7 @@ export default function ProjectsPage() {
                     <div className="space-y-4">
                       <div>
                         <h4 className="mb-2 font-semibold text-foreground/90">
-                          Architecture & Tech
+                          {copy.projects.architectureLabel}
                         </h4>
                         <p className="text-sm text-foreground/70">
                           {project.architecture}
@@ -100,7 +101,7 @@ export default function ProjectsPage() {
                       </div>
                       <div>
                         <h4 className="mb-2 font-semibold text-foreground/90">
-                          Results
+                          {copy.projects.resultsLabel}
                         </h4>
                         <p className="text-sm font-medium text-foreground/80">
                           {project.results}
@@ -111,7 +112,7 @@ export default function ProjectsPage() {
 
                   <div className="rounded-lg border border-foreground/10 bg-muted/30 p-4">
                     <h4 className="mb-2 text-sm font-semibold text-foreground/90">
-                      What&apos;s Next
+                      {copy.projects.nextStepsLabel}
                     </h4>
                     <p className="text-sm text-foreground/70">
                       {project.nextSteps}
@@ -124,7 +125,7 @@ export default function ProjectsPage() {
                     <Button variant="outline" size="sm" asChild>
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
-                        Live Demo
+                        {copy.projects.liveDemoButton}
                       </a>
                     </Button>
                   )}
@@ -132,7 +133,7 @@ export default function ProjectsPage() {
                     <Button variant="outline" size="sm" asChild>
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
-                        Source Code
+                        {copy.projects.sourceCodeButton}
                       </a>
                     </Button>
                   )}
@@ -145,7 +146,7 @@ export default function ProjectsPage() {
         {/* Other Projects */}
         <section>
           <h2 className="mb-8 text-3xl font-bold tracking-tight">
-            More Projects
+            {copy.projects.moreProjectsHeading}
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {otherProjects.map((project) => (
@@ -183,7 +184,7 @@ export default function ProjectsPage() {
                     <Button variant="ghost" size="sm" asChild>
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
-                        Live
+                        {copy.projects.liveButton}
                       </a>
                     </Button>
                   )}
@@ -191,7 +192,7 @@ export default function ProjectsPage() {
                     <Button variant="ghost" size="sm" asChild>
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
-                        Code
+                        {copy.projects.codeButton}
                       </a>
                     </Button>
                   )}
@@ -199,7 +200,7 @@ export default function ProjectsPage() {
                     <Button variant="ghost" size="sm" asChild>
                       <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
-                        Demo
+                        {copy.projects.demoButton}
                       </a>
                     </Button>
                   )}

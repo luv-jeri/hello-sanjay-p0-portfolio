@@ -7,6 +7,7 @@ import { Download } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { NAVIGATION_ITEMS } from "@/lib/constants"
 import { ThemeToggleButton2 } from "@/components/ui/skiper-theme-toggles"
+import { copy } from "@/content/copy"
 import {
   Navbar as ResizableNavbar,
   NavBody,
@@ -27,8 +28,8 @@ export function Navbar() {
       {/* Desktop Navigation */}
       <NavBody>
         <NavbarLogo href="/">
-          <span className="text-xl font-bold">SK</span>
-          <span className="text-sm font-medium">Sanjay Kumar</span>
+          <span className="text-xl font-bold">{copy.brand.initials}</span>
+          <span className="text-sm font-medium">{copy.brand.fullName}</span>
         </NavbarLogo>
 
         <div className="flex items-center gap-6">
@@ -57,7 +58,7 @@ export function Navbar() {
             className="flex items-center gap-2"
           >
             <Download className="h-4 w-4" />
-            Resume
+            {copy.nav.resumeButton}
           </NavbarButton>
           <ThemeToggleButton2 className="h-10 w-10 p-2" />
         </div>
@@ -67,8 +68,8 @@ export function Navbar() {
       <MobileNav>
         <MobileNavHeader>
           <NavbarLogo href="/">
-            <span className="text-xl font-bold">SK</span>
-            <span className="text-sm font-medium">Sanjay Kumar</span>
+            <span className="text-xl font-bold">{copy.brand.initials}</span>
+            <span className="text-sm font-medium">{copy.brand.fullName}</span>
           </NavbarLogo>
           <div className="flex items-center gap-2">
             <ThemeToggleButton2 className="h-10 w-10 p-2" />
@@ -108,7 +109,7 @@ export function Navbar() {
               className="w-full flex items-center gap-2 justify-center"
             >
               <Download className="h-4 w-4" />
-              Download Resume
+              {copy.nav.downloadResume}
             </NavbarButton>
           </div>
         </MobileNavMenu>

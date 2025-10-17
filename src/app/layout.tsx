@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { FloatingDockNav } from "@/components/floating-dock-nav";
 import { PersonSchema, WebSiteSchema } from "@/components/schema-markup";
 import { SITE_CONFIG } from "@/lib/constants";
+import { copy } from "@/content/copy";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,18 +25,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
-  keywords: [
-    "senior full-stack developer",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Firebase",
-    "GCP",
-    "micro-frontends",
-    "Capacitor",
-    "SDE III",
-  ],
+  keywords: copy.seo.keywords,
   authors: [{ name: SITE_CONFIG.name, url: SITE_CONFIG.url }],
   creator: SITE_CONFIG.name,
   openGraph: {

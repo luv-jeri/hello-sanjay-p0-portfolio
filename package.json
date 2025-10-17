@@ -7,10 +7,12 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint --max-warnings=0",
+    "lint:strings": "eslint --rule 'local-rules/no-hardcoded-strings: error' --max-warnings=0 'src/**/*.{ts,tsx}'",
     "format": "prettier --write .",
     "ts:check": "tsc --noEmit",
     "analyze:unused": "npx --yes knip",
-    "check:all": "yarn ts:check && yarn lint && yarn build"
+    "check:all": "yarn ts:check && yarn lint && yarn lint:strings && yarn build",
+    "ci": "yarn install --frozen-lockfile && yarn ts:check && yarn lint && yarn lint:strings && yarn build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

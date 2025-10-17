@@ -3,84 +3,13 @@ import { Book, Youtube, Github, ExternalLink } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { copy } from "@/content/copy"
 
 export const metadata: Metadata = {
-  title: "Writing & Speaking",
-  description: "Training, talks, and articles on micro‑frontends, editors, and accessibility.",
-  keywords: ["engineering talks", "training", "micro‑frontends article"],
+  title: copy.seo.writing.title,
+  description: copy.seo.writing.description,
+  keywords: copy.seo.writing.keywords,
 }
-
-const talks = [
-  {
-    title: "Full-Stack Development with MERN",
-    platform: "Let's Upgrade",
-    date: "2021",
-    description: "Comprehensive training series on MERN stack development, covering MongoDB, Express, React, and Node.js",
-    type: "Training Series",
-    link: "[ADD YOUTUBE LINK]",
-  },
-  {
-    title: "Advanced JavaScript & Modern Frameworks",
-    platform: "Newton School",
-    date: "2021",
-    description: "Live seminars on advanced JavaScript concepts, modern frameworks, and best practices",
-    type: "Seminar",
-    link: "[ADD YOUTUBE LINK]",
-  },
-  {
-    title: "Building Production-Ready Applications",
-    platform: "Coding Ninjas",
-    date: "2021-2022",
-    description: "Workshop series on SDLC, testing, deployment, and maintaining production applications",
-    type: "Workshop",
-    link: "[ADD YOUTUBE LINK]",
-  },
-]
-
-const articles = [
-  {
-    title: "Implementing Micro-frontends with Module Federation",
-    description: "A deep dive into architecting scalable frontend applications using Module Federation in Webpack 5",
-    topics: ["Micro-frontends", "Module Federation", "Architecture"],
-    link: "[ADD LINK]",
-  },
-  {
-    title: "Building Real-time WYSIWYG Editors",
-    description: "Lessons learned from building production-grade WYSIWYG editors with React and TypeScript",
-    topics: ["WYSIWYG", "React", "Real-time"],
-    link: "[ADD LINK]",
-  },
-  {
-    title: "Web to Mobile with Capacitor",
-    description: "Complete guide to converting web applications to mobile apps without duplicating your stack",
-    topics: ["Capacitor", "Mobile", "Cross-platform"],
-    link: "[ADD LINK]",
-  },
-  {
-    title: "Accessibility in Modern Web Applications",
-    description: "Practical guide to implementing WCAG compliance, keyboard navigation, and screen reader support",
-    topics: ["Accessibility", "a11y", "Best Practices"],
-    link: "[ADD LINK]",
-  },
-]
-
-const openSource = [
-  {
-    title: "Micro-frontend Boilerplate",
-    description: "Starter template for Module Federation-based micro-frontends with TypeScript",
-    link: "[ADD GITHUB LINK]",
-  },
-  {
-    title: "Canvas Editor Utils",
-    description: "Utility library for building canvas-based editors and credential builders",
-    link: "[ADD GITHUB LINK]",
-  },
-  {
-    title: "Firebase SSR Patterns",
-    description: "Collection of patterns for implementing server-side rendering with Firebase",
-    link: "[ADD GITHUB LINK]",
-  },
-]
 
 export default function WritingPage() {
   return (
@@ -89,10 +18,10 @@ export default function WritingPage() {
         {/* Header */}
         <div className="mb-12">
           <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-            Writing & Speaking
+            {copy.writing.heading}
           </h1>
           <p className="text-xl text-foreground/70">
-            Sharing knowledge through training, talks, articles, and open source
+            {copy.writing.subheading}
           </p>
         </div>
 
@@ -101,11 +30,11 @@ export default function WritingPage() {
           <div className="mb-8 flex items-center gap-3">
             <Youtube className="h-8 w-8" />
             <h2 className="text-3xl font-bold tracking-tight">
-              Training & Talks
+              {copy.writing.talksHeading}
             </h2>
           </div>
           <div className="space-y-6">
-            {talks.map((talk) => (
+            {copy.writing.talks.map((talk) => (
               <Card key={talk.title}>
                 <CardHeader>
                   <div className="flex flex-wrap items-start justify-between gap-4">
@@ -125,7 +54,7 @@ export default function WritingPage() {
                   <Button variant="outline" size="sm" asChild>
                     <a href={talk.link} target="_blank" rel="noopener noreferrer">
                       <Youtube className="h-4 w-4" />
-                      Watch on YouTube
+                      {copy.writing.watchButton}
                     </a>
                   </Button>
                 </CardContent>
@@ -139,11 +68,11 @@ export default function WritingPage() {
           <div className="mb-8 flex items-center gap-3">
             <Book className="h-8 w-8" />
             <h2 className="text-3xl font-bold tracking-tight">
-              Technical Articles
+              {copy.writing.articlesHeading}
             </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
-            {articles.map((article) => (
+            {copy.writing.articles.map((article) => (
               <Card key={article.title}>
                 <CardHeader>
                   <CardTitle className="text-lg">{article.title}</CardTitle>
@@ -161,7 +90,7 @@ export default function WritingPage() {
                   </div>
                   <Button variant="ghost" size="sm" asChild>
                     <a href={article.link} target="_blank" rel="noopener noreferrer">
-                      Read article
+                      {copy.writing.readArticleButton}
                       <ExternalLink className="h-4 w-4" />
                     </a>
                   </Button>
@@ -176,11 +105,11 @@ export default function WritingPage() {
           <div className="mb-8 flex items-center gap-3">
             <Github className="h-8 w-8" />
             <h2 className="text-3xl font-bold tracking-tight">
-              Open Source
+              {copy.writing.openSourceHeading}
             </h2>
           </div>
           <div className="space-y-4">
-            {openSource.map((project) => (
+            {copy.writing.openSource.map((project) => (
               <Card key={project.title}>
                 <CardHeader>
                   <div className="flex flex-wrap items-center justify-between gap-4">
@@ -191,7 +120,7 @@ export default function WritingPage() {
                     <Button variant="outline" size="sm" asChild>
                       <a href={project.link} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
-                        View on GitHub
+                        {copy.writing.viewGithubButton}
                       </a>
                     </Button>
                   </div>

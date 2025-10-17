@@ -1,17 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-
-const companies = [
-  "HighLevel",
-  "ReNew Power",
-  "Climate Connect Digital",
-  "Haspr",
-  "Let's Upgrade",
-  "Newton School",
-  "Coding Ninjas",
-  "B.Tech, RGPV",
-]
+import { copy } from "@/content/copy"
 
 export function SocialProof() {
   return (
@@ -24,10 +14,10 @@ export function SocialProof() {
           className="text-center"
         >
           <p className="mb-8 text-sm font-medium uppercase tracking-wider text-foreground/60">
-            Worked at / Built for / Trained with
+            {copy.socialProof.heading}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {companies.map((company) => (
+            {copy.socialProof.companies.map((company) => (
               <motion.div
                 key={company}
                 initial={{ opacity: 0, scale: 0.9 }}

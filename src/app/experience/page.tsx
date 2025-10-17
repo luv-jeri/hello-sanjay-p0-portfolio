@@ -3,137 +3,19 @@ import { Building2, Calendar, Award } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Timeline } from "@/components/ui/timeline"
 import Image from "next/image"
+import { copy } from "@/content/copy"
 
 export const metadata: Metadata = {
-  title: "Experience — HighLevel, ReNew Power, Haspr",
-  description: "Challenge → Action → Result outcomes from SDE III and prior roles, including SSR, real-time, and micro-frontends.",
-  keywords: ["SDE III", "SSR", "Firebase", "GCP", "Module Federation", "performance optimization"],
+  title: copy.seo.experience.title,
+  description: copy.seo.experience.description,
+  keywords: copy.seo.experience.keywords,
 }
-
-type Achievement = {
-  challenge: string
-  action: string
-  result: string
-}
-
-type Experience = {
-  title: string
-  company: string
-  location: string
-  period: string
-  description: string
-  achievements: Achievement[]
-  tags: string[]
-  logo?: string
-}
-
-const experiences: Experience[] = [
-  {
-    title: "SDE III — Senior Frontend/Full-stack Developer",
-    company: "HighLevel",
-    location: "Remote",
-    period: "07/2024 – Present",
-    description: "Modernized the product experience and modularized delivery across Courses and Credentials; enabled mobile parity.",
-    logo: "/company_logo/goHighLevel.webp",
-    achievements: [
-      {
-        challenge: "Build two new product lines with high customization and scale.",
-        action: "Led end-to-end architecture; designed real-time WYSIWYG Course Builder and device previews.",
-        result: "Faster iteration and better authoring UX. [ADD METRIC]",
-      },
-      {
-        challenge: "Fragile monolith delivery.",
-        action: "Implemented Module Federation for micro-frontends.",
-        result: "Independently deployable modules and reduced coupling. [ADD METRIC]",
-      },
-      {
-        challenge: "Branding and accessibility.",
-        action: "Added theme customization, multi-language subtitles, keyboard navigation, screen-reader support.",
-        result: "Improved accessibility and adoption. [ADD METRIC]",
-      },
-      {
-        challenge: "Web-only surface.",
-        action: "Converted platform to Capacitor mobile app.",
-        result: "Cross-platform parity and increased engagement. [ADD METRIC]",
-      },
-      {
-        challenge: "Delivery speed.",
-        action: "Mentored peers, improved modularity/caching, and drove code reviews.",
-        result: "Cleaner releases and performance gains. [ADD METRIC]",
-      },
-    ],
-    tags: ["React", "TypeScript", "Module Federation", "Capacitor", "Firebase", "Canvas APIs", "Next.js"],
-  },
-  {
-    title: "SDE 3 — Full-stack Developer",
-    company: "ReNew Power (Climate Connect Digital)",
-    location: "Remote",
-    period: "03/2023 – 07/2024",
-    description: "Brought SSR, TypeScript, and real-time data to a climate-tech platform.",
-    logo: "/company_logo/ReNew.svg",
-    achievements: [
-      {
-        challenge: "Slow initial loads.",
-        action: "Implemented Next.js SSR.",
-        result: "Faster first paint and better SEO. [ADD METRIC]",
-      },
-      {
-        challenge: "Unreliable data sync.",
-        action: "Integrated Firebase realtime APIs; structured state management.",
-        result: "Consistent live data at scale. [ADD METRIC]",
-      },
-      {
-        challenge: "Quality and safety.",
-        action: "TypeScript, auth flows, and code reviews.",
-        result: "Fewer regressions and safer releases. [ADD METRIC]",
-      },
-    ],
-    tags: ["React", "Next.js", "TypeScript", "Firebase", "GCP", "Redux", "SSR", "Node.js"],
-  },
-  {
-    title: "Senior Full-Stack Developer",
-    company: "Haspr",
-    location: "Indore, India",
-    period: "09/2018 – 01/2023",
-    description: "Delivered end-to-end web apps and adopted modern frameworks (Next.js, PWAs).",
-    logo: "/company_logo/haspr logo.svg",
-    achievements: [
-      {
-        challenge: "Fragmented UX.",
-        action: "Owned front- and back-end integration with a developer-centric approach.",
-        result: "Seamless experiences. [ADD METRIC]",
-      },
-      {
-        challenge: "Evolving tools.",
-        action: "Continuous learning and tech adoption.",
-        result: "Upgraded capabilities and delivery speed. [ADD METRIC]",
-      },
-    ],
-    tags: ["React", "Next.js", "Node.js", "Express", "PWA", "TypeScript", "MongoDB"],
-  },
-  {
-    title: "Full-Stack Trainer (Part-time)",
-    company: "Let's Upgrade / Newton School / Coding Ninjas",
-    location: "Remote",
-    period: "01/2021 – 01/2022",
-    description: "Taught MERN/MEAN, JS best practices, SDLC; delivered live and offline sessions. [ADD LINK]",
-    logo: "/company_logo/lets upgrade.png",
-    achievements: [
-      {
-        challenge: "New developers needed practical, industry-ready skills.",
-        action: "Designed curriculum and delivered hands-on training on MERN/MEAN stack, JavaScript best practices, and SDLC.",
-        result: "Successfully trained developers with live classes and seminars; improved job placement rates.",
-      },
-    ],
-    tags: ["Teaching", "MERN", "MEAN", "JavaScript", "Training", "Mentoring"],
-  },
-]
 
 export default function ExperiencePage() {
-  const timelineData = experiences.map((exp) => ({
+  const timelineData = copy.experience.experiences.map((exp) => ({
     title: exp.period,
     content: (
-      <div>
+      <div key={exp.company}>
         {/* Company Header */}
         <div className="mb-6 rounded-lg border border-border/50 bg-muted/30 p-6">
           <div className="mb-4 flex items-start justify-between gap-4">
@@ -168,7 +50,7 @@ export default function ExperiencePage() {
           </div>
 
           <p className="mb-4 text-sm text-foreground/80 md:text-base">
-            <strong>What I changed:</strong> {exp.description}
+            <strong>{copy.experience.whatIChangedLabel}</strong> {exp.description}
           </p>
 
           <div className="flex flex-wrap gap-2">
@@ -184,7 +66,7 @@ export default function ExperiencePage() {
         <div className="mb-8 space-y-4">
           <h4 className="flex items-center gap-2 text-lg font-semibold text-foreground">
             <Award className="h-5 w-5" />
-            Key Achievements
+            {copy.experience.achievementsHeading}
           </h4>
           {exp.achievements.map((achievement, idx) => (
             <div
@@ -193,7 +75,7 @@ export default function ExperiencePage() {
             >
               <div className="mb-2">
                 <span className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
-                  Challenge
+                  {copy.experience.challengeLabel}
                 </span>
                 <p className="mt-1 text-sm text-foreground/80">
                   {achievement.challenge}
@@ -201,7 +83,7 @@ export default function ExperiencePage() {
               </div>
               <div className="mb-2">
                 <span className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
-                  Action
+                  {copy.experience.actionLabel}
                 </span>
                 <p className="mt-1 text-sm text-foreground/80">
                   {achievement.action}
@@ -209,7 +91,7 @@ export default function ExperiencePage() {
               </div>
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
-                  Result
+                  {copy.experience.resultLabel}
                 </span>
                 <p className="mt-1 text-sm text-foreground/80">
                   {achievement.result}
@@ -223,22 +105,22 @@ export default function ExperiencePage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
             <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
-              Project Preview 1
+              {copy.experience.projectPreview1}
             </div>
           </div>
           <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
             <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
-              Project Preview 2
+              {copy.experience.projectPreview2}
             </div>
           </div>
           <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
             <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
-              Dashboard View
+              {copy.experience.dashboardView}
             </div>
           </div>
           <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
             <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
-              Mobile App View
+              {copy.experience.mobileAppView}
             </div>
           </div>
         </div>

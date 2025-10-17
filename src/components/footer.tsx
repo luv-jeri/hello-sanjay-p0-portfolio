@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Github, Linkedin, Youtube, Mail } from "lucide-react"
 import { SITE_CONFIG, NAVIGATION_ITEMS } from "@/lib/constants"
+import { copy } from "@/content/copy"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -21,7 +22,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground/60 transition-colors hover:text-foreground"
-                aria-label="LinkedIn"
+                aria-label={copy.footer.ariaLinkedin}
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -30,7 +31,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground/60 transition-colors hover:text-foreground"
-                aria-label="GitHub"
+                aria-label={copy.footer.ariaGithub}
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -39,14 +40,14 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground/60 transition-colors hover:text-foreground"
-                aria-label="YouTube"
+                aria-label={copy.footer.ariaYoutube}
               >
                 <Youtube className="h-5 w-5" />
               </a>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
                 className="text-foreground/60 transition-colors hover:text-foreground"
-                aria-label="Email"
+                aria-label={copy.footer.ariaEmail}
               >
                 <Mail className="h-5 w-5" />
               </a>
@@ -55,7 +56,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Navigation</h4>
+            <h4 className="mb-4 text-sm font-semibold">{copy.footer.navigationHeading}</h4>
             <ul className="space-y-2">
               {NAVIGATION_ITEMS.map((item) => (
                 <li key={item.href}>
@@ -72,14 +73,14 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Quick Links</h4>
+            <h4 className="mb-4 text-sm font-semibold">{copy.footer.quickLinksHeading}</h4>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/skills"
                   className="text-sm text-foreground/60 transition-colors hover:text-foreground"
                 >
-                  Skills
+                  {copy.footer.skills}
                 </Link>
               </li>
               <li>
@@ -87,7 +88,7 @@ export function Footer() {
                   href="/services"
                   className="text-sm text-foreground/60 transition-colors hover:text-foreground"
                 >
-                  Services
+                  {copy.footer.services}
                 </Link>
               </li>
               <li>
@@ -95,7 +96,7 @@ export function Footer() {
                   href="/writing"
                   className="text-sm text-foreground/60 transition-colors hover:text-foreground"
                 >
-                  Writing & Speaking
+                  {copy.footer.writing}
                 </Link>
               </li>
               <li>
@@ -104,7 +105,7 @@ export function Footer() {
                   download
                   className="text-sm text-foreground/60 transition-colors hover:text-foreground"
                 >
-                  Download Resume
+                  {copy.footer.downloadResume}
                 </a>
               </li>
             </ul>
@@ -112,7 +113,7 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Contact</h4>
+            <h4 className="mb-4 text-sm font-semibold">{copy.footer.contactHeading}</h4>
             <ul className="space-y-2 text-sm text-foreground/60">
               <li>{SITE_CONFIG.location}</li>
               <li>{SITE_CONFIG.timezone}</li>
@@ -138,7 +139,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-foreground/10 pt-8 text-center text-sm text-foreground/60">
           <p>
-            © {currentYear} {SITE_CONFIG.name}. Built with Next.js, TypeScript & Tailwind CSS.
+            © {currentYear} {SITE_CONFIG.name}. {copy.footer.builtWith}
           </p>
         </div>
       </div>

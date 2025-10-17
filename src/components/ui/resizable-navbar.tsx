@@ -118,12 +118,11 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
 }: {
   children: React.ReactNode;
   className?: string;
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }) => {
   return (
     <AnimatePresence>
@@ -198,7 +197,7 @@ export const NavbarButton = ({
   className?: string;
   variant?: "primary" | "secondary" | "dark" | "gradient";
   onClick?: () => void;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const Component = as;
 

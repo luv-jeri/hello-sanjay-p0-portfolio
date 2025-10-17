@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from "@/lib/constants"
+import { copy } from "@/content/copy"
 
 export function PersonSchema() {
   const schema = {
@@ -16,14 +17,14 @@ export function PersonSchema() {
       SITE_CONFIG.social.youtube,
     ],
     worksFor: [
-      { "@type": "Organization", name: "HighLevel" },
-      { "@type": "Organization", name: "ReNew Power (Climate Connect Digital)" },
-      { "@type": "Organization", name: "Haspr" },
+      { "@type": "Organization", name: copy.schema.organizations.highlevel },
+      { "@type": "Organization", name: copy.schema.organizations.renewPower },
+      { "@type": "Organization", name: copy.schema.organizations.haspr },
     ],
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Indore",
-      addressCountry: "IN",
+      addressLocality: copy.schema.address.locality,
+      addressCountry: copy.schema.address.country,
     },
   }
 
@@ -63,26 +64,26 @@ export function FAQSchema() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What roles are you targeting?",
+        name: copy.schema.faq.roles.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Senior Full-Stack Engineer/SDE III, staff-leaning frontend, or product-focused platform roles.",
+          text: copy.schema.faq.roles.answer,
         },
       },
       {
         "@type": "Question",
-        name: "Do you work remote?",
+        name: copy.schema.faq.remote.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. I work remote from Indore, India (IST, UTC+5:30).",
+          text: copy.schema.faq.remote.answer,
         },
       },
       {
         "@type": "Question",
-        name: "What stacks do you use?",
+        name: copy.schema.faq.stacks.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: "React/Next/TypeScript on the frontend; Node/Nest/Express APIs; Firebase/GCP and related services.",
+          text: copy.schema.faq.stacks.answer,
         },
       },
     ],

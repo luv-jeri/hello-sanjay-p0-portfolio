@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Calendar, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SITE_CONFIG } from "@/lib/constants"
+import { copy } from "@/content/copy"
 
 export function CTA() {
   return (
@@ -16,23 +17,23 @@ export function CTA() {
           className="mx-auto max-w-3xl text-center"
         >
           <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-            Let&apos;s build something great
+            {copy.cta.heading}
           </h2>
           <p className="mb-8 text-lg text-foreground/70">
-            I respond fast and keep things simple. Choose what works for you.
+            {copy.cta.subheading}
           </p>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button size="lg" asChild>
               <a href="#contact">
                 <Calendar className="h-5 w-5" />
-                Schedule a call
+                {copy.cta.scheduleCall}
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild>
               <a href={`mailto:${SITE_CONFIG.email}`}>
                 <Mail className="h-5 w-5" />
-                Send an email
+                {copy.cta.sendEmail}
               </a>
             </Button>
           </div>

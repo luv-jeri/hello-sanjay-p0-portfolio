@@ -13,60 +13,61 @@ import {
   IconFileDownload,
 } from "@tabler/icons-react"
 import { SITE_CONFIG } from "@/lib/constants"
+import { copy } from "@/content/copy"
 
 export function FloatingDockNav() {
   const links = [
     {
-      title: "Home",
+      title: copy.nav.home,
       icon: (
         <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/",
     },
     {
-      title: "Projects",
+      title: copy.nav.projects,
       icon: (
         <IconCode className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/projects",
     },
     {
-      title: "Experience",
+      title: copy.nav.experience,
       icon: (
         <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/experience",
     },
     {
-      title: "About",
+      title: copy.nav.about,
       icon: (
         <IconUser className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/about",
     },
     {
-      title: "Contact",
+      title: copy.nav.contact,
       icon: (
         <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/contact",
     },
     {
-      title: "Resume",
+      title: copy.nav.resume,
       icon: (
         <IconFileDownload className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/resume.pdf",
     },
     {
-      title: "LinkedIn",
+      title: copy.nav.linkedin,
       icon: (
         <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: SITE_CONFIG.social.linkedin,
     },
     {
-      title: "GitHub",
+      title: copy.nav.github,
       icon: (
         <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),

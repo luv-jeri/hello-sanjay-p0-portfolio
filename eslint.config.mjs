@@ -1,6 +1,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import localRules from "./eslint-rules/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,6 +20,35 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+  },
+  {
+    plugins: {
+      "local-rules": {
+        rules: localRules,
+      },
+    },
+    rules: {
+      "local-rules/no-hardcoded-strings": [
+        "error",
+        {
+          allowedPatterns: [
+            "^[a-z0-9-_]+$", // Short technical identifiers
+            "^[A-Z][a-zA-Z0-9]*$", // Component names
+          ],
+          ignoreFiles: [
+            "**/*.test.tsx?",
+            "**/*.spec.tsx?",
+            "**/content/copy.ts",
+            "**/lib/constants.ts",
+            "**/lib/projects-data.ts",
+            "**/components/ui/**",
+            "**/*.config.*",
+            "**/tailwind.config.*",
+            "**/postcss.config.*",
+          ],
+        },
+      ],
+    },
   },
 ];
 

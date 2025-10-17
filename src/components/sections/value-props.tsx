@@ -3,33 +3,34 @@
 import { motion } from "framer-motion"
 import { Briefcase, Users, Wrench } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { copy } from "@/content/copy"
 
 const valueProps = [
   {
     icon: Briefcase,
-    title: "For CTO/CXO",
+    title: copy.valueProps.cto.title,
     items: [
-      "Architecture that balances speed, safety, and scale—micro-frontends, SSR, web→mobile with Capacitor, and performance budgets",
-      "Module Federation for independently deployable modules and reduced coupling",
-      "End-to-end ownership from architecture to production and mobile parity",
+      copy.valueProps.cto.item1,
+      copy.valueProps.cto.item2,
+      copy.valueProps.cto.item3,
     ],
   },
   {
     icon: Users,
-    title: "For HR/Recruiter",
+    title: copy.valueProps.hr.title,
     items: [
-      "Senior full-stack (React/Next.js/TypeScript/Node/GCP/Firebase), SDE III ownership, cross-team delivery",
-      "Education & credentialing domain expertise with 7+ years across SaaS, EdTech, EnergyTech",
-      "English/Hindi fluent; mentored developers and taught MERN/MEAN as part-time trainer",
+      copy.valueProps.hr.item1,
+      copy.valueProps.hr.item2,
+      copy.valueProps.hr.item3,
     ],
   },
   {
     icon: Wrench,
-    title: "For Engineering Manager",
+    title: copy.valueProps.em.title,
     items: [
-      "Own the lifecycle—scoping, building, testing, releasing, mentoring, and iterating with UI/UX, QA, backend, and DevOps",
-      "Real-time WYSIWYG editors, Canvas-based Badge Builder, and accessibility (keyboard navigation, screen readers)",
-      "AI-assisted workflows (Cursor/MCP/agents) for faster, safer delivery without compromising quality",
+      copy.valueProps.em.item1,
+      copy.valueProps.em.item2,
+      copy.valueProps.em.item3,
     ],
   },
 ]
@@ -60,10 +61,10 @@ export function ValueProps() {
           className="mb-12 text-center"
         >
           <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-            Why work with me
+            {copy.valueProps.heading}
           </h2>
           <p className="text-lg text-foreground/70">
-            Tailored value for every stakeholder
+            {copy.valueProps.subheading}
           </p>
         </motion.div>
 
