@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
-import { Building2, Calendar } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Building2, Calendar, Award } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { Timeline } from "@/components/ui/timeline"
+import Image from "next/image"
 
 export const metadata: Metadata = {
   title: "Experience — HighLevel, ReNew Power, Haspr",
@@ -23,6 +24,7 @@ type Experience = {
   description: string
   achievements: Achievement[]
   tags: string[]
+  logo?: string
 }
 
 const experiences: Experience[] = [
@@ -32,6 +34,7 @@ const experiences: Experience[] = [
     location: "Remote",
     period: "07/2024 – Present",
     description: "Modernized the product experience and modularized delivery across Courses and Credentials; enabled mobile parity.",
+    logo: "/company_logo/goHighLevel.webp",
     achievements: [
       {
         challenge: "Build two new product lines with high customization and scale.",
@@ -67,6 +70,7 @@ const experiences: Experience[] = [
     location: "Remote",
     period: "03/2023 – 07/2024",
     description: "Brought SSR, TypeScript, and real-time data to a climate-tech platform.",
+    logo: "/company_logo/ReNew.svg",
     achievements: [
       {
         challenge: "Slow initial loads.",
@@ -92,6 +96,7 @@ const experiences: Experience[] = [
     location: "Indore, India",
     period: "09/2018 – 01/2023",
     description: "Delivered end-to-end web apps and adopted modern frameworks (Next.js, PWAs).",
+    logo: "/company_logo/haspr logo.svg",
     achievements: [
       {
         challenge: "Fragmented UX.",
@@ -112,6 +117,7 @@ const experiences: Experience[] = [
     location: "Remote",
     period: "01/2021 – 01/2022",
     description: "Taught MERN/MEAN, JS best practices, SDLC; delivered live and offline sessions. [ADD LINK]",
+    logo: "/company_logo/lets upgrade.png",
     achievements: [
       {
         challenge: "New developers needed practical, industry-ready skills.",
@@ -124,103 +130,125 @@ const experiences: Experience[] = [
 ]
 
 export default function ExperiencePage() {
-  return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="mx-auto max-w-5xl">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-            Experience
-          </h1>
-          <p className="text-xl text-foreground/70">
-            Impact by role using Challenge → Action → Result
+  const timelineData = experiences.map((exp) => ({
+    title: exp.period,
+    content: (
+      <div>
+        {/* Company Header */}
+        <div className="mb-6 rounded-lg border border-border/50 bg-muted/30 p-6">
+          <div className="mb-4 flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <h3 className="mb-2 text-2xl font-bold text-foreground">
+                {exp.title}
+              </h3>
+              <div className="mb-2 flex items-center gap-2 text-base text-foreground/80">
+                <Building2 className="h-4 w-4" />
+                <span className="font-medium">{exp.company}</span>
+                <span className="text-foreground/60">· {exp.location}</span>
+              </div>
+              <div className="mb-3 flex items-center gap-2 text-sm text-foreground/70">
+                <Calendar className="h-4 w-4" />
+                <span>{exp.period}</span>
+              </div>
+            </div>
+            {/* Company Logo */}
+            <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-lg border border-border bg-background p-2">
+              {exp.logo ? (
+                <Image
+                  src={exp.logo}
+                  alt={`${exp.company} logo`}
+                  width={64}
+                  height={64}
+                  className="h-full w-full object-contain"
+                />
+              ) : (
+                <Building2 className="h-8 w-8 text-foreground/50" />
+              )}
+            </div>
+          </div>
+
+          <p className="mb-4 text-sm text-foreground/80 md:text-base">
+            <strong>What I changed:</strong> {exp.description}
           </p>
+
+          <div className="flex flex-wrap gap-2">
+            {exp.tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
         </div>
 
-        {/* Timeline */}
-        <div className="relative space-y-8">
-          {/* Vertical line for larger screens */}
-          <div className="absolute left-0 top-0 hidden h-full w-px bg-foreground/10 md:left-4 md:block" />
-
-          {experiences.map((exp, idx) => (
-            <div key={idx} className="relative">
-              {/* Timeline dot */}
-              <div className="absolute left-0 top-6 hidden h-8 w-8 rounded-full border-4 border-background bg-foreground md:block" />
-
-              <Card className="md:ml-16">
-                <CardHeader>
-                  <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <CardTitle className="mb-2 text-2xl">{exp.title}</CardTitle>
-                      <CardDescription className="flex flex-col gap-1 text-base">
-                        <div className="flex items-center gap-2">
-                          <Building2 className="h-4 w-4" />
-                          <span className="font-medium text-foreground/80">
-                            {exp.company}
-                          </span>
-                          <span className="text-foreground/60">· {exp.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4" />
-                          <span>{exp.period}</span>
-                        </div>
-                      </CardDescription>
-                    </div>
-                  </div>
-
-                  <p className="mb-4 text-foreground/80">
-                    <strong>What I changed:</strong> {exp.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardHeader>
-
-                <CardContent>
-                  <div className="space-y-6">
-                    {exp.achievements.map((achievement, achievementIdx) => (
-                      <div
-                        key={achievementIdx}
-                        className="rounded-lg border border-foreground/10 bg-muted/30 p-4"
-                      >
-                        <div className="mb-2">
-                          <span className="text-sm font-semibold text-foreground/70">
-                            Challenge:
-                          </span>
-                          <p className="text-sm text-foreground/80">
-                            {achievement.challenge}
-                          </p>
-                        </div>
-                        <div className="mb-2">
-                          <span className="text-sm font-semibold text-foreground/70">
-                            Action:
-                          </span>
-                          <p className="text-sm text-foreground/80">
-                            {achievement.action}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-sm font-semibold text-foreground/70">
-                            Result:
-                          </span>
-                          <p className="text-sm text-foreground/80">
-                            {achievement.result}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Achievements */}
+        <div className="mb-8 space-y-4">
+          <h4 className="flex items-center gap-2 text-lg font-semibold text-foreground">
+            <Award className="h-5 w-5" />
+            Key Achievements
+          </h4>
+          {exp.achievements.map((achievement, idx) => (
+            <div
+              key={idx}
+              className="rounded-lg border border-border/50 bg-background/50 p-4 shadow-sm transition-all hover:shadow-md"
+            >
+              <div className="mb-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
+                  Challenge
+                </span>
+                <p className="mt-1 text-sm text-foreground/80">
+                  {achievement.challenge}
+                </p>
+              </div>
+              <div className="mb-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
+                  Action
+                </span>
+                <p className="mt-1 text-sm text-foreground/80">
+                  {achievement.action}
+                </p>
+              </div>
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
+                  Result
+                </span>
+                <p className="mt-1 text-sm text-foreground/80">
+                  {achievement.result}
+                </p>
+              </div>
             </div>
           ))}
         </div>
+
+        {/* Project Images Grid - Dummy Images */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
+            <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
+              Project Preview 1
+            </div>
+          </div>
+          <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
+            <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
+              Project Preview 2
+            </div>
+          </div>
+          <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
+            <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
+              Dashboard View
+            </div>
+          </div>
+          <div className="relative h-32 overflow-hidden rounded-lg border border-border bg-muted md:h-44 lg:h-60">
+            <div className="flex h-full w-full items-center justify-center text-sm text-foreground/50">
+              Mobile App View
+            </div>
+          </div>
+        </div>
       </div>
+    ),
+  }))
+
+  return (
+    <div className="relative w-full overflow-clip">
+      <Timeline data={timelineData} />
     </div>
   )
 }

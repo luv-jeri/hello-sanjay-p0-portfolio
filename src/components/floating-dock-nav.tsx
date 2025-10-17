@@ -75,7 +75,7 @@ export function FloatingDockNav() {
   ]
 
   return (
-    <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
+    <div className="fixed bottom-4 right-4 z-50 md:bottom-6 md:left-1/2 md:right-auto md:-translate-x-1/2">
       <FloatingDock items={links} />
     </div>
   )
