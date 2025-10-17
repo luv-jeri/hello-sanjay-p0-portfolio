@@ -4,8 +4,6 @@ import { ExternalLink, Github } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { FloatingDock } from "@/components/ui/floating-dock"
-import { siteDockItems } from "@/components/site-dock-config"
 import { projects } from "@/lib/projects-data"
 
 export const metadata: Metadata = {
@@ -20,13 +18,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      {/* Vertical Dock - Right Side (Desktop Only) */}
-      <FloatingDock
-        items={siteDockItems}
-        position="right"
-        className="hidden lg:flex"
-      />
-
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-12">

@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint --max-warnings=0",
+    "format": "prettier --write .",
+    "ts:check": "tsc --noEmit",
+    "analyze:unused": "npx --yes knip",
+    "check:all": "yarn ts:check && yarn lint && yarn build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
