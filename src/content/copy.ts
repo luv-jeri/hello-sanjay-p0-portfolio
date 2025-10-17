@@ -176,6 +176,171 @@ export const copy = {
         description: "Share knowledge and mentor team members, having trained developers across multiple platforms.",
       },
     },
+
+    // Personal Details
+    personal: {
+      name: "Sanjay Kumar",
+      title: "Senior Full-stack / Senior Frontend Engineer (SDE III)",
+      location: "Indore, India",
+      timezone: "IST (UTC+5:30)",
+      email: "hellosanjaygautam@gmail.com",
+      linkedin: "https://linkedin.com/in/hellosanjaygautam",
+      github: "https://github.com/hellosanjaygautam",
+      portraitPlaceholder: "[ADD_PORTRAIT_URL]",
+      teachingImagePlaceholder: "[ADD_TEACHING_URL]",
+
+      hobbies: {
+        gym: {
+          name: "Working Out",
+          imagePlaceholder: "[ADD_GYM_URL]",
+          alt: "Sanjay Kumar at gym doing strength training",
+        },
+        ukulele: {
+          name: "Playing Ukulele",
+          imagePlaceholder: "[ADD_UKULELE_URL]",
+          alt: "Sanjay Kumar playing ukulele",
+        },
+        reading: {
+          name: "Reading Tech",
+          imagePlaceholder: "[ADD_WORKSPACE_URL]",
+          alt: "Sanjay Kumar's coding workspace with books",
+        },
+      },
+
+      traits: {
+        quickLearner: {
+          label: "Quick Learner",
+          description: "Rapid skill acquisition",
+        },
+        riskTaker: {
+          label: "Risk Taker",
+          description: "Calculated decisions",
+        },
+        systemsThinker: {
+          label: "Systems Thinker",
+          description: "Holistic approach",
+        },
+        collaborative: {
+          label: "Collaborative",
+          description: "Team-first mindset",
+        },
+      },
+
+      beyondCode: {
+        heading: "Beyond the Code",
+        paragraph: "When I'm not architecting systems or mentoring developers, you'll find me staying active at the gym, learning new songs on the ukulele, diving into the latest tech articles, or tinkering with side projects. I believe in continuous growth—both professionally and personally. Being a quick learner and calculated risk-taker has helped me navigate complex technical challenges and embrace emerging technologies like AI-assisted development.",
+      },
+    },
+
+    // Bento Card Content
+    bentoCards: {
+      aboutMe: {
+        name: "About Me",
+        description: "Building scalable products with modern web technologies.",
+        cta: "Read More",
+      },
+      stats: {
+        name: "7+ Years",
+        description: "Shipping products across SaaS, EdTech, EnergyTech, and TravelTech",
+        cta: "Timeline",
+      },
+      techStack: {
+        name: "Tech Stack Cloud",
+        description: "Interactive 3D visualization of my core technologies and tools",
+        cta: "All Skills",
+      },
+      highlights: {
+        name: "Recent Highlights",
+        description: "Key projects and achievements from the last few years",
+        cta: "Projects",
+      },
+      skills: {
+        name: "Skills Showcase",
+        description: "React · Next.js · TypeScript · Node · Firebase · GCP · Capacitor",
+        cta: "Deep Dive",
+      },
+      principles: {
+        name: "Working Principles",
+        description: "Product-first · Clear communication · Full ownership · Continuous improvement",
+        cta: "Learn More",
+      },
+      location: {
+        description: "Remote-friendly · English/Hindi fluent",
+        cta: "Contact",
+      },
+      beyondCode: {
+        name: "Beyond Code",
+        description: "Gym enthusiast, ukulele player, tech reader, and side project builder",
+        cta: "More",
+      },
+      teaching: {
+        name: "Mentor & Teacher",
+        description: "Trained 200+ developers in MERN/MEAN stacks at Newton, Coding Ninjas, Let's Upgrade",
+        cta: "Teaching",
+      },
+      connect: {
+        name: "Let's Connect",
+        description: "Open to senior frontend/full-stack roles and interesting collaborations",
+        cta: "Get in Touch",
+      },
+    },
+
+    // Tech Stack - Most Important Skills
+    techStack: [
+      { name: "React", color: "#61DAFB" },
+      { name: "Next.js", color: "#000000" },
+      { name: "TypeScript", color: "#3178C6" },
+      { name: "Vue 3", color: "#42b883" },
+      { name: "Node.js", color: "#339933" },
+      { name: "Nest.js", color: "#E0234E" },
+      { name: "Firebase", color: "#FFCA28" },
+      { name: "GCP", color: "#4285F4" },
+      { name: "Tailwind", color: "#06B6D4" },
+      { name: "Module Federation", color: "#8DD6F9" },
+      { name: "Capacitor", color: "#119EFF" },
+      { name: "WebSockets", color: "#010101" },
+      { name: "Canvas API", color: "#E34F26" },
+      { name: "GSAP", color: "#88CE02" },
+      { name: "Pinia", color: "#ffd859" },
+      { name: "Vite", color: "#646CFF" },
+    ],
+
+    // Recent Highlights
+    recentHighlights: [
+      {
+        icon: "🚀",
+        title: "HighLevel Courses Platform",
+        date: "2024",
+        description: "Real-time WYSIWYG builder with mobile parity",
+      },
+      {
+        icon: "🎨",
+        title: "Canva-style Badge Builder",
+        date: "2024",
+        description: "Canvas-based credential designer",
+      },
+      {
+        icon: "🌍",
+        title: "Climate Tech DMRV Platform",
+        date: "2023",
+        description: "Next.js SSR with Firebase/GCP",
+      },
+      {
+        icon: "👨‍🏫",
+        title: "MERN/MEAN Instructor",
+        date: "2020-2023",
+        description: "Trained 200+ developers",
+      },
+    ],
+
+    // Section Headings
+    sections: {
+      professionalJourney: "Professional Journey",
+      socialLinks: {
+        linkedin: "LinkedIn",
+        github: "GitHub",
+      },
+    },
   },
 
   // ========== PROJECTS PAGE ==========

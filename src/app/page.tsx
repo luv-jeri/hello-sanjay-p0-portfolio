@@ -1,17 +1,27 @@
-import { Hero } from "@/components/sections/hero"
-import { ValueProps } from "@/components/sections/value-props"
-import { SocialProof } from "@/components/sections/social-proof"
-import { FeaturedProjects } from "@/components/sections/featured-projects"
-import { CTA } from "@/components/sections/cta"
+import { HeroNew } from "@/components/sections/hero-new"
+import { SocialProofNew } from "@/components/sections/social-proof-new"
+import { ServicesNew } from "@/components/sections/services-new"
+import { ProjectsNew } from "@/components/sections/projects-new"
+import { ValuePropsNew } from "@/components/sections/value-props-new"
+import { CTANew } from "@/components/sections/cta-new"
+import { Spotlight } from "@/components/ui/spotlight"
+import { TerminalButton } from "@/components/terminal"
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <SocialProof />
-      <ValueProps />
-      <FeaturedProjects />
-      <CTA />
-    </>
+    <div className="relative">
+      {/* Spotlight effect that follows cursor */}
+      <Spotlight className="hidden md:block" />
+
+      <HeroNew />
+      <SocialProofNew />
+      <ServicesNew />
+      <ProjectsNew />
+      <ValuePropsNew />
+      <CTANew />
+
+      {/* Floating terminal button */}
+      <TerminalButton />
+    </div>
   )
 }
