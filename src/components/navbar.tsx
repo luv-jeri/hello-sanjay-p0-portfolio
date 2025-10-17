@@ -7,7 +7,7 @@ import { Menu, X, Download } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { NAVIGATION_ITEMS } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
-import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
+import { ThemeToggleButton2 } from "@/components/ui/skiper-theme-toggles"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -48,7 +48,7 @@ export function Navbar() {
               Resume
             </a>
           </Button>
-          <AnimatedThemeToggler />
+          <ThemeToggleButton2 className="h-10 w-10 p-2" />
 
           {/* Mobile Menu Button */}
           <Button

@@ -38,9 +38,9 @@ export function Hero() {
           variants={item}
           className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
         >
-          Namastey, let&apos;s ship{" "}
+          Build it. Ship it.{" "}
           <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            the hard stuff.
+            Scale it.
           </span>
         </motion.h1>
 
