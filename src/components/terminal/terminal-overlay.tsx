@@ -93,6 +93,14 @@ export const TerminalOverlay: React.FC<TerminalOverlayProps> = ({
                   <span className="ml-3 text-zinc-400">Clear terminal output</span>
                 </div>
                 <div>
+                  <kbd className="px-2 py-1 bg-zinc-800 rounded text-xs">tree</kbd>
+                  <span className="ml-3 text-zinc-400">Show file tree structure</span>
+                </div>
+                <div>
+                  <kbd className="px-2 py-1 bg-zinc-800 rounded text-xs">explorer</kbd>
+                  <span className="ml-3 text-zinc-400">Open Projects Explorer</span>
+                </div>
+                <div>
                   <kbd className="px-2 py-1 bg-zinc-800 rounded text-xs">exit</kbd>
                   <span className="ml-3 text-zinc-400">Close terminal</span>
                 </div>
@@ -338,6 +346,63 @@ export const TerminalOverlay: React.FC<TerminalOverlayProps> = ({
         description: "Clear terminal output",
         fn: (_, terminal) => {
           terminal.clear()
+        },
+      },
+
+      tree: {
+        description: "Show file tree structure",
+        fn: (_, terminal) => {
+          terminal.printLine(
+            <div className="space-y-2 font-mono text-sm">
+              <div className="text-emerald-400">📁 Portfolio Structure:</div>
+              <div className="ml-4">
+                <div>📁 projects/</div>
+                <div className="ml-4">
+                  {projects.filter(p => p.featured).map((project) => (
+                    <div key={project.id}>
+                      <div>📁 {project.id}/</div>
+                      <div className="ml-4">
+                        <div>📄 README.md</div>
+                        <div>📄 architecture.mdx</div>
+                        <div>📄 results.json</div>
+                        {(project.liveUrl || project.demoUrl) && <div>🔗 demo.url</div>}
+                        {project.githubUrl && <div>🔗 github.url</div>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div>📁 skills/</div>
+                <div className="ml-4">
+                  <div>📁 frontend/</div>
+                  <div>📁 backend/</div>
+                  <div>📁 cloud/</div>
+                </div>
+                <div>📁 contact/</div>
+                <div className="ml-4">
+                  <div>📄 booking.url</div>
+                  <div>📄 email.url</div>
+                  <div>📄 linkedin.url</div>
+                  <div>📄 github.url</div>
+                </div>
+              </div>
+              <div className="mt-4 text-zinc-500 text-xs">
+                Use <kbd className="px-1.5 py-0.5 bg-zinc-800 rounded text-xs">open projects/&lt;slug&gt;</kbd> to navigate
+              </div>
+            </div>
+          )
+        },
+      },
+
+      explorer: {
+        description: "Open Projects Explorer",
+        fn: (_, terminal) => {
+          terminal.printLine(
+            <span className="text-emerald-400">Opening Projects Explorer...</span>
+          )
+          setTimeout(() => {
+            onClose()
+            router.push("/projects-explorer")
+          }, 800)
         },
       },
 
