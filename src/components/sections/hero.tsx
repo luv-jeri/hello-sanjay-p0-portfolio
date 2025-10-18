@@ -139,6 +139,8 @@ export function Hero() {
             <TypingAnimation
               className="mb-3 text-xs text-foreground/80 sm:text-base md:text-lg"
               cursorStyle="underscore"
+              startOnView={false}
+              delay={200}
             >
               {copy.hero.subtitle}
             </TypingAnimation>
@@ -225,8 +227,8 @@ export function Hero() {
           )}
 
           {/* Terminal Hint */}
-          <motion.div variants={item} className="mt-8 pointer-events-auto">
-            <TerminalHint className="opacity-60 hover:opacity-100" />
+          <motion.div variants={item} className="mt-12 pointer-events-auto hidden md:block">
+            <TerminalHint className="opacity-80 hover:opacity-100 transition-opacity scale-110" />
           </motion.div>
         </motion.div>
         </div>
