@@ -266,34 +266,6 @@ export const CustomizerDock = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile: Top-Right Floating Button */}
-      <motion.button
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="sm:hidden fixed top-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-xl overflow-hidden border border-white/10 bg-gradient-to-br from-primary/20 via-purple-500/20 to-pink-500/20 backdrop-blur-xl shadow-lg"
-        aria-label="Open customization options"
-      >
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <Sparkles className="h-5 w-5 text-primary drop-shadow-lg" />
-        </motion.div>
-
-        {/* Pulsing background */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.1, 0.3]
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute inset-0 bg-gradient-to-br from-primary/30 to-pink-500/30 blur-sm"
-        />
-      </motion.button>
     </>
   );
 };

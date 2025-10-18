@@ -31,15 +31,13 @@ export const copy = {
   // ========== HERO SECTION ==========
   hero: {
     badge: "Available for new opportunities",
-    titlePart1: "Build it. Ship it.",
-    titlePart2: "Scale it.",
+    titlePart1: "Crafting Code.",
     subtitle: "I lead modern web and mobile builds that scale and convert.",
-    description: "Micro-frontends, SSR, and real-time UX without the drag. React, Next.js, TypeScript, Node, Firebase, GCP.",
   },
 
   // ========== CALL-TO-ACTION BUTTONS ==========
   cta: {
-    requestInterview: "Request an interview",
+    requestInterview: "Get in touch",
     seeCaseStudies: "See case studies",
     downloadResume: "Download résumé",
     scheduleCall: "Schedule a call",

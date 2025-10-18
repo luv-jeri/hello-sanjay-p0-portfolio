@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import { HeroNew } from "@/components/sections/hero-new"
+import { Hero } from "@/components/sections/hero"
 import { SectionSkeleton } from "@/components/ui/section-skeleton"
 
 // Lazy load heavy components
@@ -44,24 +44,13 @@ const CTANew = dynamic(
   }
 )
 
-// Only load Spotlight on desktop devices
-const Spotlight = dynamic(
-  () => import('@/components/ui/spotlight').then(mod => ({ default: mod.Spotlight })),
-  {
-    loading: () => null
-  }
-)
 
 export default function Home() {
   return (
     <div className="relative">
-      {/* Spotlight effect that follows cursor - lazy loaded and desktop only */}
-      <Suspense fallback={null}>
-        <Spotlight className="hidden lg:block" />
-      </Suspense>
 
       {/* Hero loads immediately */}
-      <HeroNew />
+      <Hero />
 
       {/* Lazy load remaining sections with Suspense */}
       <Suspense fallback={<SectionSkeleton height="h-32" />}>

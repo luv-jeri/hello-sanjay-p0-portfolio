@@ -1,0 +1,236 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Calendar, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
+import { SparklesCore } from "@/components/ui/sparkles";
+import { TypingAnimation } from "@/components/ui/typing-animation";
+import { TerminalHint } from "@/components/terminal";
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import { copy } from "@/content/copy";
+import { cn } from "@/lib/utils";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08, // Faster stagger
+      delayChildren: 0.1, // Less delay
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 10 }, // Reduced Y movement
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4, // Faster animation
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+// const floatingAnimation = {
+//   y: [0, -20, 0],
+//   transition: {
+//     duration: 3,
+//     repeat: Infinity,
+//     ease: "easeInOut" as any,
+//   },
+// }
+
+export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+  const [gridConfig, setGridConfig] = useState({ rows: 10, cols: 27, cellSize: 60 });
+
+  useEffect(() => {
+    const calculateGridConfig = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      // Target 50% of viewport height and full width
+      const targetHeight = height * 0.5;
+      const targetWidth = width;
+
+      // Calculate optimal cell size (adjust for better visuals)
+      const cellSize = 60; // Fixed cell size for consistency
+
+      // Calculate cols and rows based on dimensions
+      const cols = Math.ceil(targetWidth / cellSize);
+      const rows = Math.ceil(targetHeight / cellSize);
+
+      setGridConfig({ rows, cols, cellSize });
+    };
+
+    calculateGridConfig();
+    window.addEventListener("resize", calculateGridConfig);
+
+    return () => window.removeEventListener("resize", calculateGridConfig);
+  }, []);
+
+  return (
+    <section className="relative min-h-screen overflow-hidden bg-background pt-20 md:pt-24">
+      {/* Background Ripple Effect Container with gradient blend */}
+      <div className="absolute inset-x-0 top-0 h-[50vh] overflow-hidden z-0">
+        <BackgroundRippleEffect
+          rows={gridConfig.rows}
+          cols={gridConfig.cols}
+          cellSize={gridConfig.cellSize}
+        />
+        {/* Bottom gradient blur for smooth blending */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-64 z-[2] pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background)) 20%, hsl(var(--background) / 0.95) 40%, hsl(var(--background) / 0.7) 60%, hsl(var(--background) / 0.4) 80%, transparent 100%)'
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Subtle radial gradient overlay for text contrast */}
+      <div
+        className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_40%,transparent_0%,hsl(var(--background)/0.8)_100%)] pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div className="container relative z-10 mx-auto flex min-h-screen items-center px-4 py-20 pointer-events-none">
+        <div className="w-full">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="mx-auto max-w-5xl text-center pointer-events-none"
+        >
+          {/* Floating Badge with Animated Gradient */}
+          <motion.div variants={item} className="mb-8 flex justify-center">
+            <div className="inline-flex">
+              <div className="group relative mx-auto flex items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
+                <span
+                  className={cn(
+                    shouldReduceMotion ? "" : "animate-gradient",
+                    "absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]"
+                  )}
+                  style={{
+                    WebkitMask:
+                      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                    WebkitMaskComposite: "destination-out",
+                    mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                    maskComposite: "subtract",
+                    WebkitClipPath: "padding-box",
+                  }}
+                />
+                {/* <Sparkles className="mr-2 h-4 w-4 relative z-10" /> */}
+                <AnimatedGradientText className="text-sm font-medium">
+                  🚀 | {copy.hero.badge}
+                </AnimatedGradientText>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Subtitle */}
+          <motion.div variants={item}>
+            <TypingAnimation
+              className="mb-3 text-xs text-foreground/80 sm:text-base md:text-lg"
+              cursorStyle="underscore"
+            >
+              {copy.hero.subtitle}
+            </TypingAnimation>
+          </motion.div>
+
+          {/* Main Heading with Sparkles */}
+          <motion.div variants={item} className="relative">
+            <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl relative z-20 whitespace-nowrap">
+              {copy.hero.titlePart1}
+            </h1>
+
+            {/* Sparkles Effect */}
+            <div className="w-full h-32 md:h-40 relative flex items-center justify-center">
+              <div className="w-full md:w-[90vw] h-full relative">
+                {/* Gradients */}
+                <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
+                <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />
+                <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-[calc(100%-5rem)] blur-sm" />
+                <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-[calc(100%-5rem)]" />
+
+                {/* Core component */}
+                {!shouldReduceMotion && (
+                  <SparklesCore
+                    background="transparent"
+                    minSize={0.4}
+                    maxSize={1}
+                    particleDensity={800}
+                    className="w-full h-full"
+                  />
+                )}
+
+                {/* Radial Gradient to prevent sharp edges */}
+                <div className="absolute inset-0 w-full h-full bg-background [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            variants={item}
+            className="flex flex-col items-center justify-center gap-4 sm:flex-row pointer-events-auto"
+          >
+            <HoverBorderGradient containerClassName="rounded-lg" duration={1}>
+              <Button size="lg" className="gap-2" asChild>
+                <a href="/contact" className="group">
+                  <Calendar className="h-5 w-5 transition-transform group-hover:scale-110" />
+                  {copy.cta.requestInterview}
+                </a>
+              </Button>
+            </HoverBorderGradient>
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="hidden sm:flex group gap-2 border-foreground/20 backdrop-blur-sm hover:border-foreground/40"
+              asChild
+            >
+              <a href="/projects">
+                {copy.cta.seeCaseStudies}
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </a>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="lg"
+              className="hidden sm:flex group gap-2"
+              asChild
+            >
+              <a href="/resume.pdf" download>
+                <Download className="h-5 w-5 transition-transform group-hover:translate-y-1" />
+                {copy.cta.downloadResume}
+              </a>
+            </Button>
+          </motion.div>
+
+          {/* Scroll Indicator - CSS animation instead of framer-motion */}
+          {!shouldReduceMotion && (
+            <motion.div variants={item} className="mt-20">
+              <div className="mx-auto h-8 w-5 rounded-full border-2 border-foreground/20 p-1 animate-bounce">
+                <div className="h-2 w-2 rounded-full bg-foreground/40" />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Terminal Hint */}
+          <motion.div variants={item} className="mt-8 pointer-events-auto">
+            <TerminalHint className="opacity-60 hover:opacity-100" />
+          </motion.div>
+        </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
