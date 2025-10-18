@@ -110,9 +110,9 @@ export function Hero() {
           className="mx-auto max-w-5xl text-center pointer-events-none"
         >
           {/* Floating Badge with Animated Gradient */}
-          <motion.div variants={item} className="mb-4 flex justify-center">
+          <motion.div variants={item} className="mb-2 sm:mb-4 flex justify-center">
             <div className="inline-flex">
-              <div className="group relative mx-auto flex items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
+              <div className="group relative mx-auto flex items-center justify-center rounded-full px-2 py-1 sm:px-4 sm:py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
                 <span
                   className={cn(
                     shouldReduceMotion ? "" : "animate-gradient",
@@ -128,7 +128,7 @@ export function Hero() {
                   }}
                 />
                 {/* <Sparkles className="mr-2 h-4 w-4 relative z-10" /> */}
-                <AnimatedGradientText className="text-sm font-medium">
+                <AnimatedGradientText className="text-xs sm:text-sm font-medium">
                   🚀 | {copy.hero.badge}
                 </AnimatedGradientText>
               </div>
