@@ -5,7 +5,6 @@ import { ProjectsNew } from "@/components/sections/projects-new"
 import { ValuePropsNew } from "@/components/sections/value-props-new"
 import { CTANew } from "@/components/sections/cta-new"
 import { Spotlight } from "@/components/ui/spotlight"
-import { TerminalButton } from "@/components/terminal"
 
 export default function Home() {
   return (
@@ -19,9 +18,6 @@ export default function Home() {
       <ProjectsNew />
       <ValuePropsNew />
       <CTANew />
-
-      {/* Floating terminal button */}
-      <TerminalButton />
     </div>
   )
 }

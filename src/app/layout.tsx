@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TerminalProvider } from "@/components/terminal";
+import { FontProvider } from "@/components/fonts";
+import { CustomizerDock } from "@/components/customizer";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { FloatingDockNav } from "@/components/floating-dock-nav";
@@ -10,16 +11,7 @@ import { PersonSchema, WebSiteSchema } from "@/components/schema-markup";
 import { SITE_CONFIG } from "@/lib/constants";
 import { copy } from "@/content/copy";
 import { Toaster } from "sonner";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { jetbrainsMono } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -52,29 +44,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={jetbrainsMono.variable}>
       <head>
         <PersonSchema />
         <WebSiteSchema />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <TerminalProvider>
-            <div className="flex min-h-screen flex-col">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <FloatingDockNav />
-            </div>
-            <Toaster position="bottom-right" richColors />
-          </TerminalProvider>
+          <FontProvider>
+            <TerminalProvider>
+              <div className="flex min-h-screen flex-col">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <FloatingDockNav />
+              </div>
+              <CustomizerDock />
+              <Toaster position="bottom-right" richColors />
+            </TerminalProvider>
+          </FontProvider>
         </ThemeProvider>
       </body>
     </html>
