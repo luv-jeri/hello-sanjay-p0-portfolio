@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { ExternalLink, Calendar, Building2, Briefcase, CheckCircle2, ArrowLeft } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ExternalLink, Calendar, Building2, Briefcase, ArrowLeft, Target, Lightbulb, Sparkles, TrendingUp } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getProjectBySlug, projects } from "@/content/projects"
 import { CtaLink } from "@/components/cta-link"
+import { ProgressiveBlur } from "@/components/ui/progressive-blur"
+import { cn } from "@/lib/utils"
 
 // ============================================================================
 // GENERATE STATIC PARAMS
@@ -63,7 +64,7 @@ export async function generateMetadata({
 }
 
 // ============================================================================
-// PROJECT DETAIL PAGE
+// PROJECT DETAIL PAGE — EDITORIAL CASE STUDY
 // ============================================================================
 
 export default function ProjectDetailPage({ params }: { params: { slug: string } }) {
@@ -97,19 +98,86 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="container mx-auto px-4 py-12">
-        <div className="mx-auto max-w-5xl">
-          {/* Back Button */}
-          <Button variant="ghost" size="sm" className="mb-8" asChild>
+      <article className="relative overflow-hidden bg-background">
+        {/* Back Navigation */}
+        <div className="container mx-auto max-w-6xl px-6 pt-8 md:pt-12">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="group -ml-2 mb-6 hover:bg-transparent" 
+            asChild
+          >
             <CtaLink href="/projects" aria-label="Back to Projects">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Projects
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              <span className="ml-2">All Projects</span>
             </CtaLink>
           </Button>
+        </div>
 
-          {/* Hero Image */}
-          {project.heroImage && (
-            <div className="relative h-80 md:h-96 w-full overflow-hidden rounded-lg bg-muted mb-8">
+        {/* ================================================================== */}
+        {/* HERO SECTION */}
+        {/* ================================================================== */}
+        <section className="relative py-16 md:py-24">
+          <ProgressiveBlur 
+            className="absolute inset-0" 
+            intensity={0.15} 
+            direction="radial"
+          />
+          
+          <div className="container relative mx-auto max-w-6xl px-6">
+            {/* Tags */}
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              {project.featured && (
+                <Badge 
+                  variant="default" 
+                  className="bg-gradient-to-r from-indigo-600 to-violet-600 border-0"
+                >
+                  Featured Project
+                </Badge>
+              )}
+              <Badge variant="outline" className="border-muted-foreground/20">
+                {project.domain}
+              </Badge>
+            </div>
+
+            {/* Title & Standfirst */}
+            <h1 className="mb-6 max-w-4xl font-display text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl">
+              {project.title}
+            </h1>
+
+            <p className="mb-8 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              {project.summary}
+            </p>
+
+            {/* Primary CTAs */}
+            {project.links.length > 0 && (
+              <div className="flex flex-wrap gap-4">
+                {project.links
+                  .filter((link) => link.href !== "[ADD LINK]")
+                  .slice(0, 2)
+                  .map((link, idx) => (
+                    <CtaLink
+                      key={idx}
+                      href={link.href}
+                      className="group inline-flex items-center gap-2 text-base underline decoration-muted-foreground/30 underline-offset-4 transition-all hover:decoration-foreground"
+                      aria-label={`${link.label} for ${project.title}`}
+                    >
+                      {link.kind === "demo" && <ExternalLink className="h-4 w-4" />}
+                      <span>{link.label}</span>
+                      <span className="transition-transform group-hover:translate-x-1">→</span>
+                    </CtaLink>
+                  ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ================================================================== */}
+        {/* HERO IMAGE */}
+        {/* ================================================================== */}
+        {project.heroImage && (
+          <section className="container mx-auto max-w-6xl px-6 mb-20 md:mb-28">
+            <figure className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-muted/30">
               <Image
                 src={project.heroImage}
                 alt={project.images?.[0]?.alt || `${project.title} hero image`}
@@ -118,229 +186,305 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                 priority
               />
-            </div>
-          )}
+            </figure>
+            {project.images?.[0]?.caption && (
+              <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+                {project.images[0].caption}
+              </figcaption>
+            )}
+          </section>
+        )}
 
-          {/* Header */}
-          <header className="mb-12">
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              {project.featured && (
-                <Badge variant="default">Featured</Badge>
-              )}
-              <Badge variant="outline">{project.domain}</Badge>
-            </div>
+        {/* ================================================================== */}
+        {/* META INFORMATION */}
+        {/* ================================================================== */}
+        <section className="border-y border-border/40 bg-muted/10 py-10 md:py-12">
+          <div className="container mx-auto max-w-6xl px-6">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Role
+                </h2>
+                <p className="text-base font-medium">{project.role}</p>
+              </div>
 
-            <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-              {project.title}
-            </h1>
-
-            <p className="text-xl text-muted-foreground mb-6">
-              {project.summary}
-            </p>
-
-            {/* Meta Info */}
-            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground border-t border-b py-4">
               {project.company && (
-                <div className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4" />
-                  <span>{project.company}</span>
+                <div>
+                  <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Company
+                  </h2>
+                  <p className="text-base font-medium">{project.company}</p>
                 </div>
               )}
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4" />
-                <span>{project.role}</span>
+
+              <div>
+                <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Timeline
+                </h2>
+                <p className="text-base font-medium">{project.dates}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
-                <span>{project.dates}</span>
-              </div>
-            </div>
 
-            {/* Tech Stack */}
-            <div className="flex flex-wrap gap-2 mt-6">
-              {project.stack.map((tech) => (
-                <Badge key={tech} variant="secondary">
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </header>
-
-          {/* Main Content Grid */}
-          <div className="space-y-12">
-            {/* Challenge & Solution */}
-            {(project.challenge || project.solution) && (
-              <section className="grid gap-8 md:grid-cols-2">
-                {project.challenge && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-xl">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-bold">
-                          1
-                        </span>
-                        Challenge
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="leading-relaxed text-muted-foreground">
-                        {project.challenge}
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {project.solution && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-xl">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-sm font-bold">
-                          2
-                        </span>
-                        Solution
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="leading-relaxed text-muted-foreground">
-                        {project.solution}
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
-              </section>
-            )}
-
-            {/* Context */}
-            {project.context && (
-              <section>
-                <h2 className="mb-4 text-2xl font-bold">Context & Background</h2>
-                <Card>
-                  <CardContent className="pt-6">
-                    <p className="leading-relaxed text-muted-foreground">
-                      {project.context}
-                    </p>
-                  </CardContent>
-                </Card>
-              </section>
-            )}
-
-            {/* Key Contributions */}
-            {project.contributions.length > 0 && (
-              <section>
-                <h2 className="mb-6 text-2xl font-bold">Key Contributions</h2>
-                <div className="grid gap-4">
-                  {project.contributions.map((contribution, idx) => (
-                    <Card key={idx} className="hover:shadow-md transition-shadow">
-                      <CardContent className="pt-6">
-                        <div className="flex gap-4">
-                          <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400 shrink-0 mt-0.5" />
-                          <p className="leading-relaxed">{contribution}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+              <div>
+                <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Stack
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.slice(0, 3).map((tech) => (
+                    <Badge key={tech} variant="secondary" className="text-xs">
+                      {tech}
+                    </Badge>
                   ))}
+                  {project.stack.length > 3 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{project.stack.length - 3}
+                    </Badge>
+                  )}
                 </div>
-              </section>
-            )}
-
-            {/* Results & Impact */}
-            {project.results.length > 0 && (
-              <section>
-                <h2 className="mb-6 text-2xl font-bold">Results & Impact</h2>
-                <Card className="border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-950/30">
-                  <CardContent className="pt-6">
-                    <ul className="space-y-4">
-                      {project.results.map((result, idx) => (
-                        <li key={idx} className="flex gap-4">
-                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-600 dark:bg-green-400 text-white dark:text-black text-xs font-bold shrink-0 mt-0.5">
-                            {idx + 1}
-                          </span>
-                          <p className="leading-relaxed text-green-900 dark:text-green-100">
-                            {result}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </section>
-            )}
-
-            {/* Technical Architecture */}
-            {project.architecture && (
-              <section>
-                <h2 className="mb-4 text-2xl font-bold">Technical Architecture</h2>
-                <Card>
-                  <CardContent className="pt-6">
-                    <p className="leading-relaxed text-muted-foreground">
-                      {project.architecture}
-                    </p>
-                  </CardContent>
-                </Card>
-              </section>
-            )}
-
-            {/* Next Steps */}
-            {project.nextSteps && (
-              <section>
-                <h2 className="mb-4 text-2xl font-bold">What's Next</h2>
-                <Card className="border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30">
-                  <CardContent className="pt-6">
-                    <p className="leading-relaxed text-blue-900 dark:text-blue-100">
-                      {project.nextSteps}
-                    </p>
-                  </CardContent>
-                </Card>
-              </section>
-            )}
-
-            {/* Project Links */}
-            {project.links.length > 0 && (
-              <section>
-                <h2 className="mb-6 text-2xl font-bold">Project Links</h2>
-                <div className="flex flex-wrap gap-3">
-                  {project.links
-                    .filter((link) => link.href !== "[ADD LINK]")
-                    .map((link, idx) => (
-                      <Button
-                        key={idx}
-                        variant={idx === 0 ? "default" : "outline"}
-                        size="lg"
-                        asChild
-                      >
-                        <CtaLink
-                          href={link.href}
-                          aria-label={`${link.label} for ${project.title}`}
-                        >
-                          {link.kind === "demo" && <ExternalLink className="h-5 w-5" />}
-                          {link.label}
-                        </CtaLink>
-                      </Button>
-                    ))}
-                </div>
-              </section>
-            )}
+              </div>
+            </div>
           </div>
+        </section>
 
-          {/* Footer CTA */}
-          <div className="mt-16 rounded-lg border bg-muted/30 p-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-center md:text-left">
-                <h3 className="mb-2 text-xl font-bold">Interested in similar work?</h3>
-                <p className="text-muted-foreground">
-                  I'm available for senior full-stack and frontend roles. Let's connect.
+        {/* ================================================================== */}
+        {/* CHALLENGE & SOLUTION */}
+        {/* ================================================================== */}
+        {(project.challenge || project.solution) && (
+          <section className="py-20 md:py-28">
+            <div className="container mx-auto max-w-5xl px-6">
+              <div className="grid gap-16 md:gap-20 lg:grid-cols-2">
+                {/* Challenge */}
+                {project.challenge && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-950/50">
+                        <Target className="h-5 w-5 text-red-600 dark:text-red-400" />
+                      </div>
+                      <h2 className="font-display text-3xl font-semibold tracking-tight">
+                        Challenge
+                      </h2>
+                    </div>
+                    <p className="text-base leading-relaxed text-foreground/80">
+                      {project.challenge}
+                    </p>
+                  </div>
+                )}
+
+                {/* Solution */}
+                {project.solution && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-950/50">
+                        <Lightbulb className="h-5 w-5 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h2 className="font-display text-3xl font-semibold tracking-tight">
+                        Solution
+                      </h2>
+                    </div>
+                    <p className="text-base leading-relaxed text-foreground/80">
+                      {project.solution}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* CONTEXT & BACKGROUND */}
+        {/* ================================================================== */}
+        {project.context && (
+          <section className="py-20 md:py-28 bg-muted/20">
+            <div className="container mx-auto max-w-4xl px-6">
+              <h2 className="mb-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                Context & Background
+              </h2>
+              <div className="prose prose-lg dark:prose-invert max-w-none">
+                <p className="text-base leading-relaxed text-foreground/80">
+                  {project.context}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild size="lg">
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* KEY CONTRIBUTIONS */}
+        {/* ================================================================== */}
+        {project.contributions.length > 0 && (
+          <section className="py-20 md:py-28">
+            <div className="container mx-auto max-w-4xl px-6">
+              <div className="mb-12 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-950/50">
+                  <Sparkles className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                  Key Contributions
+                </h2>
+              </div>
+
+              <ul className="space-y-6">
+                {project.contributions.map((contribution, idx) => (
+                  <li
+                    key={idx}
+                    className="group flex gap-4 transition-opacity hover:opacity-80"
+                  >
+                    <span className="mt-1.5 flex h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-600 dark:bg-indigo-400" />
+                    <p className="text-base leading-relaxed text-foreground/90">
+                      {contribution}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* TECHNICAL ARCHITECTURE */}
+        {/* ================================================================== */}
+        {project.architecture && (
+          <section className="py-20 md:py-28 bg-muted/20">
+            <div className="container mx-auto max-w-4xl px-6">
+              <h2 className="mb-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                Technical Architecture
+              </h2>
+              <div className="space-y-6">
+                <p className="text-base leading-relaxed text-foreground/80">
+                  {project.architecture}
+                </p>
+
+                {/* Tech Stack Pills */}
+                <div>
+                  <h3 className="mb-4 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                    Technologies Used
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((tech) => (
+                      <Badge
+                        key={tech}
+                        variant="secondary"
+                        className="px-3 py-1.5 text-sm font-normal"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* RESULTS & IMPACT */}
+        {/* ================================================================== */}
+        {project.results.length > 0 && (
+          <section className="relative py-20 md:py-28 overflow-hidden">
+            {/* Subtle gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-transparent to-emerald-50/30 dark:from-green-950/10 dark:via-transparent dark:to-emerald-950/10" />
+            
+            <div className="container relative mx-auto max-w-4xl px-6">
+              <div className="mb-12 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-950/50">
+                  <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />
+                </div>
+                <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                  Results & Impact
+                </h2>
+              </div>
+
+              <ul className="space-y-5">
+                {project.results.map((result, idx) => (
+                  <li key={idx} className="flex gap-4">
+                    <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-600 dark:bg-green-500 text-xs font-bold text-white">
+                      {idx + 1}
+                    </span>
+                    <p className="text-base leading-relaxed text-foreground/90">
+                      {result}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* WHAT'S NEXT */}
+        {/* ================================================================== */}
+        {project.nextSteps && (
+          <section className="py-20 md:py-28">
+            <div className="container mx-auto max-w-4xl px-6">
+              <h2 className="mb-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                What I'd Do Next
+              </h2>
+              <p className="text-base leading-relaxed text-foreground/80">
+                {project.nextSteps}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* PROJECT LINKS */}
+        {/* ================================================================== */}
+        {project.links.filter((link) => link.href !== "[ADD LINK]").length > 0 && (
+          <section className="border-y border-border/40 bg-muted/10 py-12 md:py-16">
+            <div className="container mx-auto max-w-4xl px-6">
+              <h2 className="mb-6 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                Project Links
+              </h2>
+              <div className="flex flex-wrap gap-4">
+                {project.links
+                  .filter((link) => link.href !== "[ADD LINK]")
+                  .map((link, idx) => (
+                    <CtaLink
+                      key={idx}
+                      href={link.href}
+                      className={cn(
+                        "group inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all",
+                        idx === 0
+                          ? "bg-foreground text-background hover:bg-foreground/90"
+                          : "border border-border bg-background hover:bg-muted"
+                      )}
+                      aria-label={`${link.label} for ${project.title}`}
+                    >
+                      {link.kind === "demo" && <ExternalLink className="h-4 w-4" />}
+                      <span>{link.label}</span>
+                    </CtaLink>
+                  ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ================================================================== */}
+        {/* FOOTER CTA */}
+        {/* ================================================================== */}
+        <section className="py-20 md:py-28">
+          <div className="container mx-auto max-w-4xl px-6">
+            <div className="space-y-8 text-center">
+              <div className="space-y-4">
+                <h3 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                  Interested in similar work?
+                </h3>
+                <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+                  I'm available for senior full-stack and frontend roles. Let's discuss how I can help your team ship exceptional products.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button asChild size="lg" className="px-8">
                   <CtaLink href="/contact">Get in Touch</CtaLink>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="px-8">
                   <CtaLink href="/projects">View All Projects</CtaLink>
                 </Button>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </article>
     </>
   )

@@ -9,7 +9,7 @@ export function CTANew() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden bg-neutral-900 py-20 dark:bg-neutral-950 md:py-32">
+    <section className="relative overflow-hidden bg-neutral-900 py-10 sm:py-20 dark:bg-neutral-950 md:py-32">
       {/* Retro Grid Background */}
       <RetroGrid
         className="absolute inset-0"
@@ -20,7 +20,7 @@ export function CTANew() {
       {!shouldReduceMotion && (
         <>
           <motion.div
-            className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-gradient-to-r from-blue-500/30 to-purple-500/30 blur-3xl"
+            className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-gradient-to-r from-blue-500/30 to-blue-600/30 blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.5, 0.3],
@@ -32,7 +32,7 @@ export function CTANew() {
             }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 blur-3xl"
+            className="hidden sm:block absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-gradient-to-r from-red-500/30 to-red-600/30 blur-3xl"
             animate={{
               scale: [1.2, 1, 1.2],
               opacity: [0.5, 0.3, 0.5],
@@ -63,11 +63,12 @@ export function CTANew() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-6 inline-flex"
+              className="mb-3 sm:mb-6 inline-flex"
             >
-              <div className="rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-sm font-medium text-blue-400 backdrop-blur-sm">
-                <span className="mr-2">✨</span>
-                Let's build something amazing together
+              <div className="rounded-full border border-blue-500/20 bg-blue-500/10 px-2.5 sm:px-4 py-0.5 sm:py-1.5 text-xs sm:text-sm font-medium text-blue-400 backdrop-blur-sm">
+                <span className="mr-1 sm:mr-2">✨</span>
+                <span className="hidden sm:inline">Let's build something amazing together</span>
+                <span className="sm:hidden">Let's build together</span>
               </div>
             </motion.div>
 
@@ -77,7 +78,7 @@ export function CTANew() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mb-6 text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
+              className="mb-3 sm:mb-6 text-2xl sm:text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
             >
               {copy.cta.heading}
             </motion.h2>
@@ -88,7 +89,7 @@ export function CTANew() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mb-10 text-lg text-neutral-300 md:text-xl"
+              className="mb-5 sm:mb-10 text-sm sm:text-lg text-neutral-300 md:text-xl px-4 sm:px-0"
             >
               {copy.cta.subheading}
             </motion.p>
@@ -99,26 +100,26 @@ export function CTANew() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mb-12 grid gap-4 sm:grid-cols-2 md:gap-6"
+              className="mb-6 sm:mb-12 grid gap-2.5 sm:grid-cols-2 sm:gap-4 md:gap-6"
             >
               {/* Primary CTA - Schedule Call */}
               <a
                 href="/contact"
-                className="group relative overflow-hidden rounded-xl border border-blue-500/50 bg-blue-600 p-6 text-left shadow-lg transition-all hover:border-blue-400 hover:bg-blue-500 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-lg sm:rounded-xl border border-blue-500/50 bg-blue-600 p-3 sm:p-6 text-left shadow-lg transition-all hover:border-blue-400 hover:bg-blue-500 hover:shadow-xl"
               >
                 <div className="relative z-10">
-                  <div className="mb-3 flex items-center gap-3">
-                    <div className="rounded-lg bg-white/20 p-2">
-                      <Calendar className="h-6 w-6 text-white" />
+                  <div className="mb-1.5 sm:mb-3 flex items-center gap-1.5 sm:gap-3">
+                    <div className="rounded-md sm:rounded-lg bg-white/20 p-1 sm:p-2">
+                      <Calendar className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white">Schedule a Call</h3>
+                    <h3 className="text-base sm:text-xl font-semibold text-white">Schedule a Call</h3>
                   </div>
-                  <p className="mb-4 text-sm text-blue-100">
-                    Let's discuss your project requirements and explore how we can work together
+                  <p className="mb-2 sm:mb-4 text-xs sm:text-sm text-blue-100 line-clamp-2 sm:line-clamp-none">
+                    Let's discuss your project requirements
                   </p>
-                  <div className="flex items-center gap-2 text-sm font-medium text-white">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-white">
                     Book a meeting
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
 
@@ -140,21 +141,21 @@ export function CTANew() {
               {/* Secondary CTA - Email */}
               <a
                 href="mailto:hellosanjaygautam@gmail.com"
-                className="group relative overflow-hidden rounded-xl border border-neutral-700 bg-neutral-800/50 p-6 text-left backdrop-blur-sm transition-all hover:border-neutral-600 hover:bg-neutral-800 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-lg sm:rounded-xl border border-neutral-700 bg-neutral-800/50 p-3 sm:p-6 text-left backdrop-blur-sm transition-all hover:border-neutral-600 hover:bg-neutral-800 hover:shadow-xl"
               >
                 <div className="relative z-10">
-                  <div className="mb-3 flex items-center gap-3">
-                    <div className="rounded-lg bg-neutral-700 p-2">
-                      <Mail className="h-6 w-6 text-neutral-300" />
+                  <div className="mb-1.5 sm:mb-3 flex items-center gap-1.5 sm:gap-3">
+                    <div className="rounded-md sm:rounded-lg bg-neutral-700 p-1 sm:p-2">
+                      <Mail className="h-4 w-4 sm:h-6 sm:w-6 text-neutral-300" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white">Send an Email</h3>
+                    <h3 className="text-base sm:text-xl font-semibold text-white">Send an Email</h3>
                   </div>
-                  <p className="mb-4 text-sm text-neutral-400">
-                    Prefer email? Drop me a message and I'll get back to you within 24 hours
+                  <p className="mb-2 sm:mb-4 text-xs sm:text-sm text-neutral-400 line-clamp-2 sm:line-clamp-none">
+                    Drop me a message
                   </p>
-                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-300">
-                    hellosanjaygautam@gmail.com
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-neutral-300">
+                    <span className="truncate">hellosanjaygautam@gmail.com</span>
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
                   </div>
                 </div>
               </a>
