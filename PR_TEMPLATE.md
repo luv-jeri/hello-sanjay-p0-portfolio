@@ -97,10 +97,9 @@ Closes #[issue-number] (if applicable)
 
 ---
 
-**Branch:** `chore/cleanup-unused-components`  
-**Commits:** 5  
-**Files Changed:** 48  
-**Lines Removed:** ~1,084  
-**Lines Added:** ~548  
+**Branch:** `chore/cleanup-unused-components`
+**Commits:** 5
+**Files Changed:** 48
+**Lines Removed:** ~1,084
+**Lines Added:** ~548
 **Net Change:** -536 lines
-
