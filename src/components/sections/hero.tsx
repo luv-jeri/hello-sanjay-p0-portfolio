@@ -10,6 +10,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { TerminalHint } from "@/components/terminal";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/utils";
 
@@ -109,7 +110,7 @@ export function Hero() {
           className="mx-auto max-w-5xl text-center pointer-events-none"
         >
           {/* Floating Badge with Animated Gradient */}
-          <motion.div variants={item} className="mb-8 flex justify-center">
+          <motion.div variants={item} className="mb-4 flex justify-center">
             <div className="inline-flex">
               <div className="group relative mx-auto flex items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
                 <span
@@ -137,10 +138,10 @@ export function Hero() {
           {/* Subtitle */}
           <motion.div variants={item}>
             <TypingAnimation
-              className="mb-3 text-xs text-foreground/80 sm:text-base md:text-lg"
+              className="mb-10 text-xs text-foreground/80 sm:text-base md:text-lg"
               cursorStyle="underscore"
               startOnView={false}
-              delay={200}
+
             >
               {copy.hero.subtitle}
             </TypingAnimation>
@@ -148,8 +149,17 @@ export function Hero() {
 
           {/* Main Heading with Sparkles */}
           <motion.div variants={item} className="relative">
-            <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl relative z-20 whitespace-nowrap">
-              {copy.hero.titlePart1}
+            <h1 className="mb-4 mt-5 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl relative z-20 whitespace-nowrap inline-flex items-center gap-3">
+              <span>Crafting</span>
+              <PointerHighlight
+                pointerClassName="text-blue-400"
+                  rectangleClassName="bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600"
+                containerClassName="inline-block"
+              >
+                <span className="px-4 py-2 inline-block relative z-20">
+                  Code<span className="text-red-500">.</span>
+                </span>
+              </PointerHighlight>
             </h1>
 
             {/* Sparkles Effect */}
