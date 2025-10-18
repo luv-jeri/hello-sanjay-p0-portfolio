@@ -26,31 +26,28 @@ const secondRow = companies.slice(4)
 
 const CompanyCard = ({ company }: { company: typeof companies[0] }) => {
   return (
-    <div className="group relative mx-4 flex items-center gap-6 rounded-2xl border border-neutral-200/50 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:shadow-xl dark:border-neutral-800/50 dark:bg-neutral-900/80 md:mx-6 md:gap-8 md:p-8">
-      {/* Subtle gradient glow on hover */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
-
+    <div className="group mx-6 flex items-center gap-4 md:mx-8 md:gap-6">
       {/* Logo */}
-      <div className="relative flex h-16 w-32 shrink-0 items-center justify-center rounded-xl bg-white p-3 shadow-sm dark:bg-white md:h-20 md:w-40 md:p-4">
+      <div className="relative flex h-12 w-24 shrink-0 items-center justify-center rounded-lg bg-white p-2 transition-transform group-hover:scale-110 dark:bg-white md:h-16 md:w-32 md:p-3">
         <img
           src={company.logo}
           alt={company.name}
-          className="h-full w-full object-contain transition-transform group-hover:scale-110"
+          className="h-full w-full object-contain"
         />
       </div>
 
-      {/* Content */}
-      <div className="relative flex flex-col">
-        <span className="whitespace-nowrap text-3xl font-black tracking-tight text-neutral-900 dark:text-neutral-50 md:text-4xl lg:text-5xl">
-          {company.name}
-        </span>
-        <span className="mt-1 whitespace-nowrap text-lg font-semibold text-neutral-600 dark:text-neutral-400 md:text-xl lg:text-2xl">
+      {/* Role and Period */}
+      <div className="flex flex-col">
+        <span className="whitespace-nowrap text-lg font-semibold text-neutral-700 dark:text-neutral-300 md:text-xl lg:text-2xl">
           {company.role}
         </span>
-        <span className="mt-0.5 whitespace-nowrap text-sm font-medium text-neutral-500 dark:text-neutral-500 md:text-base lg:text-lg">
+        <span className="whitespace-nowrap text-sm font-medium text-neutral-500 dark:text-neutral-500 md:text-base">
           {company.period}
         </span>
       </div>
+
+      {/* Red Dot Separator */}
+      <div className="h-2 w-2 rounded-full bg-red-500 md:h-3 md:w-3" />
     </div>
   )
 }
@@ -185,20 +182,17 @@ export function SocialProofNew() {
       >
         <div className="relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden [perspective:1000px]">
           <div
-            className="flex w-full flex-col gap-4"
-            style={{
-              transform: "rotateX(10deg) rotateY(0deg) rotateZ(0deg)",
-            }}
+            className="flex w-full flex-col gap-4 [transform:rotateX(10deg)]"
           >
             {/* First Row - Forward */}
-            <Marquee pauseOnHover className="[--duration:60s]">
+            <Marquee repeat={6} className="[--duration:60s]">
               {firstRow.map((company) => (
                 <CompanyCard key={`${company.name}-1`} company={company} />
               ))}
             </Marquee>
 
             {/* Second Row - Reverse */}
-            <Marquee reverse pauseOnHover className="[--duration:50s]">
+            <Marquee reverse repeat={6} className="[--duration:50s]">
               {secondRow.map((company) => (
                 <CompanyCard key={`${company.name}-2`} company={company} />
               ))}
@@ -209,23 +203,6 @@ export function SocialProofNew() {
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white dark:from-neutral-950"></div>
           <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white dark:from-neutral-950"></div>
         </div>
-
-        {/* Training Text Below Marquee */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-2xl font-bold text-neutral-700 dark:text-neutral-300 md:text-3xl lg:text-4xl">
-            Plus trained{" "}
-            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent dark:from-purple-400 dark:via-pink-400 dark:to-orange-400">
-              200+ developers
-            </span>{" "}
-            across these platforms
-          </p>
-        </motion.div>
       </motion.div>
     </section>
   )

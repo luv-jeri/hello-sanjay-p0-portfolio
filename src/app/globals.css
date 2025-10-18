@@ -395,7 +395,6 @@ html {
   /* Optimize heavy animations on mobile */
   @media (max-width: 768px) {
     .animate-gradient,
-    .animate-marquee,
     .animate-orbit,
     .animate-float {
       animation-play-state: paused;
