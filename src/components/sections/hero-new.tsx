@@ -1,11 +1,10 @@
 "use client"
 
 import { motion, useReducedMotion } from "framer-motion"
-import { ArrowRight, Calendar, Download, Sparkles } from "lucide-react"
+import { ArrowRight, Calendar, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { TextShimmer } from "@/components/ui/text-shimmer"
-import { Particles } from "@/components/ui/particles"
-import { GridPattern } from "@/components/ui/grid-pattern"
+import { RetroGrid } from "@/components/ui/retro-grid"
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text"
 import { TerminalHint } from "@/components/terminal"
@@ -48,58 +47,20 @@ export function HeroNew() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-20 md:pt-24">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+    <section className="relative min-h-screen overflow-hidden bg-background pt-20 md:pt-24">
+      {/* Retro Grid Background */}
+      <RetroGrid
+        className={cn(
+          "absolute inset-0 z-0 opacity-70",
+          shouldReduceMotion && "[&>div]:!animate-none opacity-40"
+        )}
+      />
 
-      {/* Grid Pattern */}
-      {!shouldReduceMotion && (
-        <GridPattern
-          className="absolute inset-0 opacity-40"
-          squares={[
-            [0, 1],
-            [1, 3],
-            [3, 0],
-            [5, 2],
-            [7, 4],
-            [10, 1],
-          ]}
-        />
-      )}
-
-      {/* Particles */}
-      {!shouldReduceMotion && <Particles className="absolute inset-0 opacity-30" quantity={80} ease={30} />}
-
-      {/* Gradient Orbs */}
-      {!shouldReduceMotion && (
-        <>
-          <motion.div
-            className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute right-1/4 top-1/3 h-96 w-96 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-3xl"
-            animate={{
-              scale: [1.2, 1, 1.2],
-              opacity: [0.5, 0.3, 0.5],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-          />
-        </>
-      )}
+      {/* Subtle radial gradient overlay for text contrast */}
+      <div
+        className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_40%,transparent_0%,hsl(var(--background)/0.8)_100%)]"
+        aria-hidden="true"
+      />
 
       {/* Content */}
       <div className="container relative z-10 mx-auto flex min-h-screen items-center px-4 py-20">

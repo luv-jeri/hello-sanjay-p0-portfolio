@@ -1,6 +1,6 @@
 import { HeroNew } from "@/components/sections/hero-new"
 import { SocialProofNew } from "@/components/sections/social-proof-new"
-import { ServicesNew } from "@/components/sections/services-new"
+import { ShowcaseNew } from "@/components/sections/showcase-new"
 import { ProjectsNew } from "@/components/sections/projects-new"
 import { ValuePropsNew } from "@/components/sections/value-props-new"
 import { CTANew } from "@/components/sections/cta-new"
@@ -15,7 +15,7 @@ export default function Home() {
 
       <HeroNew />
       <SocialProofNew />
-      <ServicesNew />
+      <ShowcaseNew />
       <ProjectsNew />
       <ValuePropsNew />
       <CTANew />

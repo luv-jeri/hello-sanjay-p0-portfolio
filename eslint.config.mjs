@@ -28,6 +28,15 @@ const eslintConfig = [
       },
     },
     rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
+      "react/jsx-no-useless-fragment": ["warn", { allowExpressions: true }],
       "local-rules/no-hardcoded-strings": [
         "error",
         {

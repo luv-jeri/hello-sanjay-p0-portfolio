@@ -1,227 +1,232 @@
 "use client"
 
 import { motion, useReducedMotion } from "framer-motion"
-import { Sparkles, GraduationCap, Rocket, Heart } from "lucide-react"
-import { copy } from "@/content/copy"
-import { Marquee } from "@/components/ui/marquee"
 import { NumberTicker } from "@/components/ui/number-ticker"
-import Image from "next/image"
-import { cn } from "@/lib/utils"
+import { Marquee } from "@/components/ui/marquee"
+import { DotPattern } from "@/components/ui/dot-pattern"
 
-const companies = [
-  { name: "HighLevel", logo: "/company_logo/goHighLevel.webp" },
-  { name: "ReNew Power", logo: "/company_logo/ReNew.svg" },
-  { name: "Haspr", logo: "/company_logo/haspr logo.svg" },
-  { name: "Let's Upgrade", logo: "/company_logo/lets upgrade.png" },
-  { name: "Newton School", logo: "/company_logo/newton.avif" },
-  { name: "Coding Ninjas", logo: "/company_logo/conding ninjas.svg" },
-  { name: "Zealie", logo: "/company_logo/zealie_logo.webp" },
+const companies: Array<{
+  name: string
+  role: string
+  period: string
+  logo: string
+}> = [
+  { name: "HighLevel", role: "SDE 3 Developer", period: "2024–Present", logo: "/company_logo/goHighLevel.webp" },
+  { name: "ReNew Power", role: "Lead Frontend Developer", period: "2023–2024", logo: "/company_logo/ReNew.svg" },
+  { name: "Haspr", role: "Senior Developer Fullstack", period: "2018–2022", logo: "/company_logo/haspr logo.svg" },
+  { name: "Newton School", role: "MERN Stack Instructor", period: "2022–2023", logo: "/company_logo/newton.avif" },
+  { name: "Coding Ninjas", role: "Teaching Assistant", period: "2021–2022", logo: "/company_logo/conding ninjas.svg" },
+  { name: "Let's Upgrade", role: "Technical Trainer", period: "2020–2021", logo: "/company_logo/lets upgrade.png" },
+  { name: "Zealie", role: "Frontend Developer", period: "2019–2020", logo: "/company_logo/zealie_logo.webp" },
 ]
 
-const stats = [
-  {
-    icon: Sparkles,
-    value: 7,
-    suffix: "+",
-    label: "Years Experience",
-    description: "Building scalable products",
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    icon: GraduationCap,
-    value: 200,
-    suffix: "+",
-    label: "Developers Trained",
-    description: "MERN/MEAN stacks",
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    icon: Rocket,
-    value: 25,
-    suffix: "+",
-    label: "Projects Delivered",
-    description: "From MVP to production",
-    color: "from-orange-500 to-red-500",
-  },
-  {
-    icon: Heart,
-    value: 100,
-    suffix: "%",
-    label: "Client Satisfaction",
-    description: "Quality first approach",
-    color: "from-green-500 to-emerald-500",
-  },
-]
+// Split companies into two rows for dual marquee effect
+const firstRow = companies.slice(0, 4)
+const secondRow = companies.slice(4)
+
+const CompanyCard = ({ company }: { company: typeof companies[0] }) => {
+  return (
+    <div className="group relative mx-4 flex items-center gap-6 rounded-2xl border border-neutral-200/50 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all hover:shadow-xl dark:border-neutral-800/50 dark:bg-neutral-900/80 md:mx-6 md:gap-8 md:p-8">
+      {/* Subtle gradient glow on hover */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+
+      {/* Logo */}
+      <div className="relative flex h-16 w-32 shrink-0 items-center justify-center rounded-xl bg-white p-3 shadow-sm dark:bg-white md:h-20 md:w-40 md:p-4">
+        <img
+          src={company.logo}
+          alt={company.name}
+          className="h-full w-full object-contain transition-transform group-hover:scale-110"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative flex flex-col">
+        <span className="whitespace-nowrap text-3xl font-black tracking-tight text-neutral-900 dark:text-neutral-50 md:text-4xl lg:text-5xl">
+          {company.name}
+        </span>
+        <span className="mt-1 whitespace-nowrap text-lg font-semibold text-neutral-600 dark:text-neutral-400 md:text-xl lg:text-2xl">
+          {company.role}
+        </span>
+        <span className="mt-0.5 whitespace-nowrap text-sm font-medium text-neutral-500 dark:text-neutral-500 md:text-base lg:text-lg">
+          {company.period}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 export function SocialProofNew() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden border-y border-foreground/10 bg-muted/30 py-20">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/5 to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
+    <section className="relative overflow-hidden border-y border-neutral-200/50 bg-white py-16 dark:border-neutral-800/50 dark:bg-neutral-950 md:py-24">
+      {/* Dot Pattern Background */}
+      <DotPattern
+        width={20}
+        height={20}
+        cx={1}
+        cy={1}
+        cr={1}
+        className="opacity-30 [mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
+      />
 
-      <div className="container relative z-10 mx-auto px-4">
-        {/* Section Header */}
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
+          transition={{ duration: 0.8 }}
+          className="mx-auto max-w-6xl space-y-12 text-center md:space-y-16"
         >
-          <h2 className="mb-3 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            {copy.socialProof.heading}
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Building products that scale, training developers who deliver
-          </p>
-        </motion.div>
 
-        {/* Company Logos Marquee */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-16"
-        >
-          <Marquee pauseOnHover className="[--duration:40s]">
-            {companies.map((company, idx) => (
-              <div
-                key={`${company.name}-${idx}`}
-                className="group relative mx-8 flex h-24 w-44 items-center justify-center rounded-xl border border-foreground/10 bg-background/50 p-4 backdrop-blur-sm transition-all duration-300 hover:border-foreground/30 hover:bg-background/80 hover:shadow-lg"
-              >
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-20" />
-
-                <div className="relative flex h-full w-full items-center justify-center">
-                  {company.logo.endsWith('.svg') ||
-                   company.logo.endsWith('.webp') ||
-                   company.logo.endsWith('.png') ||
-                   company.logo.endsWith('.avif') ? (
-                    <Image
-                      src={company.logo}
-                      alt={company.name}
-                      width={140}
-                      height={70}
-                      className="max-h-14 w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
-                    />
-                  ) : (
-                    <span className="text-lg font-semibold text-foreground/40 transition-colors duration-300 group-hover:text-foreground/70">
-                      {company.name}
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </Marquee>
-        </motion.div>
-
-        {/* Animated Stats Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8"
-        >
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon
-            return (
+          {/* Main Stats - Giant Numbers */}
+          <div>
+            <div className="mb-8 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 md:gap-x-12">
               <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.5 + idx * 0.1,
-                  ease: "easeOut"
-                }}
-                whileHover={{
-                  scale: 1.02,
-                  transition: { duration: 0.2 }
-                }}
-                className={cn(
-                  "group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300",
-                  "hover:border-primary/50 hover:shadow-md"
-                )}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                {/* Background Gradient on Hover */}
-                <div className={cn(
-                  "absolute inset-0 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-10",
-                  `bg-gradient-to-br ${stat.color}`
-                )} />
-
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <div className="mb-4 flex justify-center">
-                    <div className={cn(
-                      "rounded-xl bg-gradient-to-br p-3",
-                      stat.color
-                    )}>
-                      <Icon className="h-6 w-6 text-white" />
-                    </div>
-                  </div>
-
-                  {/* Number */}
-                  <div className="mb-2 text-center">
-                    <div className="flex items-baseline justify-center">
-                      <NumberTicker
-                        value={stat.value}
-                        direction="up"
-                        delay={0.5 + idx * 0.1}
-                        className={cn(
-                          "bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent md:text-5xl",
-                          stat.color
-                        )}
-                      />
-                      <span className={cn(
-                        "ml-1 bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent md:text-4xl",
-                        stat.color
-                      )}>
-                        {stat.suffix}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Label */}
-                  <p className="mb-1 text-center text-sm font-semibold text-foreground">
-                    {stat.label}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-center text-xs text-muted-foreground">
-                    {stat.description}
-                  </p>
+                <div className="mb-2 flex items-baseline justify-center">
+                  <NumberTicker
+                    value={7}
+                    direction="up"
+                    delay={0.3}
+                    className="text-6xl font-bold text-neutral-900 dark:text-neutral-50 md:text-7xl lg:text-8xl"
+                  />
+                  <span className="ml-1 text-5xl font-bold text-neutral-900 dark:text-neutral-50 md:text-6xl lg:text-7xl">
+                    +
+                  </span>
                 </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
+                  Years
+                </p>
               </motion.div>
-            )
-          })}
-        </motion.div>
 
-        {/* Optional: Call to Action */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-sm text-muted-foreground">
-            Want to work together?{" "}
-            <a
-              href="/contact"
-              className="font-semibold text-primary hover:underline"
-            >
-              Let's connect
-            </a>
-          </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="mb-2 flex items-baseline justify-center">
+                  <NumberTicker
+                    value={200}
+                    direction="up"
+                    delay={0.4}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-6xl font-bold text-transparent dark:from-purple-400 dark:to-pink-400 md:text-7xl lg:text-8xl"
+                  />
+                  <span className="ml-1 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-5xl font-bold text-transparent dark:from-purple-400 dark:to-pink-400 md:text-6xl lg:text-7xl">
+                    +
+                  </span>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
+                  Developers
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <div className="mb-2 flex items-baseline justify-center">
+                  <NumberTicker
+                    value={25}
+                    direction="up"
+                    delay={0.5}
+                    className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-6xl font-bold text-transparent dark:from-orange-400 dark:to-red-400 md:text-7xl lg:text-8xl"
+                  />
+                  <span className="ml-1 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-5xl font-bold text-transparent dark:from-orange-400 dark:to-red-400 md:text-6xl lg:text-7xl">
+                    +
+                  </span>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
+                  Projects
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <div className="mb-2 flex items-baseline justify-center">
+                  <NumberTicker
+                    value={200}
+                    direction="up"
+                    delay={0.6}
+                    className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-6xl font-bold text-transparent dark:from-green-400 dark:to-emerald-400 md:text-7xl lg:text-8xl"
+                  />
+                  <span className="ml-1 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-5xl font-bold text-transparent dark:from-green-400 dark:to-emerald-400 md:text-6xl lg:text-7xl">
+                    K+
+                  </span>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
+                  Daily Users
+                </p>
+              </motion.div>
+            </div>
+          </div>
+
         </motion.div>
       </div>
+
+      {/* Dual Marquee - Companies with 3D Effect */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.7 }}
+        className="relative mt-12 md:mt-16"
+      >
+        <div className="relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden [perspective:1000px]">
+          <div
+            className="flex w-full flex-col gap-4"
+            style={{
+              transform: "rotateX(10deg) rotateY(0deg) rotateZ(0deg)",
+            }}
+          >
+            {/* First Row - Forward */}
+            <Marquee pauseOnHover className="[--duration:60s]">
+              {firstRow.map((company) => (
+                <CompanyCard key={`${company.name}-1`} company={company} />
+              ))}
+            </Marquee>
+
+            {/* Second Row - Reverse */}
+            <Marquee reverse pauseOnHover className="[--duration:50s]">
+              {secondRow.map((company) => (
+                <CompanyCard key={`${company.name}-2`} company={company} />
+              ))}
+            </Marquee>
+          </div>
+
+          {/* Gradient Fades */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white dark:from-neutral-950"></div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white dark:from-neutral-950"></div>
+        </div>
+
+        {/* Training Text Below Marquee */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-2xl font-bold text-neutral-700 dark:text-neutral-300 md:text-3xl lg:text-4xl">
+            Plus trained{" "}
+            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent dark:from-purple-400 dark:via-pink-400 dark:to-orange-400">
+              200+ developers
+            </span>{" "}
+            across these platforms
+          </p>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
