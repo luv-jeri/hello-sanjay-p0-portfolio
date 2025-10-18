@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { NumberTicker } from "@/components/ui/number-ticker"
 import { Marquee } from "@/components/ui/marquee"
 import { DotPattern } from "@/components/ui/dot-pattern"
+import { Award, GraduationCap, Rocket, TrendingUp } from "lucide-react"
 
 const companies: Array<{
   name: string
@@ -56,16 +57,9 @@ export function SocialProofNew() {
   // const _shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden border-y border-neutral-200/50 bg-white py-16 dark:border-neutral-800/50 dark:bg-neutral-950 md:py-24">
+    <section className="relative overflow-hidden bg-white pb-32 pt-8 dark:bg-neutral-950 md:pb-48 md:pt-12 overflow-visible">
       {/* Dot Pattern Background */}
-      <DotPattern
-        width={20}
-        height={20}
-        cx={1}
-        cy={1}
-        cr={1}
-        className="opacity-30 [mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
-      />
+
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <motion.div
@@ -73,98 +67,222 @@ export function SocialProofNew() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mx-auto max-w-6xl space-y-12 text-center md:space-y-16"
+          className="mx-auto max-w-6xl space-y-20 text-center md:space-y-48"
         >
 
-          {/* Main Stats - Giant Numbers */}
+          {/* Main Stats - Refined Design */}
           <div>
-            <div className="mb-8 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 md:gap-x-12">
+            <div className="mb-20 grid grid-cols-1 gap-y-40 sm:grid-cols-2 sm:gap-x-20 sm:gap-y-32 md:grid-cols-4 md:gap-x-28 md:gap-y-0">
+              {/* Years Experience */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative text-center"
               >
-                <div className="mb-2 flex items-baseline justify-center">
-                  <NumberTicker
-                    value={7}
-                    direction="up"
-                    delay={0.3}
-                    className="text-6xl font-bold text-neutral-900 dark:text-neutral-50 md:text-7xl lg:text-8xl"
-                  />
-                  <span className="ml-1 text-5xl font-bold text-neutral-900 dark:text-neutral-50 md:text-6xl lg:text-7xl">
-                    +
-                  </span>
+                {/* Number */}
+                <div className="relative mb-6 px-8 py-4 sm:px-10 sm:py-6 md:px-12 md:py-8">
+                  {/* Animated Glow */}
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2 blur-[60px] sm:h-40 sm:w-40 md:h-48 md:w-48"
+                    animate={{
+                      opacity: [0.4, 0.7, 0.4],
+                      scale: [0.9, 1.2, 0.9],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <div className="h-full w-full rounded-full bg-neutral-400/70 dark:bg-white/20" />
+                  </motion.div>
+
+                  <div className="relative flex items-baseline justify-center gap-1.5">
+                    <NumberTicker
+                      value={7}
+                      direction="up"
+                      delay={0.4}
+                      className="tabular-nums text-6xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-7xl md:text-8xl"
+                    />
+                    <span className="text-4xl font-semibold text-blue-600 dark:text-blue-400 sm:text-5xl md:text-6xl">
+                      +
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
-                  Years
+
+                {/* Label */}
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300 sm:text-base">
+                  Years Experience
+                </h3>
+
+                {/* Description */}
+                <p className="mx-auto max-w-[180px] text-xs leading-relaxed text-neutral-500 dark:text-neutral-500 sm:text-sm">
+                  Full-stack development across industries
                 </p>
+
+                {/* Subtle Accent Line */}
+                <div className="mx-auto mt-6 h-px w-12 bg-gradient-to-r from-transparent via-blue-600 to-transparent dark:via-blue-400" />
               </motion.div>
 
+              {/* Developers Trained */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative text-center"
               >
-                <div className="mb-2 flex items-baseline justify-center">
-                  <NumberTicker
-                    value={200}
-                    direction="up"
-                    delay={0.4}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-6xl font-bold text-transparent dark:from-purple-400 dark:to-pink-400 md:text-7xl lg:text-8xl"
-                  />
-                  <span className="ml-1 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-5xl font-bold text-transparent dark:from-purple-400 dark:to-pink-400 md:text-6xl lg:text-7xl">
-                    +
-                  </span>
+                {/* Number */}
+                <div className="relative mb-6 px-8 py-4 sm:px-10 sm:py-6 md:px-12 md:py-8">
+                  {/* Animated Glow */}
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2 blur-[60px] sm:h-40 sm:w-40 md:h-48 md:w-48"
+                    animate={{
+                      opacity: [0.4, 0.7, 0.4],
+                      scale: [0.9, 1.2, 0.9],
+                    }}
+                    transition={{
+                      duration: 3.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <div className="h-full w-full rounded-full bg-neutral-400/70 dark:bg-white/20" />
+                  </motion.div>
+
+                  <div className="relative flex items-baseline justify-center gap-1.5">
+                    <NumberTicker
+                      value={20}
+                      direction="up"
+                      delay={0.5}
+                      className="tabular-nums text-6xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-7xl md:text-8xl"
+                    />
+                    <span className="text-4xl font-semibold text-blue-600 dark:text-blue-400 sm:text-5xl md:text-6xl">
+                      K+
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
-                  Developers
+
+                {/* Label */}
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300 sm:text-base">
+                  Developers Trained
+                </h3>
+
+                {/* Description */}
+                <p className="mx-auto max-w-[180px] text-xs leading-relaxed text-neutral-500 dark:text-neutral-500 sm:text-sm">
+                  Mentored in MERN, MEAN & Vue stacks
                 </p>
+
+                {/* Subtle Accent Line */}
+                <div className="mx-auto mt-6 h-px w-12 bg-gradient-to-r from-transparent via-blue-600 to-transparent dark:via-blue-400" />
               </motion.div>
 
+              {/* Projects Delivered */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative text-center"
               >
-                <div className="mb-2 flex items-baseline justify-center">
-                  <NumberTicker
-                    value={25}
-                    direction="up"
-                    delay={0.5}
-                    className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-6xl font-bold text-transparent dark:from-orange-400 dark:to-red-400 md:text-7xl lg:text-8xl"
-                  />
-                  <span className="ml-1 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-5xl font-bold text-transparent dark:from-orange-400 dark:to-red-400 md:text-6xl lg:text-7xl">
-                    +
-                  </span>
+                {/* Number */}
+                <div className="relative mb-6 px-8 py-4 sm:px-10 sm:py-6 md:px-12 md:py-8">
+                  {/* Animated Glow */}
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2 blur-[60px] sm:h-40 sm:w-40 md:h-48 md:w-48"
+                    animate={{
+                      opacity: [0.4, 0.7, 0.4],
+                      scale: [0.9, 1.2, 0.9],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <div className="h-full w-full rounded-full bg-neutral-400/70 dark:bg-white/20" />
+                  </motion.div>
+
+                  <div className="relative flex items-baseline justify-center gap-1.5">
+                    <NumberTicker
+                      value={25}
+                      direction="up"
+                      delay={0.6}
+                      className="tabular-nums text-6xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-7xl md:text-8xl"
+                    />
+                    <span className="text-4xl font-semibold text-blue-600 dark:text-blue-400 sm:text-5xl md:text-6xl">
+                      +
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
-                  Projects
+
+                {/* Label */}
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300 sm:text-base">
+                  Projects Delivered
+                </h3>
+
+                {/* Description */}
+                <p className="mx-auto max-w-[180px] text-xs leading-relaxed text-neutral-500 dark:text-neutral-500 sm:text-sm">
+                  From MVPs to enterprise platforms
                 </p>
+
+                {/* Subtle Accent Line */}
+                <div className="mx-auto mt-6 h-px w-12 bg-gradient-to-r from-transparent via-blue-600 to-transparent dark:via-blue-400" />
               </motion.div>
 
+              {/* Daily Active Users */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative text-center"
               >
-                <div className="mb-2 flex items-baseline justify-center">
-                  <NumberTicker
-                    value={200}
-                    direction="up"
-                    delay={0.6}
-                    className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-6xl font-bold text-transparent dark:from-green-400 dark:to-emerald-400 md:text-7xl lg:text-8xl"
-                  />
-                  <span className="ml-1 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-5xl font-bold text-transparent dark:from-green-400 dark:to-emerald-400 md:text-6xl lg:text-7xl">
-                    K+
-                  </span>
+                {/* Number */}
+                <div className="relative mb-6 px-8 py-4 sm:px-10 sm:py-6 md:px-12 md:py-8">
+                  {/* Animated Glow */}
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2 blur-[60px] sm:h-40 sm:w-40 md:h-48 md:w-48"
+                    animate={{
+                      opacity: [0.4, 0.7, 0.4],
+                      scale: [0.9, 1.2, 0.9],
+                    }}
+                    transition={{
+                      duration: 4.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <div className="h-full w-full rounded-full bg-neutral-400/70 dark:bg-white/20" />
+                  </motion.div>
+
+                  <div className="relative flex items-baseline justify-center gap-1.5">
+                    <NumberTicker
+                      value={200}
+                      direction="up"
+                      delay={0.7}
+                      className="tabular-nums text-6xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-7xl md:text-8xl"
+                    />
+                    <span className="text-4xl font-semibold text-blue-600 dark:text-blue-400 sm:text-5xl md:text-6xl">
+                      K+
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600 dark:text-neutral-400 md:text-sm">
-                  Daily Users
+
+                {/* Label */}
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300 sm:text-base">
+                  Daily Active Users
+                </h3>
+
+                {/* Description */}
+                <p className="mx-auto max-w-[180px] text-xs leading-relaxed text-neutral-500 dark:text-neutral-500 sm:text-sm">
+                  Across production applications
                 </p>
+
+                {/* Subtle Accent Line */}
+                <div className="mx-auto mt-6 h-px w-12 bg-gradient-to-r from-transparent via-blue-600 to-transparent dark:via-blue-400" />
               </motion.div>
             </div>
           </div>
@@ -178,7 +296,7 @@ export function SocialProofNew() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.7 }}
-        className="relative mt-12 md:mt-16"
+        className="relative mt-24 md:mt-32"
       >
         <div className="relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden [perspective:1000px]">
           <div
