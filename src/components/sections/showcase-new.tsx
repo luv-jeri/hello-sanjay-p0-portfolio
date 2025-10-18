@@ -7,9 +7,6 @@ import {
   Smartphone,
   Sparkles,
   GraduationCap,
-  ExternalLink,
-  ArrowRight,
-  Play,
 } from "lucide-react";
 import { ShowcaseBento } from "@/components/ui/showcase-bento";
 import { ShowcaseCard } from "@/components/ui/showcase-card";
@@ -39,8 +36,6 @@ export function ShowcaseNew() {
       <RetroGrid
         className="absolute inset-0 opacity-[0.15]"
         angle={65}
-        cellSize={60}
-        opacity={0.3}
       />
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">

@@ -6,7 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { copy } from "@/content/copy"
-import { cn } from "@/lib/utils"
+// import { cn } from "@/lib/utils"
 
 const container = {
   hidden: { opacity: 0 },

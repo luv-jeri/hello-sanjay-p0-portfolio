@@ -204,6 +204,8 @@ type FolderProps = {
   element: string
   isSelectable?: boolean
   isSelect?: boolean
+  openIcon?: React.ReactNode
+  closeIcon?: React.ReactNode
 } & React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 
 const Folder = forwardRef<
@@ -223,7 +225,7 @@ const Folder = forwardRef<
       closeIcon: _closeIcon,
       ...props
     },
-    ref
+    _ref
   ) => {
     const {
       direction,
@@ -231,8 +233,8 @@ const Folder = forwardRef<
       expandedItems,
       indicator,
       setExpandedItems,
-      openIcon,
-      closeIcon,
+      openIcon: _treeOpenIcon,
+      closeIcon: _treeCloseIcon,
     } = useTree()
 
     return (
@@ -255,8 +257,8 @@ const Folder = forwardRef<
           onClick={() => handleExpand(value)}
         >
           {expandedItems?.includes(value)
-            ? (openIcon ?? <FolderOpenIcon className="size-4" />)
-            : (closeIcon ?? <FolderIcon className="size-4" />)}
+            ? (_treeOpenIcon ?? <FolderOpenIcon className="size-4" />)
+            : (_treeCloseIcon ?? <FolderIcon className="size-4" />)}
           <span>{element}</span>
         </AccordionPrimitive.Trigger>
         <AccordionPrimitive.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down relative h-full overflow-hidden text-sm">

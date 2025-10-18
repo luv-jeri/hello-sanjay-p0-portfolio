@@ -36,7 +36,7 @@ export async function GET(_request: Request, { params }: Params) {
       // Process markdown with custom code block handling
       const processedContent = content.replace(
         /```(\w+)?\s*(?:filename=["']?([^"'\n]+)["']?)?\s*\n([\s\S]*?)```/g,
-        (match, lang, filename, code) => {
+        (_match, lang, filename, code) => {
           const language = lang || 'text';
           const filenameProp = filename ? `filename="${filename}"` : '';
 

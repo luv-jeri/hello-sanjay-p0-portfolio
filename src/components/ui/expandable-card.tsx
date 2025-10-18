@@ -189,8 +189,6 @@ export function ExpandableCardContent({
   children: React.ReactNode
   className?: string
 }) {
-  const { active } = useContext(ExpandableCardContext)
-
   return (
     <motion.div layout className={cn("p-6", className)}>
       {children}

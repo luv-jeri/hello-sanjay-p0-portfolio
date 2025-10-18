@@ -551,7 +551,7 @@ export const TerminalOverlay: React.FC<TerminalOverlayProps> = ({
 
         {/* Terminal */}
         <Terminal
-          ref={terminalRef}
+          ref={terminalRef as any}
           className="h-[min(70vh,600px)] rounded-none border-0"
           prompt="$"
           welcomeMessage={

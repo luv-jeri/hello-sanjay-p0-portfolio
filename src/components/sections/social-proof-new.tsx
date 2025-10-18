@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { motion } from "framer-motion"
 import { NumberTicker } from "@/components/ui/number-ticker"
 import { Marquee } from "@/components/ui/marquee"
 import { DotPattern } from "@/components/ui/dot-pattern"
@@ -56,7 +56,7 @@ const CompanyCard = ({ company }: { company: typeof companies[0] }) => {
 }
 
 export function SocialProofNew() {
-  const shouldReduceMotion = useReducedMotion()
+  // const _shouldReduceMotion = useReducedMotion()
 
   return (
     <section className="relative overflow-hidden border-y border-neutral-200/50 bg-white py-16 dark:border-neutral-800/50 dark:bg-neutral-950 md:py-24">

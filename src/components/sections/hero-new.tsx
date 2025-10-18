@@ -34,14 +34,14 @@ const item = {
   },
 }
 
-const floatingAnimation = {
-  y: [0, -20, 0],
-  transition: {
-    duration: 3,
-    repeat: Infinity,
-    ease: "easeInOut" as any,
-  },
-}
+// const floatingAnimation = {
+//   y: [0, -20, 0],
+//   transition: {
+//     duration: 3,
+//     repeat: Infinity,
+//     ease: "easeInOut" as any,
+//   },
+// }
 
 export function HeroNew() {
   const shouldReduceMotion = useReducedMotion()

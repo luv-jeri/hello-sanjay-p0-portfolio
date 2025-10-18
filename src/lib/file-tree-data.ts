@@ -1,5 +1,5 @@
 import { FileTreeNode } from "@/types/file-tree"
-import { projects, getFeaturedProjects } from "@/content/projects"
+import { getFeaturedProjects } from "@/content/projects"
 
 // ============================================================================
 // PROJECTS FILE TREE DATA

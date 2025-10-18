@@ -135,7 +135,7 @@ const SkillPreview: React.FC<{ category: string; skillName: string }> = ({
   category,
   skillName,
 }) => {
-  const categorySkills = SKILLS[category as keyof typeof SKILLS] || []
+  const categorySkills = (SKILLS as unknown as Record<string, string[]>)[category] || []
   const hasSkill = categorySkills.includes(skillName)
 
   return (

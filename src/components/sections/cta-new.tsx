@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion"
 import { Calendar, Mail, ArrowRight, FileText } from "lucide-react"
 import { copy } from "@/content/copy"
 import { RetroGrid } from "@/components/ui/retro-grid"
-import { cn } from "@/lib/utils"
 
 export function CTANew() {
   const shouldReduceMotion = useReducedMotion()
@@ -15,9 +14,6 @@ export function CTANew() {
       <RetroGrid
         className="absolute inset-0"
         angle={65}
-        cellSize={60}
-        opacity={0.2}
-        darkLineColor="#3b82f6"
       />
 
       {/* Animated Gradient Orbs */}
