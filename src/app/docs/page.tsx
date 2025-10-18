@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { BlurFade } from '@/components/ui/blur-fade';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -17,9 +18,11 @@ import {
   FolderOpen,
   Search,
   X,
+  Type,
+  Sparkles,
 } from 'lucide-react';
 
-type DocCategory = 'all' | 'homepage' | 'terminal' | 'file-tree' | 'about' | 'other';
+type DocCategory = 'all' | 'homepage' | 'terminal' | 'file-tree' | 'about' | 'typography' | 'customizer' | 'other';
 
 type DocItem = {
   title: string;
@@ -168,11 +171,94 @@ const docs: DocItem[] = [
     category: 'other',
     icon: Code2,
   },
+  // Typography Documentation
+  {
+    title: 'Typography Quick Start',
+    fileName: 'TYPOGRAPHY_QUICK_START.md',
+    description: 'Quick start guide for the typography system',
+    category: 'typography',
+    icon: Type,
+    featured: true,
+  },
+  {
+    title: 'Typography System',
+    fileName: 'TYPOGRAPHY_SYSTEM.md',
+    description: 'Complete typography system documentation and architecture',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Audit & Fix',
+    fileName: 'TYPOGRAPHY_AUDIT_AND_FIX.md',
+    description: 'Detailed audit report of font issues and fixes applied',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Fix & Enhancement',
+    fileName: 'TYPOGRAPHY_FIX_AND_ENHANCEMENT.md',
+    description: 'Bug fixes and enhancements to the typography system',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Migration Guide',
+    fileName: 'TYPOGRAPHY_MIGRATION_GUIDE.md',
+    description: 'Guide for migrating to the new typography system',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Visual Test Guide',
+    fileName: 'TYPOGRAPHY_VISUAL_TEST_GUIDE.md',
+    description: 'Visual testing checklist for typography features',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Hooks Fix',
+    fileName: 'TYPOGRAPHY_HOOKS_FIX.md',
+    description: 'React Hooks compliance fix documentation',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Complete Summary',
+    fileName: 'TYPOGRAPHY_COMPLETE.md',
+    description: 'Complete summary of typography implementation',
+    category: 'typography',
+    icon: Type,
+  },
+  {
+    title: 'Typography Fix Complete',
+    fileName: 'TYPOGRAPHY_FIX_COMPLETE.md',
+    description: 'Final summary of all typography fixes',
+    category: 'typography',
+    icon: Type,
+  },
+  // Customizer Documentation
+  {
+    title: 'Customizer Dock Implementation',
+    fileName: 'CUSTOMIZER_DOCK_IMPLEMENTATION.md',
+    description: 'Complete guide to the customization dock system',
+    category: 'customizer',
+    icon: Sparkles,
+    featured: true,
+  },
+  {
+    title: 'Customizer Dock Complete',
+    fileName: 'CUSTOMIZER_DOCK_COMPLETE.md',
+    description: 'Summary of customizer dock features and implementation',
+    category: 'customizer',
+    icon: Sparkles,
+  },
 ];
 
 const categories = [
   { id: 'all' as DocCategory, label: 'All Docs', icon: FolderOpen },
   { id: 'homepage' as DocCategory, label: 'Homepage', icon: Home },
+  { id: 'typography' as DocCategory, label: 'Typography', icon: Type },
+  { id: 'customizer' as DocCategory, label: 'Customizer', icon: Sparkles },
   { id: 'terminal' as DocCategory, label: 'Terminal', icon: Terminal },
   { id: 'file-tree' as DocCategory, label: 'File Tree', icon: FolderTree },
   { id: 'about' as DocCategory, label: 'About Page', icon: Info },
@@ -281,15 +367,14 @@ export default function DocsPage() {
                             <p className="text-sm text-muted-foreground mb-4">
                               {doc.description}
                             </p>
-                            <Button
-                              variant="link"
-                              className="p-0 h-auto"
-                              onClick={() =>
-                                window.open(`/docs/${doc.fileName}`, '_blank')
-                              }
-                            >
-                              Read Guide →
-                            </Button>
+                            <Link href={`/docs/${doc.fileName}`}>
+                              <Button
+                                variant="link"
+                                className="p-0 h-auto"
+                              >
+                                Read Guide →
+                              </Button>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -346,14 +431,15 @@ export default function DocsPage() {
                           <Badge variant="outline" className="text-xs">
                             {doc.fileName}
                           </Badge>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-auto py-1 px-2 text-xs"
-                            onClick={() => window.open(`/docs/${doc.fileName}`, '_blank')}
-                          >
-                            View
-                          </Button>
+                          <Link href={`/docs/${doc.fileName}`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-auto py-1 px-2 text-xs"
+                            >
+                              View
+                            </Button>
+                          </Link>
                         </div>
                       </div>
                     </div>

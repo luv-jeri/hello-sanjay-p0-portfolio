@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles, Terminal, Type, Palette, Cat, Volume2 } from "lucide-react";
-import { FontModule } from "./FontModule";
-import { ColorModule } from "./ColorModule";
-import { CatModule } from "./CatModule";
-import { SoundModule } from "./SoundModule";
+import { FontModule } from "@/components/customizer/FontModule";
+import { ColorModule } from "@/components/customizer/ColorModule";
+import { CatModule } from "@/components/customizer/CatModule";
+import { SoundModule } from "@/components/customizer/SoundModule";
 import { TerminalModule } from "./TerminalModule";
 
 // Module configuration
