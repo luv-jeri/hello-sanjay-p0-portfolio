@@ -699,6 +699,5 @@ mb-8
 
 ---
 
-**Last Updated**: October 18, 2025  
+**Last Updated**: October 18, 2025
 **Version**: 2.0 (Editorial Redesign)
-

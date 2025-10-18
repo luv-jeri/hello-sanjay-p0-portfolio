@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { ProgressiveBlur } from "@/components/ui/progressive-blur"
+import { PageHeader } from "@/components/ui/page-header"
 import { copy } from "@/content/copy"
 import { MapPin, Calendar, Award } from "lucide-react"
 import { CTANew } from "@/components/sections/cta-new"
@@ -268,51 +269,12 @@ export default function ExperiencePage() {
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           {/* Hero Section */}
-          <BlurFade delay={0.1} inView>
-            <section className="py-16 md:py-24 lg:py-32">
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-                className="space-y-8"
-              >
-                {/* Overline */}
-                <motion.div variants={fadeInUp} custom={0}>
-                  <div className="inline-flex items-center gap-3 rounded-full border border-border/50 bg-card/50 px-4 py-2 backdrop-blur-sm">
-                    <div className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
-                    </div>
-                    <span className="text-sm font-medium text-foreground/80">
-                      Professional Journey
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Main Heading */}
-                <motion.div className="space-y-4">
-                  <motion.h1
-                    variants={fadeInUp}
-                    custom={1}
-                    className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-                  >
-                    <span className="block bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                      Experience<span className="text-red-500">.</span>
-                    </span>
-                  </motion.h1>
-
-                  <motion.p
-                    variants={fadeInUp}
-                    custom={1.5}
-                    className="max-w-3xl text-xl text-muted-foreground md:text-2xl"
-                  >
-                    A decade of engineering leadership, innovation, and craftsmanship —
-                    building solutions that scale beautifully.
-                  </motion.p>
-                </motion.div>
-              </motion.div>
-            </section>
-          </BlurFade>
+          <PageHeader
+            overline="Professional Journey"
+            animated
+            title="Experience"
+            description="A decade of engineering leadership, innovation, and craftsmanship — building solutions that scale beautifully."
+          />
 
           {/* Timeline Section */}
           <BlurFade delay={0.3} inView>

@@ -148,7 +148,7 @@ The page now follows a predictable, narrative flow:
 <section className="relative py-20 md:py-28 overflow-hidden">
   {/* Subtle gradient background */}
   <div className="absolute inset-0 bg-gradient-to-br from-green-50/50..." />
-  
+
   <div className="container relative mx-auto max-w-4xl px-6">
     {/* Numbered list with green badges */}
   </div>
@@ -477,6 +477,5 @@ The result is a **sophisticated, professional case study** that lets the content
 
 ---
 
-**Last Updated**: October 18, 2025  
+**Last Updated**: October 18, 2025
 **Version**: 2.0 (Editorial Redesign)
-

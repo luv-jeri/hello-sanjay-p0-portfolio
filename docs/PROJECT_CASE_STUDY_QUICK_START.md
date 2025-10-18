@@ -68,38 +68,38 @@ Next.js automatically generates static pages for all projects at build time usin
   slug: "my-new-project",  // URL-friendly name
   title: "My New Project — Innovative Platform",
   summary: "Short 1-2 line summary (≤180 chars)",
-  
+
   // Required fields
   role: "Senior Full-Stack Engineer",
   dates: "Jan 2024 – Present",
   domain: "FinTech",
   stack: ["React", "TypeScript", "Node.js"],
   tags: ["Trading", "Real-time", "Analytics"],
-  
+
   // Optional but recommended
   company: "Company Name",
   challenge: "The main problem we solved...",
   solution: "How we approached it...",
   context: "Background and business goals...",
   architecture: "Technical decisions and trade-offs...",
-  
+
   contributions: [
     "Built X feature that did Y",
     "Optimized Z resulting in W",
   ],
-  
+
   results: [
     "Metric 1: improved by X%",
     "Metric 2: reduced by Y%",
   ],
-  
+
   nextSteps: "Future roadmap...",
-  
+
   links: [
     { label: "Live Demo", href: "https://...", kind: "demo" },
     { label: "Documentation", href: "https://...", kind: "doc" },
   ],
-  
+
   heroImage: "/projects/my-project/hero.jpg",
   images: [
     {
@@ -108,9 +108,9 @@ Next.js automatically generates static pages for all projects at build time usin
       caption: "Main dashboard view"
     }
   ],
-  
+
   featured: true,  // Show "Featured" badge
-  
+
   // SEO
   seoTitle: "My New Project – Your Name",
   seoDescription: "Short description for search engines (≤160 chars)"
@@ -220,8 +220,8 @@ py-24 md:py-32    /* Instead of py-20 md:py-28 */
 The hero section uses a subtle Progressive Blur:
 
 ```tsx
-<ProgressiveBlur 
-  className="absolute inset-0" 
+<ProgressiveBlur
+  className="absolute inset-0"
   intensity={0.15}      // 0-1 scale (lower = more subtle)
   direction="radial"    // "radial" | "top" | "bottom" | "left" | "right"
 />
@@ -347,7 +347,7 @@ Automatically generated:
 
 ### Change Hero Background Blur
 ```tsx
-<ProgressiveBlur 
+<ProgressiveBlur
   intensity={0.25}  // Change this (0.1 - 0.3 recommended)
 />
 ```
@@ -384,22 +384,22 @@ Browse all icons: [lucide.dev](https://lucide.dev)
 ## 🐛 Troubleshooting
 
 ### "Project not found" error
-**Cause**: `slug` in URL doesn't match any project in `projects.ts`  
+**Cause**: `slug` in URL doesn't match any project in `projects.ts`
 **Fix**: Check spelling, ensure project exists in data
 
 ### Hero image not loading
-**Cause**: Image path incorrect or file doesn't exist  
+**Cause**: Image path incorrect or file doesn't exist
 **Fix**: Verify path in `public/projects/[slug]/` matches `heroImage` field
 
 ### Section not appearing
-**Cause**: Data field is empty or undefined  
+**Cause**: Data field is empty or undefined
 **Fix**: Add content to the field in `projects.ts`:
 ```typescript
 challenge: "Add your challenge text here",
 ```
 
 ### Dark mode colors look wrong
-**Cause**: Missing `dark:` variants  
+**Cause**: Missing `dark:` variants
 **Fix**: Always pair colors with dark mode:
 ```tsx
 bg-red-100 dark:bg-red-950/50
@@ -407,7 +407,7 @@ text-red-600 dark:text-red-400
 ```
 
 ### Spacing looks off
-**Cause**: Inconsistent spacing classes  
+**Cause**: Inconsistent spacing classes
 **Fix**: Use the standard spacing scale:
 ```tsx
 py-20 md:py-28    /* Sections */
@@ -481,8 +481,8 @@ mb-12
 
 ### Links
 ```tsx
-<CtaLink 
-  href="/path" 
+<CtaLink
+  href="/path"
   className="underline decoration-muted-foreground/30 underline-offset-4 hover:decoration-foreground"
 >
   Link Text →
@@ -500,6 +500,5 @@ mb-12
 
 ---
 
-**Last Updated**: October 18, 2025  
+**Last Updated**: October 18, 2025
 **Version**: 2.0
-

@@ -8,23 +8,12 @@ import { copy } from "@/content/copy"
 import { CtaLink } from "@/components/cta-link"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { ProgressiveBlur } from "@/components/ui/progressive-blur"
+import { PageHeader } from "@/components/ui/page-header"
 import { cn } from "@/lib/utils"
 
 // ============================================================================
 // ANIMATION VARIANTS
 // ============================================================================
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
@@ -57,46 +46,12 @@ export default function ProjectsPage() {
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           {/* Hero Section */}
-          <BlurFade delay={0.1} inView>
-            <section className="py-16 md:py-24 lg:py-32">
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-                className="max-w-5xl space-y-8"
-              >
-                {/* Overline */}
-                <motion.div
-                  variants={fadeInUp}
-                  transition={{ delay: 0 }}
-                >
-                  <div className="inline-flex items-center gap-3 rounded-full border border-border/50 bg-card/50 px-4 py-2 backdrop-blur-sm">
-                    <Sparkles className="h-4 w-4 text-blue-500" />
-                    <span className="text-sm font-medium uppercase tracking-wider text-foreground/80">
-                      Selected Work
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Main Heading */}
-                <motion.div
-                  variants={fadeInUp}
-                  transition={{ delay: 0.15 }}
-                  className="space-y-4"
-                >
-                  <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-                    <span className="block bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                      Projects<span className="text-red-500">.</span>
-                    </span>
-                  </h1>
-                  <p className="text-xl leading-relaxed text-muted-foreground md:text-2xl max-w-3xl">
-                    Meaningful work — crafted with precision, performance, and creativity.
-                    From concept to production, each project tells a story of problem-solving and impact.
-                  </p>
-                </motion.div>
-              </motion.div>
-            </section>
-          </BlurFade>
+          <PageHeader
+            overline="Selected Work"
+            overlineIcon={<Sparkles className="h-4 w-4 text-blue-500" />}
+            title="Projects"
+            description="Meaningful work — crafted with precision, performance, and creativity. From concept to production, each project tells a story of problem-solving and impact."
+          />
 
           {/* Featured Projects - Typography-First Editorial Layout */}
           <section className="space-y-32 md:space-y-48 pb-32">

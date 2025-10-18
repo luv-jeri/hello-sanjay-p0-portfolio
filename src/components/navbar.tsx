@@ -102,11 +102,14 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "w-full transition-colors duration-200",
+                      "w-full transition-colors duration-200 flex items-center justify-between",
                       pathname === item.href && "bg-accent text-accent-foreground"
                     )}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
+                    {item.href === '/docs' && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
+                    )}
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -177,13 +180,16 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-foreground pl-3",
+                  "text-sm font-medium transition-colors hover:text-foreground pl-3 flex items-center justify-between",
                   pathname === item.href
                     ? "text-foreground"
                     : "text-foreground/60"
                 )}
               >
                 <span className="block">{item.name}</span>
+                {item.href === '/docs' && (
+                  <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
+                )}
               </Link>
             ))}
           </div>

@@ -618,6 +618,12 @@ export const copy = {
     formSendingText: "Sending...",
     formSubmitButton: "Send Message",
     successMessage: "Thank you! I'll get back to you soon.",
+
+    // Validation messages
+    validationNameRequired: "Name is required",
+    validationEmailRequired: "Email is required",
+    validationEmailInvalid: "Please enter a valid email address",
+    validationMessageRequired: "Message is required",
   },
 
   // ========== WRITING PAGE ==========

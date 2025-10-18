@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { ExternalLink, Calendar, Building2, Briefcase, ArrowLeft, Target, Lightbulb, Sparkles, TrendingUp } from "lucide-react"
+import { ExternalLink, ArrowLeft, Target, Lightbulb, Sparkles, TrendingUp } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getProjectBySlug, projects } from "@/content/projects"
@@ -101,10 +101,10 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
       <article className="relative overflow-hidden bg-background">
         {/* Back Navigation */}
         <div className="container mx-auto max-w-6xl px-6 pt-8 md:pt-12">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="group -ml-2 mb-6 hover:bg-transparent" 
+          <Button
+            variant="ghost"
+            size="sm"
+            className="group -ml-2 mb-6 hover:bg-transparent"
             asChild
           >
             <CtaLink href="/projects" aria-label="Back to Projects">
@@ -118,18 +118,18 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
         {/* HERO SECTION */}
         {/* ================================================================== */}
         <section className="relative py-16 md:py-24">
-          <ProgressiveBlur 
-            className="absolute inset-0" 
-            intensity={0.15} 
+          <ProgressiveBlur
+            className="absolute inset-0"
+            intensity={0.15}
             direction="radial"
           />
-          
+
           <div className="container relative mx-auto max-w-6xl px-6">
             {/* Tags */}
             <div className="mb-6 flex flex-wrap items-center gap-3">
               {project.featured && (
-                <Badge 
-                  variant="default" 
+                <Badge
+                  variant="default"
                   className="bg-gradient-to-r from-indigo-600 to-violet-600 border-0"
                 >
                   Featured Project
@@ -383,7 +383,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
           <section className="relative py-20 md:py-28 overflow-hidden">
             {/* Subtle gradient background */}
             <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-transparent to-emerald-50/30 dark:from-green-950/10 dark:via-transparent dark:to-emerald-950/10" />
-            
+
             <div className="container relative mx-auto max-w-4xl px-6">
               <div className="mb-12 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-950/50">
@@ -417,7 +417,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
           <section className="py-20 md:py-28">
             <div className="container mx-auto max-w-4xl px-6">
               <h2 className="mb-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-                What I'd Do Next
+                What I&apos;d Do Next
               </h2>
               <p className="text-base leading-relaxed text-foreground/80">
                 {project.nextSteps}
@@ -470,7 +470,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
                   Interested in similar work?
                 </h3>
                 <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-                  I'm available for senior full-stack and frontend roles. Let's discuss how I can help your team ship exceptional products.
+                  I&apos;m available for senior full-stack and frontend roles. Let&apos;s discuss how I can help your team ship exceptional products.
                 </p>
               </div>
 

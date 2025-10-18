@@ -14,35 +14,9 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { Badge } from "@/components/ui/badge"
 import { CTANew } from "@/components/sections/cta-new"
 import { Highlighter } from "@/components/ui/highlighter"
+import { PageHeader } from "@/components/ui/page-header"
 import { cn } from "@/lib/utils"
 
-// ============================================================================
-// ANIMATION VARIANTS
-// ============================================================================
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-}
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-}
 
 // ============================================================================
 // MAIN PAGE COMPONENT
@@ -61,70 +35,31 @@ export default function AboutPage() {
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
           {/* Hero Section */}
-          <BlurFade delay={0.1} inView>
-            <section className="py-16 md:py-24 lg:py-32">
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-                className="space-y-8"
-              >
-                {/* Overline */}
-                <motion.div variants={fadeInUp} custom={0}>
-                  <div className="inline-flex items-center gap-3 rounded-full border border-border/50 bg-card/50 px-4 py-2 backdrop-blur-sm">
-                    <div className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
-                    </div>
-                    <span className="text-sm font-medium text-foreground/80">
-                      Who I Am
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Main Heading */}
-                 <motion.div className="space-y-3">
-                  <motion.h1
-                    variants={fadeInUp}
-                    custom={1}
-                    className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-                  >
-                    <span className="block bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                      {copy.about.personal.name}
-                      <span className="text-red-500">.</span>
-                    </span>
-                  </motion.h1>
-                  <motion.p
-                    variants={fadeInUp}
-                    custom={1.5}
-                    className="text-xl leading-relaxed text-muted-foreground md:text-2xl max-w-3xl"
-                  >
-                    {copy.about.personal.title}
-                  </motion.p>
-                </motion.div>
-
-                {/* Role Badges */}
-                <motion.div variants={fadeInUp} custom={2} className="flex flex-wrap items-center gap-3">
-                  <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                    <Code2 className="mr-2 h-4 w-4" />
-                    Full Stack Developer
-                  </Badge>
-                  <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                    <Code2 className="mr-2 h-4 w-4" />
-                    Frontend Architect
-                  </Badge>
-                  <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                    <BookOpen className="mr-2 h-4 w-4" />
-                    Technical Mentor
-                  </Badge>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    <span>{copy.about.personal.location}</span>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </section>
-          </BlurFade>
+          <PageHeader
+            overline="Who I Am"
+            animated
+            title={copy.about.personal.name}
+            description={copy.about.personal.title}
+          >
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
+                <Code2 className="mr-2 h-4 w-4" />
+                Full Stack Developer
+              </Badge>
+              <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
+                <Code2 className="mr-2 h-4 w-4" />
+                Frontend Architect
+              </Badge>
+              <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
+                <BookOpen className="mr-2 h-4 w-4" />
+                Technical Mentor
+              </Badge>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4" />
+                <span>{copy.about.personal.location}</span>
+              </div>
+            </div>
+          </PageHeader>
 
           {/* Professional Journey */}
           <BlurFade delay={0.3} inView>

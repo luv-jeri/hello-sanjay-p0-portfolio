@@ -1,41 +1,15 @@
 'use client'
 
-import { motion, type Variants } from "framer-motion"
+import { motion } from "framer-motion"
 import { Sparkles } from "lucide-react"
 import { SKILLS } from "@/lib/constants"
 import { copy } from "@/content/copy"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { ProgressiveBlur } from "@/components/ui/progressive-blur"
+import { PageHeader } from "@/components/ui/page-header"
 import { CTANew } from "@/components/sections/cta-new"
 import { cn } from "@/lib/utils"
 
-// ============================================================================
-// ANIMATION VARIANTS
-// ============================================================================
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-}
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-}
 
 // ============================================================================
 // SKILL SECTION DATA
@@ -86,48 +60,13 @@ export default function SkillsPage() {
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           {/* Hero Section */}
-          <BlurFade delay={0.1} inView>
-            <section className="py-16 md:py-24 lg:py-32">
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-                className="space-y-8"
-              >
-                {/* Overline */}
-                <motion.div variants={fadeInUp} custom={0}>
-                  <div className="inline-flex items-center gap-3 rounded-full border border-border/50 bg-card/50 px-4 py-2 backdrop-blur-sm">
-                    <Sparkles className="h-4 w-4 text-violet-500" />
-                    <span className="text-sm font-medium uppercase tracking-wider text-foreground/80">
-                      Technical Expertise
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Main Heading */}
-                <motion.div className="space-y-4">
-                  <motion.h1
-                    variants={fadeInUp}
-                    custom={1}
-                    className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-                  >
-                    <span className="block bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                      Skills & Expertise<span className="text-violet-500">.</span>
-                    </span>
-                  </motion.h1>
-
-                  <motion.p
-                    variants={fadeInUp}
-                    custom={1.5}
-                    className="max-w-3xl text-xl text-muted-foreground md:text-2xl"
-                  >
-                    A collection of technical disciplines and creative proficiencies built across
-                    years of full-stack engineering — from frontend architecture to cloud infrastructure.
-                  </motion.p>
-                </motion.div>
-              </motion.div>
-            </section>
-          </BlurFade>
+          <PageHeader
+            overline="Technical Expertise"
+            overlineIcon={<Sparkles className="h-4 w-4 text-violet-500" />}
+            title="Skills & Expertise"
+            dotColor="text-violet-500"
+            description="A collection of technical disciplines and creative proficiencies built across years of full-stack engineering — from frontend architecture to cloud infrastructure."
+          />
 
           {/* Technical Skills - Editorial Layout */}
           <BlurFade delay={0.3} inView>

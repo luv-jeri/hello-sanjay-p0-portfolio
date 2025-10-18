@@ -12,6 +12,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { copy } from "@/content/copy";
 import { Toaster } from "sonner";
 import { jetbrainsMono } from "@/styles/fonts";
+;
 
 export const metadata: Metadata = {
   title: {
@@ -58,6 +59,7 @@ export default function RootLayout({
         >
           <FontProvider>
             <TerminalProvider>
+
               <div className="flex min-h-screen flex-col">
                 <Navbar />
                 <main className="flex-1">{children}</main>
