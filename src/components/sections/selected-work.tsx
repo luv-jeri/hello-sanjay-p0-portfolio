@@ -1,15 +1,17 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { memo, useMemo } from "react"
+import { motion, useReducedMotion, LazyMotion, domAnimation } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 import { copy } from "@/content/copy"
 
-export function SelectedWork() {
+export const SelectedWork = memo(function SelectedWork() {
   const shouldReduceMotion = useReducedMotion()
   const projects = copy.featuredProjects.projects
 
-  const sectionVariants = {
+  // Memoize animation variants to prevent recreating on every render
+  const sectionVariants = useMemo(() => ({
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: {
       opacity: 1,
@@ -19,9 +21,9 @@ export function SelectedWork() {
         ease: [0.22, 1, 0.36, 1] as any,
       },
     },
-  }
+  }), [shouldReduceMotion])
 
-  const staggerContainer = {
+  const staggerContainer = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -30,9 +32,9 @@ export function SelectedWork() {
         delayChildren: 0.15,
       },
     },
-  }
+  }), [shouldReduceMotion])
 
-  const itemVariants = {
+  const itemVariants = useMemo(() => ({
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: {
       opacity: 1,
@@ -42,11 +44,12 @@ export function SelectedWork() {
         ease: [0.22, 1, 0.36, 1] as any,
       },
     },
-  }
+  }), [shouldReduceMotion])
 
   return (
-    <section className="relative overflow-hidden bg-neutral-50 py-16 dark:bg-neutral-900 md:py-20">
-      <div className="container relative z-10 mx-auto max-w-6xl px-6 md:px-8">
+    <LazyMotion features={domAnimation} strict>
+      <section className="relative overflow-hidden bg-neutral-50 py-16 dark:bg-neutral-900 md:py-20">
+        <div className="container relative z-10 mx-auto max-w-6xl px-6 md:px-8">
         {/* Section Header */}
         <motion.header
           variants={sectionVariants}
@@ -182,7 +185,8 @@ export function SelectedWork() {
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
           </Link>
         </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </LazyMotion>
   )
-}
+});

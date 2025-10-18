@@ -9,7 +9,6 @@ import {
   GraduationCap,
   LucideIcon,
 } from "lucide-react"
-import { cn } from "@/lib/utils"
 
 type ExpertiseArea = {
   icon: LucideIcon
@@ -61,7 +60,7 @@ export function ShowcaseEditorial() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as any,
       },
     },
   }
@@ -84,7 +83,7 @@ export function ShowcaseEditorial() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as any,
       },
     },
   }

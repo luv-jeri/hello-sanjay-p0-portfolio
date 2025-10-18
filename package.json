@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "eslint --max-warnings=0",
     "lint:strings": "eslint --rule 'local-rules/no-hardcoded-strings: error' --max-warnings=0 'src/**/*.{ts,tsx}'",
@@ -15,10 +16,14 @@
     "analyze:deps": "depcheck --ignore-bin-package=true --skip-missing=true",
     "analyze:graph": "madge --ts-config tsconfig.json --circular --extensions ts,tsx src",
     "analyze:all": "mkdir -p ./_reports && yarn analyze:tsprune > ./_reports/ts-prune.txt && yarn analyze:deps > ./_reports/depcheck.txt && yarn analyze:unused > ./_reports/knip.txt && echo 'Analysis complete. Check ./_reports/ directory.'",
+    "analyze:bundle": "yarn build:analyze",
+    "perf:lighthouse": "npx --yes @lhci/cli@latest autorun --config=.lighthouserc.json",
+    "perf:check": "echo 'Running performance checks...' && yarn build && yarn start & sleep 5 && yarn perf:lighthouse && kill %1",
     "prune:components": "node scripts/prune-components.mjs",
     "check:all": "yarn ts:check && yarn lint && yarn lint:strings && yarn build",
     "ci": "yarn install --frozen-lockfile && yarn ts:check && yarn lint && yarn lint:strings && yarn build",
-    "ci:no-unused": "yarn ci && yarn analyze:tsprune && yarn analyze:deps"
+    "ci:no-unused": "yarn ci && yarn analyze:tsprune && yarn analyze:deps",
+    "ci:perf": "yarn ci && yarn perf:check"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -28,6 +33,7 @@
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@tabler/icons-react": "^3.35.0",
     "@tsparticles/engine": "^3.9.1",
@@ -50,10 +56,12 @@
     "remark-gfm": "^4.0.1",
     "rough-notation": "^0.5.1",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.5.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import type { Metadata } from 'next';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { BookOpen, Sparkles } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PageHeader } from '@/components/ui/page-header';
@@ -18,11 +17,10 @@ import {
   getAllYears,
 } from '@/lib/writing-data';
 import type { FilterState, SortOption } from '@/types/writing';
-import { copy } from '@/content/copy';
 
 const POSTS_PER_PAGE = 10;
 
-export default function WritingPage() {
+function WritingContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -46,7 +44,7 @@ export default function WritingPage() {
 
   // Filter and sort posts
   const filteredAndSortedPosts = useMemo(() => {
-    let filtered = allPosts.filter((post) => {
+    const filtered = allPosts.filter((post) => {
       // Exclude featured post from list
       if (post.slug === featuredPost?.slug) return false;
 
@@ -245,5 +243,13 @@ export default function WritingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function WritingPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-pulse">Loading...</div></div>}>
+      <WritingContent />
+    </Suspense>
   );
 }

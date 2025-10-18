@@ -13,6 +13,7 @@ import { copy } from "@/content/copy";
 import { Toaster } from "sonner";
 import { jetbrainsMono } from "@/styles/fonts";
 import { StickyBanner } from "@/components/ui/sticky-banner";
+import { WebVitalsReporter } from "@/components/web-vitals-reporter";
 
 export const metadata: Metadata = {
   title: {
@@ -30,12 +31,38 @@ export const metadata: Metadata = {
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.title}`,
     description: SITE_CONFIG.description,
     siteName: SITE_CONFIG.name,
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: SITE_CONFIG.description,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.title}`,
     description: SITE_CONFIG.description,
+    creator: '@hellosanjay',
+    images: [`${SITE_CONFIG.url}/og-image.jpg`],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/manifest.json',
   metadataBase: new URL(SITE_CONFIG.url),
 };
 
@@ -49,8 +76,16 @@ export default function RootLayout({
       <head>
         <PersonSchema />
         <WebSiteSchema />
+        {/* DNS Prefetch for external domains */}
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://api.microlink.io" />
+        {/* Preconnect to critical origins */}
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased">
+        <WebVitalsReporter />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, useEffect, memo, useCallback, useMemo } from "react";
+import { motion, useReducedMotion, LazyMotion, domAnimation } from "framer-motion";
 import { ArrowRight, Calendar, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
@@ -46,53 +46,70 @@ const item = {
 //   },
 // }
 
-export function Hero() {
+// Memoize the Hero component for better performance
+export const Hero = memo(function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const [gridConfig, setGridConfig] = useState({ rows: 10, cols: 27, cellSize: 60 });
 
-  useEffect(() => {
-    const calculateGridConfig = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+  // Memoize the grid calculation function
+  const calculateGridConfig = useCallback(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
-      // Target 50% of viewport height and full width
-      const targetHeight = height * 0.5;
-      const targetWidth = width;
+    // Target 50% of viewport height and full width
+    const targetHeight = height * 0.5;
+    const targetWidth = width;
 
-      // Calculate optimal cell size (adjust for better visuals)
-      const cellSize = 60; // Fixed cell size for consistency
+    // Calculate optimal cell size (adjust for better visuals)
+    const cellSize = 60; // Fixed cell size for consistency
 
-      // Calculate cols and rows based on dimensions
-      const cols = Math.ceil(targetWidth / cellSize);
-      const rows = Math.ceil(targetHeight / cellSize);
+    // Calculate cols and rows based on dimensions
+    const cols = Math.ceil(targetWidth / cellSize);
+    const rows = Math.ceil(targetHeight / cellSize);
 
-      setGridConfig({ rows, cols, cellSize });
-    };
-
-    calculateGridConfig();
-    window.addEventListener("resize", calculateGridConfig);
-
-    return () => window.removeEventListener("resize", calculateGridConfig);
+    setGridConfig({ rows, cols, cellSize });
   }, []);
 
+  useEffect(() => {
+    calculateGridConfig();
+
+    // Debounce resize handler for better performance
+    let timeoutId: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(calculateGridConfig, 150);
+    };
+
+    window.addEventListener("resize", debouncedResize, { passive: true });
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", debouncedResize);
+    };
+  }, [calculateGridConfig]);
+
+  // Memoize gradient style
+  const bottomGradientStyle = useMemo(() => ({
+    background: 'linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background)) 20%, hsl(var(--background) / 0.95) 40%, hsl(var(--background) / 0.7) 60%, hsl(var(--background) / 0.4) 80%, transparent 100%)'
+  }), []);
+
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background pt-20 md:pt-24">
-      {/* Background Ripple Effect Container with gradient blend */}
-      <div className="absolute inset-x-0 top-0 h-[50vh] overflow-hidden z-0">
-        <BackgroundRippleEffect
-          rows={gridConfig.rows}
-          cols={gridConfig.cols}
-          cellSize={gridConfig.cellSize}
-        />
-        {/* Bottom gradient blur for smooth blending */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-64 z-[2] pointer-events-none"
-          style={{
-            background: 'linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background)) 20%, hsl(var(--background) / 0.95) 40%, hsl(var(--background) / 0.7) 60%, hsl(var(--background) / 0.4) 80%, transparent 100%)'
-          }}
-          aria-hidden="true"
-        />
-      </div>
+    <LazyMotion features={domAnimation} strict>
+      <section className="relative min-h-screen overflow-hidden bg-background pt-20 md:pt-24">
+        {/* Background Ripple Effect Container with gradient blend */}
+        <div className="absolute inset-x-0 top-0 h-[50vh] overflow-hidden z-0">
+          <BackgroundRippleEffect
+            rows={gridConfig.rows}
+            cols={gridConfig.cols}
+            cellSize={gridConfig.cellSize}
+          />
+          {/* Bottom gradient blur for smooth blending */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-64 z-[2] pointer-events-none"
+            style={bottomGradientStyle}
+            aria-hidden="true"
+          />
+        </div>
 
       {/* Subtle radial gradient overlay for text contrast */}
       <div
@@ -243,6 +260,7 @@ export function Hero() {
         </motion.div>
         </div>
       </div>
-    </section>
+      </section>
+    </LazyMotion>
   );
-}
+});

@@ -60,6 +60,8 @@ export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  preload: true, // Preload default display font
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
 export const redHatDisplay = Red_Hat_Display({
@@ -127,11 +129,13 @@ export const bebasNeue = Bebas_Neue({
   display: "swap",
 });
 
-// Body Fonts
+// Body Fonts (Optimized with preload and fallback)
 export const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  preload: true, // Preload primary body font
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 });
 
 export const sourceSans3 = Source_Sans_3({
@@ -188,6 +192,9 @@ export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
+  weight: ["400", "500", "600", "700"], // Limit to commonly used weights
+  preload: true, // Preload mono font for code blocks
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
 });
 
 // ============================================================================

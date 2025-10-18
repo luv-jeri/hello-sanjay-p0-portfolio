@@ -3,8 +3,6 @@
 import { motion } from "framer-motion"
 import { NumberTicker } from "@/components/ui/number-ticker"
 import { Marquee } from "@/components/ui/marquee"
-import { DotPattern } from "@/components/ui/dot-pattern"
-import { Award, GraduationCap, Rocket, TrendingUp } from "lucide-react"
 
 const companies: Array<{
   name: string

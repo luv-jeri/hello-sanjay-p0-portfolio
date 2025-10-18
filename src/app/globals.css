@@ -400,4 +400,45 @@ html {
       animation-play-state: paused;
     }
   }
+
+  /* Content visibility for performance */
+  .content-visibility-auto {
+    content-visibility: auto;
+  }
+
+  /* Contain layout for performance */
+  .contain-layout {
+    contain: layout style paint;
+  }
+
+  /* Prevent layout shifts */
+  .prevent-shift {
+    min-height: 1px;
+    contain-intrinsic-size: 0 500px;
+  }
+
+  /* Smooth scrolling with fallback */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Optimize rendering for sections */
+  section {
+    contain: layout style;
+  }
+
+  /* Hardware acceleration utilities */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .will-change-auto {
+    will-change: auto;
+  }
 }

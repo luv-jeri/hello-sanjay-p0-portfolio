@@ -73,7 +73,8 @@ export const useProjectQueryState = () => {
             setState((prev) => ({ ...prev, view: parsed.view }))
           }
         }
-      } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_e) {
         // Ignore parsing errors
       }
     }
@@ -111,7 +112,8 @@ export const useProjectQueryState = () => {
         STORAGE_KEY,
         JSON.stringify({ view: newState.view })
       )
-    } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_e) {
       // Ignore storage errors
     }
   }, [])
