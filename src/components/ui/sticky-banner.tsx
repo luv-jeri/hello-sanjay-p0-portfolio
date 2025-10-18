@@ -1,5 +1,5 @@
 "use client";
-import React, { SVGProps, useState } from "react";
+import React, { SVGProps, useState, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -7,13 +7,25 @@ export const StickyBanner = ({
   className,
   children,
   hideOnScroll = false,
+  autoHideAfter,
 }: {
   className?: string;
   children: React.ReactNode;
   hideOnScroll?: boolean;
+  autoHideAfter?: number;
 }) => {
   const [open, setOpen] = useState(true);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    if (autoHideAfter) {
+      const timer = setTimeout(() => {
+        setOpen(false);
+      }, autoHideAfter);
+
+      return () => clearTimeout(timer);
+    }
+  }, [autoHideAfter]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     console.log(latest);
@@ -26,37 +38,70 @@ export const StickyBanner = ({
 
   return (
     <motion.div
-      className={cn(
-        "sticky inset-x-0 top-0 z-40 flex min-h-14 w-full items-center justify-center bg-transparent px-4 py-1",
-        className,
-      )}
+      className="fixed top-16 md:top-20 left-1/2 z-[100] -translate-x-1/2 px-4"
       initial={{
         y: -100,
         opacity: 0,
+        scale: 0.8,
       }}
       animate={{
         y: open ? 0 : -100,
         opacity: open ? 1 : 0,
+        scale: open ? 1 : 0.8,
       }}
       transition={{
-        duration: 0.3,
-        ease: "easeInOut",
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
       }}
     >
-      {children}
+      <div className="relative">
+        {/* Animated gradient border glow */}
+        <div
+          className="absolute -inset-[1.5px] rounded-full opacity-40 blur-sm"
+          style={{
+            background: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)',
+            backgroundSize: '200% 200%',
+            animation: 'gradient 6s ease infinite',
+          }}
+        />
 
-      <motion.button
-        initial={{
-          scale: 0,
-        }}
-        animate={{
-          scale: 1,
-        }}
-        className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
-        onClick={() => setOpen(!open)}
-      >
-        <CloseIcon className="h-5 w-5 text-white" />
-      </motion.button>
+        {/* Inner gradient border (sharper) */}
+        <div
+          className="absolute -inset-[0.5px] rounded-full opacity-60"
+          style={{
+            background: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)',
+            backgroundSize: '200% 200%',
+            animation: 'gradient 6s ease infinite',
+          }}
+        />
+
+        {/* Content */}
+        <div
+          className={cn(
+            "relative flex items-center gap-2 md:gap-3 rounded-full bg-background px-3 py-2 md:px-5 md:py-3 shadow-lg backdrop-blur-md max-w-[calc(100vw-2rem)]",
+            className,
+          )}
+        >
+          {children}
+
+          <motion.button
+            initial={{
+              scale: 0,
+            }}
+            animate={{
+              scale: 1,
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="ml-1 md:ml-2 cursor-pointer rounded-full p-1 md:p-1.5 transition-colors hover:bg-muted/80"
+            onClick={() => setOpen(!open)}
+            aria-label="Close banner"
+          >
+            <CloseIcon className="h-3 w-3 md:h-3.5 md:w-3.5 text-foreground/60" />
+          </motion.button>
+        </div>
+      </div>
     </motion.div>
   );
 };

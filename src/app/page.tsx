@@ -12,16 +12,16 @@ const SocialProofNew = dynamic(
   }
 )
 
-const ShowcaseNew = dynamic(
-  () => import('@/components/sections/showcase-new').then(mod => ({ default: mod.ShowcaseNew })),
+const ShowcaseEditorial = dynamic(
+  () => import('@/components/sections/showcase-editorial').then(mod => ({ default: mod.ShowcaseEditorial })),
   {
     loading: () => <SectionSkeleton height="h-96" />,
     ssr: true
   }
 )
 
-const ProjectsNew = dynamic(
-  () => import('@/components/sections/projects-new').then(mod => ({ default: mod.ProjectsNew })),
+const SelectedWork = dynamic(
+  () => import('@/components/sections/selected-work').then(mod => ({ default: mod.SelectedWork })),
   {
     loading: () => <SectionSkeleton height="h-96" />,
     ssr: true
@@ -58,11 +58,11 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<SectionSkeleton height="h-96" />}>
-        <ShowcaseNew />
+        <ShowcaseEditorial />
       </Suspense>
 
       <Suspense fallback={<SectionSkeleton height="h-96" />}>
-        <ProjectsNew />
+        <SelectedWork />
       </Suspense>
 
       <Suspense fallback={<SectionSkeleton height="h-64" />}>

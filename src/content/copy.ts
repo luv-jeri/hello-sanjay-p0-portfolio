@@ -628,8 +628,47 @@ export const copy = {
 
   // ========== WRITING PAGE ==========
   writing: {
-    heading: "Writing & Speaking",
-    subheading: "Sharing knowledge through training, talks, articles, and open source",
+    heading: "Writing",
+    subheading: "Technical articles, tutorials, and insights on modern web development, architecture, and engineering practices.",
+    overline: "Insights & Knowledge",
+
+    // Index page
+    allArticlesHeading: "All Articles",
+    featuredBadge: "Featured",
+    searchPlaceholder: "Search articles...",
+    filterByCategory: "Filter by category",
+    filterByTag: "Filter by tag",
+    filterByYear: "Filter by year",
+    sortBy: "Sort by",
+    allCategories: "All Categories",
+    allTags: "All Tags",
+    allYears: "All Years",
+    sortNewest: "Newest First",
+    sortOldest: "Oldest First",
+    sortAZ: "A → Z",
+    sortZA: "Z → A",
+    noResults: "No articles found",
+    resultsCount: "{count} article{plural}",
+    resultsWithSearch: "{count} article{plural} matching \"{search}\"",
+    previousPage: "Previous",
+    nextPage: "Next",
+    pageOf: "Page {current} of {total}",
+
+    // Article page
+    backToWriting: "Back to Writing",
+    onThisPage: "On this page",
+    shareOnTwitter: "Share on Twitter",
+    relatedArticles: "Related Articles",
+    seriesLabel: "Part {part} of {total} in \"{name}\"",
+    previousInSeries: "← Previous",
+    nextInSeries: "Next →",
+
+    // Newsletter CTA
+    newsletterHeading: "Stay Updated",
+    newsletterDescription: "New articles on web development, architecture, and engineering practices. Subscribe to get notified.",
+    newsletterButton: "Get in Touch",
+
+    // Legacy content (for backwards compatibility)
     talksHeading: "Training & Talks",
     articlesHeading: "Technical Articles",
     openSourceHeading: "Open Source",
