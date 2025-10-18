@@ -18,30 +18,43 @@ type DocData = {
 
 const getDocContent = async (slug: string): Promise<DocData | null> => {
   try {
-    console.log('[Docs] Fetching:', slug);
+    // Only log in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Docs] Fetching:', slug);
+    }
+
     const response = await fetch(`/api/docs/${slug}`, {
       cache: 'no-store', // Ensure fresh data in development
     });
 
-    console.log('[Docs] Response status:', response.status);
-
     if (!response.ok) {
-      console.error('[Docs] Response not OK:', response.statusText);
+      // Only log errors in development
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`[Docs] Document not found: ${slug} (${response.status})`);
+      }
       return null;
     }
 
     const data = await response.json();
-    console.log('[Docs] Data received:', { title: data.title, hasContent: !!data.content, hasMdx: !!data.mdx });
 
     // Validate data structure
     if (!data.content || !data.mdx || !data.title) {
-      console.error('[Docs] Invalid data structure:', data);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Docs] Invalid data structure for:', slug);
+      }
       return null;
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Docs] Successfully loaded:', data.title);
     }
 
     return data;
   } catch (error) {
-    console.error('[Docs] Fetch error:', error);
+    // Only log errors in development
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[Docs] Fetch error:', error);
+    }
     return null;
   }
 };
@@ -158,14 +171,18 @@ export default function DocPage() {
         const doc = await getDocContent(params.slug as string);
         if (!doc) {
           setError('Document not found');
-          setTimeout(() => router.push('/docs'), 2000);
+          // Redirect after 3 seconds instead of 2
+          setTimeout(() => router.push('/docs'), 3000);
           return;
         }
         setDocData(doc);
       } catch (err) {
-        console.error('Failed to load document:', err);
+        // Only log in development
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to load document:', err);
+        }
         setError('Failed to load document');
-        setTimeout(() => router.push('/docs'), 2000);
+        setTimeout(() => router.push('/docs'), 3000);
       } finally {
         setIsLoading(false);
       }
@@ -187,13 +204,40 @@ export default function DocPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-2 text-foreground">{error}</h2>
-          <p className="text-muted-foreground mb-4">Redirecting back to docs...</p>
-          <Link href="/docs">
-            <Button variant="outline">Go to Docs</Button>
-          </Link>
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="mb-6">
+            <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
+              <svg
+                className="w-8 h-8 text-muted-foreground"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold mb-2 text-foreground">{error}</h2>
+            <p className="text-muted-foreground mb-6">
+              The document you're looking for doesn't exist or has been moved.
+            </p>
+            <p className="text-sm text-muted-foreground mb-6">
+              Redirecting to docs in <span className="font-semibold">3 seconds</span>...
+            </p>
+          </div>
+          <div className="flex gap-3 justify-center">
+            <Link href="/docs">
+              <Button>Browse Documentation</Button>
+            </Link>
+            <Link href="/">
+              <Button variant="outline">Go Home</Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
