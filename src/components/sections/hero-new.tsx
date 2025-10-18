@@ -16,20 +16,20 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      staggerChildren: 0.08, // Faster stagger
+      delayChildren: 0.1, // Less delay
     },
   },
 }
 
 const item = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 10 }, // Reduced Y movement
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as any, // Custom easing for smooth motion
+      duration: 0.4, // Faster animation
+      ease: "easeOut" as const,
     }
   },
 }
@@ -48,13 +48,15 @@ export function HeroNew() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-background pt-20 md:pt-24">
-      {/* Retro Grid Background */}
-      <RetroGrid
-        className={cn(
-          "absolute inset-0 z-0 opacity-70",
-          shouldReduceMotion && "[&>div]:!animate-none opacity-40"
-        )}
-      />
+      {/* Retro Grid Background - only on desktop */}
+      <div className="hidden lg:block">
+        <RetroGrid
+          className={cn(
+            "absolute inset-0 z-0 opacity-50",
+            shouldReduceMotion && "[&>div]:!animate-none opacity-30"
+          )}
+        />
+      </div>
 
       {/* Subtle radial gradient overlay for text contrast */}
       <div
@@ -76,7 +78,8 @@ export function HeroNew() {
               <div className="group relative mx-auto flex items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
                 <span
                   className={cn(
-                    "animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]"
+                    shouldReduceMotion ? "" : "animate-gradient",
+                    "absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]"
                   )}
                   style={{
                     WebkitMask:
@@ -166,35 +169,15 @@ export function HeroNew() {
             </Button>
           </motion.div>
 
-          {/* Scroll Indicator */}
+          {/* Scroll Indicator - CSS animation instead of framer-motion */}
           {!shouldReduceMotion && (
             <motion.div
               variants={item}
               className="mt-20"
             >
-              <motion.div
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="mx-auto h-8 w-5 rounded-full border-2 border-foreground/20 p-1"
-              >
-                <motion.div
-                  animate={{
-                    y: [0, 12, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="h-2 w-2 rounded-full bg-foreground/40"
-                />
-              </motion.div>
+              <div className="mx-auto h-8 w-5 rounded-full border-2 border-foreground/20 p-1 animate-bounce">
+                <div className="h-2 w-2 rounded-full bg-foreground/40" />
+              </div>
             </motion.div>
           )}
 

@@ -302,3 +302,58 @@ html {
     animation: none;
     mix-blend-mode: normal;
 }
+
+/* Performance Optimizations */
+@layer utilities {
+  /* Reduce motion for performance and accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* GPU acceleration for animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  /* Shimmer loading animation */
+  .animate-shimmer {
+    animation: shimmer 1.5s ease-in-out infinite;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    background-size: 200% 100%;
+  }
+
+  /* Optimize image rendering */
+  img {
+    content-visibility: auto;
+    contain-intrinsic-size: 300px;
+  }
+
+  /* Prevent layout shifts from fonts */
+  body {
+    font-display: swap;
+  }
+
+  /* Optimize heavy animations on mobile */
+  @media (max-width: 768px) {
+    .animate-gradient,
+    .animate-marquee,
+    .animate-orbit,
+    .animate-float {
+      animation-play-state: paused;
+    }
+  }
+}

@@ -16,13 +16,14 @@ import { RetroGrid } from "@/components/ui/retro-grid";
 export function ShowcaseNew() {
   const shouldReduceMotion = useReducedMotion();
 
+  // Simplified animation variants for better performance
   const sectionVariants = {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.1,
-        delayChildren: 0.2,
+        staggerChildren: shouldReduceMotion ? 0 : 0.05, // Reduced stagger
+        delayChildren: 0.1, // Reduced delay
       },
     },
   };
@@ -32,20 +33,22 @@ export function ShowcaseNew() {
       id="expertise"
       className="relative overflow-hidden bg-white py-20 dark:bg-neutral-950 md:py-32"
     >
-      {/* Retro Grid Background */}
-      <RetroGrid
-        className="absolute inset-0 opacity-[0.15]"
-        angle={65}
-      />
+      {/* Retro Grid Background - static on mobile for performance */}
+      <div className="hidden lg:block">
+        <RetroGrid
+          className="absolute inset-0 opacity-[0.15]"
+          angle={65}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
-        {/* Section Header */}
+        {/* Section Header - reduced animation */}
         <motion.div
           className="mb-12 text-center md:mb-16"
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
         >
           <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-50 md:text-4xl">
             Expertise in Motion
@@ -68,21 +71,12 @@ export function ShowcaseNew() {
               layoutSpan="lg:col-span-2"
               className="relative"
             >
-              {/* Pulsing node animation */}
-              <div className="absolute right-6 top-6 h-3 w-3 rounded-full bg-blue-500">
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-blue-400"
-                  animate={shouldReduceMotion ? {} : {
-                    scale: [1, 2, 2],
-                    opacity: [0.8, 0, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeOut",
-                  }}
-                />
-              </div>
+              {/* Pulsing node animation - simplified */}
+              {!shouldReduceMotion && (
+                <div className="absolute right-6 top-6 h-3 w-3 rounded-full bg-blue-500">
+                  <div className="absolute inset-0 rounded-full bg-blue-400 animate-ping" />
+                </div>
+              )}
             </ShowcaseCard>
 
             {/* 2. Performance Engineering */}
@@ -93,20 +87,7 @@ export function ShowcaseNew() {
               chips={["SSR/SSG", "Web Vitals", "Lighthouse 100"]}
               className="relative overflow-hidden"
             >
-              {/* Speed line sweep */}
-              <motion.div
-                className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-transparent via-yellow-400 to-transparent"
-                animate={shouldReduceMotion ? {} : {
-                  x: [0, 400],
-                  opacity: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 1,
-                  ease: "easeInOut",
-                }}
-              />
+              {/* Speed line sweep - removed for performance */}
             </ShowcaseCard>
 
             {/* 3. Real-time & Mobile-First */}
@@ -117,19 +98,10 @@ export function ShowcaseNew() {
               chips={["WebSockets", "PWA", "Touch UX"]}
               className="relative"
             >
-              <motion.div
-                className="absolute right-8 top-8"
-                animate={shouldReduceMotion ? {} : {
-                  rotate: [0, -2, 2, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
+              {/* Static icon for better performance */}
+              <div className="absolute right-8 top-8">
                 <Smartphone className="h-8 w-8 text-neutral-300 dark:text-neutral-700" />
-              </motion.div>
+              </div>
             </ShowcaseCard>
 
             {/* 4. AI-Assisted Development */}
@@ -153,29 +125,7 @@ export function ShowcaseNew() {
               href="/writing"
               className="group relative overflow-hidden"
             >
-              {/* Confetti dots on hover */}
-              <div className="pointer-events-none absolute inset-0">
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute h-2 w-2 rounded-full bg-violet-400"
-                    style={{
-                      left: `${20 + i * 15}%`,
-                      top: `${30 + (i % 2) * 20}%`,
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={shouldReduceMotion ? {} : {
-                      opacity: [0, 0.8, 0],
-                      scale: [0, 1.2, 0],
-                      y: [0, -20, -40],
-                    }}
-                    transition={{
-                      duration: 1.2,
-                      delay: i * 0.1,
-                    }}
-                  />
-                ))}
-              </div>
+              {/* Removed confetti dots for performance */}
             </ShowcaseCard>
 
           </ShowcaseBento>
