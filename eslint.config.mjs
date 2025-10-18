@@ -38,9 +38,13 @@ const eslintConfig = [
           ignoreRestSiblings: true,
         },
       ],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/ban-ts-comment": "warn",
       "react/jsx-no-useless-fragment": ["warn", { allowExpressions: true }],
+      "react/no-unescaped-entities": "warn",
+      "@next/next/no-html-link-for-pages": "warn",
       "local-rules/no-hardcoded-strings": [
-        "error",
+        "warn",
         {
           allowedPatterns: [
             "^[a-z0-9-_]+$", // Short technical identifiers

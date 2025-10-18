@@ -100,7 +100,7 @@ async function cleanBarrelExports(dryRun = false) {
           'g'
         )
         newContent = newContent.replace(exportPattern, '')
-        
+
         // Remove standalone export lines
         const standalonePattern = new RegExp(
           `export\\s+\\{\\s*${exportName}\\s*\\}[^\n]*\n?`,
@@ -127,7 +127,7 @@ async function removeUnusedDependencies(dryRun = false) {
   console.log('\n📦 REMOVING UNUSED DEPENDENCIES\n')
   const packageJsonPath = join(rootDir, 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'))
-  
+
   let modified = false
   const removed = []
 
@@ -167,9 +167,9 @@ async function removeUnusedDependencies(dryRun = false) {
 
 async function generateReport(filesRemoved, barrelsCleaned, depsRemoved) {
   const reportPath = join(rootDir, '_reports', 'cleanup-report.md')
-  
+
   const report = `# Component Cleanup Report
-  
+
 ## Summary
 
 - **Files Removed**: ${filesRemoved.length}
@@ -232,7 +232,7 @@ try {
 
   console.log('\n' + '─'.repeat(50))
   console.log('✨ Pruning complete!')
-  
+
   if (dryRun) {
     console.log('\n💡 Run without --dry-run to apply changes')
   } else {
@@ -246,4 +246,3 @@ try {
   console.error('\n❌ Error:', error.message)
   process.exit(1)
 }
-
