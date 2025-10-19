@@ -624,6 +624,7 @@ export const copy = {
     validationEmailRequired: "Email is required",
     validationEmailInvalid: "Please enter a valid email address",
     validationMessageRequired: "Message is required",
+    validationDescriptionRequired: "Brief description is required",
   },
 
   // ========== WRITING PAGE ==========
