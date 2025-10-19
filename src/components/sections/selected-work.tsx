@@ -1,7 +1,7 @@
 "use client"
 
 import { memo, useMemo } from "react"
-import { motion, useReducedMotion, LazyMotion, domAnimation } from "framer-motion"
+import { m, useReducedMotion, LazyMotion, domAnimation } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 import { copy } from "@/content/copy"
@@ -51,7 +51,7 @@ export const SelectedWork = memo(function SelectedWork() {
       <section className="relative overflow-hidden bg-neutral-50 py-16 dark:bg-neutral-900 md:py-20">
         <div className="container relative z-10 mx-auto max-w-6xl px-6 md:px-8">
         {/* Section Header */}
-        <motion.header
+        <m.header
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -59,7 +59,7 @@ export const SelectedWork = memo(function SelectedWork() {
           className="mb-10 md:mb-12"
         >
           <div className="overflow-hidden">
-            <motion.h2
+            <m.h2
               className="font-display text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 md:text-4xl"
               initial={{ x: -100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
@@ -67,9 +67,9 @@ export const SelectedWork = memo(function SelectedWork() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               {copy.featuredProjects.heading}
-            </motion.h2>
+            </m.h2>
           </div>
-          <motion.p
+          <m.p
             className="mt-2 max-w-2xl text-base text-neutral-600 dark:text-neutral-400 md:text-lg"
             initial={{ x: -80, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
@@ -77,11 +77,11 @@ export const SelectedWork = memo(function SelectedWork() {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             {copy.featuredProjects.subheading}
-          </motion.p>
-        </motion.header>
+          </m.p>
+        </m.header>
 
         {/* Text-Only Projects List */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -90,7 +90,7 @@ export const SelectedWork = memo(function SelectedWork() {
         >
           {projects.map((project, index) => {
             return (
-              <motion.article
+              <m.article
                 key={project.title}
                 variants={itemVariants}
                 className="group relative"
@@ -121,7 +121,7 @@ export const SelectedWork = memo(function SelectedWork() {
 
                   {/* Tech Stack - animated marquee */}
                   <div className="relative overflow-hidden">
-                    <motion.div
+                    <m.div
                       className="flex items-center gap-4 whitespace-nowrap text-xs text-neutral-500 dark:text-neutral-500"
                       animate={{
                         x: [0, -150],
@@ -142,7 +142,7 @@ export const SelectedWork = memo(function SelectedWork() {
                           <span className="text-neutral-300 dark:text-neutral-700">•</span>
                         </span>
                       ))}
-                    </motion.div>
+                    </m.div>
                   </div>
 
                   {/* Impact - with left border */}
@@ -164,13 +164,13 @@ export const SelectedWork = memo(function SelectedWork() {
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                   </Link>
                 </div>
-              </motion.article>
+              </m.article>
             )
           })}
-        </motion.div>
+        </m.div>
 
         {/* View All Projects Link */}
-        <motion.div
+        <m.div
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
@@ -184,7 +184,7 @@ export const SelectedWork = memo(function SelectedWork() {
             <span>{copy.featuredProjects.viewAllButton}</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
           </Link>
-        </motion.div>
+        </m.div>
         </div>
       </section>
     </LazyMotion>

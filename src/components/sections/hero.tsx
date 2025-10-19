@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, memo, useCallback, useMemo } from "react";
-import { motion, useReducedMotion, LazyMotion, domAnimation } from "framer-motion";
+import { m, useReducedMotion, LazyMotion, domAnimation } from "framer-motion";
 import { ArrowRight, Calendar, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
@@ -120,14 +120,14 @@ export const Hero = memo(function Hero() {
       {/* Content */}
       <div className="container relative z-10 mx-auto flex min-h-screen items-center px-4 py-20 pointer-events-none">
         <div className="w-full">
-        <motion.div
+        <m.div
           variants={container}
           initial="hidden"
           animate="show"
           className="mx-auto max-w-5xl text-center pointer-events-none"
         >
           {/* Floating Badge with Animated Gradient */}
-          <motion.div variants={item} className="mb-2 sm:mb-4 flex justify-center">
+          <m.div variants={item} className="mb-2 sm:mb-4 flex justify-center">
             <div className="inline-flex">
               <div className="group relative mx-auto flex items-center justify-center rounded-full px-2 py-1 sm:px-4 sm:py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
                 <span
@@ -150,10 +150,10 @@ export const Hero = memo(function Hero() {
                 </AnimatedGradientText>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Subtitle */}
-          <motion.div variants={item}>
+          <m.div variants={item}>
             <TypingAnimation
               className="mb-10 text-xs text-foreground/80 sm:text-base md:text-lg"
               cursorStyle="underscore"
@@ -162,10 +162,10 @@ export const Hero = memo(function Hero() {
             >
               {copy.hero.subtitle}
             </TypingAnimation>
-          </motion.div>
+          </m.div>
 
           {/* Main Heading with Sparkles */}
-          <motion.div variants={item} className="relative">
+          <m.div variants={item} className="relative">
             <h1 className="mb-4 mt-5 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl relative z-20 whitespace-nowrap inline-flex items-center gap-3">
               <span>Crafting</span>
               <PointerHighlight
@@ -203,10 +203,10 @@ export const Hero = memo(function Hero() {
                 <div className="absolute inset-0 w-full h-full bg-background [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* CTA Buttons */}
-          <motion.div
+          <m.div
             variants={item}
             className="flex flex-col items-center justify-center gap-4 sm:flex-row pointer-events-auto"
           >
@@ -242,22 +242,22 @@ export const Hero = memo(function Hero() {
                 {copy.cta.downloadResume}
               </a>
             </Button>
-          </motion.div>
+          </m.div>
 
           {/* Scroll Indicator - CSS animation instead of framer-motion */}
           {!shouldReduceMotion && (
-            <motion.div variants={item} className="mt-20">
+            <m.div variants={item} className="mt-20">
               <div className="mx-auto h-8 w-5 rounded-full border-2 border-foreground/20 p-1 animate-bounce">
                 <div className="h-2 w-2 rounded-full bg-foreground/40" />
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* Terminal Hint */}
-          <motion.div variants={item} className="mt-12 pointer-events-auto hidden md:block">
+          <m.div variants={item} className="mt-12 pointer-events-auto hidden md:block">
             <TerminalHint className="opacity-80 hover:opacity-100 transition-opacity scale-110" />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
         </div>
       </div>
       </section>

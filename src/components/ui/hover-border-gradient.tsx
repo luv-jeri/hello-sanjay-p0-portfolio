@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 type HoverBorderGradientProps = {
@@ -14,6 +14,7 @@ type HoverBorderGradientProps = {
 /**
  * Hover Border Gradient Component
  * Creates a beautiful gradient border animation on hover
+ * Note: This component uses `m` from framer-motion and must be used within a LazyMotion wrapper
  */
 export function HoverBorderGradient({
   children,
@@ -24,7 +25,7 @@ export function HoverBorderGradient({
 }: HoverBorderGradientProps) {
   return (
     <Component className={cn("group relative", containerClassName)}>
-      <motion.div
+      <m.div
         className={cn(
           "absolute -inset-[2px] rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 blur-sm transition-opacity duration-500 group-hover:opacity-100",
           className
@@ -45,4 +46,3 @@ export function HoverBorderGradient({
     </Component>
   )
 }
-
