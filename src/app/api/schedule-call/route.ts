@@ -1,7 +1,15 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy initialize to avoid build-time errors
+let resend: Resend | null = null
+
+const getResendClient = () => {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY)
+  }
+  return resend
+}
 
 // ============================================================================
 // TYPES
@@ -92,8 +100,18 @@ export async function POST(request: Request) {
       )
     }
 
+    // Get Resend client
+    const resendClient = getResendClient()
+    if (!resendClient) {
+      console.error('[Schedule Call API] Failed to initialize Resend client')
+      return NextResponse.json(
+        { error: 'Email service not available' },
+        { status: 500 }
+      )
+    }
+
     // Send email using Resend
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await resendClient.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Use verified domain in production
       to: ['hellosanjaygautam@gmail.com'],
       replyTo: email,
