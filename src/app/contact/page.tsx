@@ -2,11 +2,12 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
-import { MapPin, Clock, Mail, Linkedin, FileText, Calendar, CheckCircle2, AlertCircle, Sparkles } from "lucide-react"
+import { MapPin, Clock, Mail, Linkedin, Calendar, CheckCircle2, AlertCircle, Sparkles } from "lucide-react"
 import { copy } from "@/content/copy"
 import { SITE_CONFIG } from "@/lib/constants"
 import { ProgressiveBlur } from "@/components/ui/progressive-blur"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { ResumeDownloadLink } from "@/components/resume-download-button"
 import { cn } from "@/lib/utils"
 
 // ============================================================================
@@ -425,17 +426,15 @@ export default function ContactPage() {
                   <span className="text-foreground/50">→</span>
                 </a>
 
-                <a
-                  href="/resume.pdf"
-                  download
+                <ResumeDownloadLink
                   className="group inline-flex items-center gap-2 text-foreground transition-colors hover:text-primary"
+                  iconClassName="h-5 w-5"
                 >
-                  <FileText className="h-5 w-5" />
                   <span className="underline underline-offset-4 decoration-foreground/30 group-hover:decoration-primary transition-colors">
                     Download résumé
                   </span>
                   <span className="text-foreground/50">→</span>
-                </a>
+                </ResumeDownloadLink>
               </motion.div>
             </motion.header>
           </BlurFade>

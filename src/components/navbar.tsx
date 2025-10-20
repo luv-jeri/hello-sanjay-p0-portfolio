@@ -3,10 +3,11 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Download, ChevronDown } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MAIN_NAV_ITEMS, RESOURCES_NAV_GROUP } from "@/lib/constants"
 import { ThemeToggleButton2 } from "@/components/ui/skiper-theme-toggles"
+import { ResumeDownloadButton } from "@/components/resume-download-button"
 import { copy } from "@/content/copy"
 import {
   DropdownMenu,
@@ -21,7 +22,6 @@ import {
   NavBody,
   MobileNav,
   NavbarLogo,
-  NavbarButton,
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
@@ -118,16 +118,11 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <NavbarButton
+          <ResumeDownloadButton
             variant="secondary"
-            as="a"
-            href="/resume.pdf"
-            download
-            className="flex items-center gap-2"
-          >
-            <Download className="h-4 w-4" />
-            {copy.nav.resumeButton}
-          </NavbarButton>
+            size="default"
+            label={copy.nav.resumeButton}
+          />
           <ThemeToggleButton2 className="h-10 w-10 p-2" />
         </div>
       </NavBody>
@@ -196,17 +191,12 @@ export function Navbar() {
 
           {/* Resume Button */}
           <div className="flex w-full flex-col gap-4 mt-4">
-            <NavbarButton
-              as="a"
-              href="/resume.pdf"
-              download
-              onClick={() => setIsMobileMenuOpen(false)}
-              variant="primary"
-              className="w-full flex items-center gap-2 justify-center"
-            >
-              <Download className="h-4 w-4" />
-              {copy.nav.downloadResume}
-            </NavbarButton>
+            <ResumeDownloadButton
+              variant="default"
+              size="default"
+              className="w-full"
+              label={copy.nav.downloadResume}
+            />
           </div>
         </MobileNavMenu>
       </MobileNav>

@@ -3,6 +3,7 @@ import { Github, Linkedin, Youtube, Mail } from "lucide-react"
 import { SITE_CONFIG, NAVIGATION_ITEMS } from "@/lib/constants"
 import { copy } from "@/content/copy"
 import { SmartLink } from "@/components/ui/smart-link"
+import { ResumeDownloadLink } from "@/components/resume-download-button"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -95,13 +96,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a
-                  href="/resume.pdf"
-                  download
+                <ResumeDownloadLink
                   className="text-sm text-foreground/60 transition-colors hover:text-foreground"
+                  showIcon={false}
                 >
                   {copy.footer.downloadResume}
-                </a>
+                </ResumeDownloadLink>
               </li>
             </ul>
           </div>

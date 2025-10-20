@@ -2,7 +2,7 @@
 
 import { useState, useEffect, memo, useCallback, useMemo } from "react";
 import { m, useReducedMotion, LazyMotion, domAnimation } from "framer-motion";
-import { ArrowRight, Calendar, Download } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
@@ -11,6 +11,7 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 import { TerminalHint } from "@/components/terminal";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { PointerHighlight } from "@/components/ui/pointer-highlight";
+import { ResumeDownloadButton } from "@/components/resume-download-button";
 import { copy } from "@/content/copy";
 import { cn } from "@/lib/utils";
 
@@ -231,17 +232,12 @@ export const Hero = memo(function Hero() {
               </a>
             </Button>
 
-            <Button
+            <ResumeDownloadButton
               variant="ghost"
               size="lg"
-              className="hidden sm:flex group gap-2"
-              asChild
-            >
-              <a href="/resume.pdf" download>
-                <Download className="h-5 w-5 transition-transform group-hover:translate-y-1" />
-                {copy.cta.downloadResume}
-              </a>
-            </Button>
+              className="hidden sm:flex"
+              label={copy.cta.downloadResume}
+            />
           </m.div>
 
           {/* Scroll Indicator - CSS animation instead of framer-motion */}

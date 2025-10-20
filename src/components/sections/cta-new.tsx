@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion"
 import { Calendar, Mail, ArrowRight, FileText } from "lucide-react"
 import { copy } from "@/content/copy"
 import { RetroGrid } from "@/components/ui/retro-grid"
+import { ResumeDownloadLink } from "@/components/resume-download-button"
 
 export function CTANew() {
   const shouldReduceMotion = useReducedMotion()
@@ -180,15 +181,12 @@ export function CTANew() {
 
               <span className="h-4 w-px bg-neutral-700" />
 
-              <a
-                href="/resume.pdf"
-                download
-                className="group inline-flex items-center gap-2 transition-colors hover:text-neutral-300"
+              <ResumeDownloadLink
+                className="group inline-flex items-center gap-2 transition-colors hover:text-neutral-300 text-neutral-400"
+                iconClassName="h-4 w-4"
               >
-                <FileText className="h-4 w-4" />
                 Download résumé
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </ResumeDownloadLink>
             </motion.div>
           </div>
         </motion.div>
