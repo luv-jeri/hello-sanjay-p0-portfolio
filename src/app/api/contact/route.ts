@@ -1,7 +1,7 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 
-ya// Lazy initialize to avoid build-time errors
+// Lazy initialize to avoid build-time errors
 let resend: Resend | null = null
 
 const getResendClient = () => {
