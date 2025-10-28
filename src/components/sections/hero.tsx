@@ -95,7 +95,7 @@ export const Hero = memo(function Hero() {
   }), []);
 
   return (
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={domAnimation}>
       <section className="relative min-h-screen overflow-hidden bg-background pt-20 md:pt-24">
         {/* Background Ripple Effect Container with gradient blend */}
         <div className="absolute inset-x-0 top-0 h-[50vh] overflow-hidden z-0">
