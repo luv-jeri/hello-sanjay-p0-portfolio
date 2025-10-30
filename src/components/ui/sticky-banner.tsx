@@ -3,36 +3,57 @@ import React, { SVGProps, useState, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { cn } from "@/lib/utils";
 
+const BANNER_STORAGE_KEY = "sticky-banner-dismissed";
+
 export const StickyBanner = ({
   className,
   children,
   hideOnScroll = false,
   autoHideAfter,
+  persistDismissal = true,
 }: {
   className?: string;
   children: React.ReactNode;
   hideOnScroll?: boolean;
   autoHideAfter?: number;
+  persistDismissal?: boolean;
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
 
+  // Check localStorage on mount
   useEffect(() => {
-    if (autoHideAfter) {
+    if (persistDismissal) {
+      const isDismissed = localStorage.getItem(BANNER_STORAGE_KEY);
+      if (!isDismissed) {
+        setOpen(true);
+      }
+    } else {
+      setOpen(true);
+    }
+  }, [persistDismissal]);
+
+  // Auto-hide timer
+  useEffect(() => {
+    if (autoHideAfter && open) {
       const timer = setTimeout(() => {
-        setOpen(false);
+        handleClose();
       }, autoHideAfter);
 
       return () => clearTimeout(timer);
     }
-  }, [autoHideAfter]);
+  }, [autoHideAfter, open]);
+
+  const handleClose = () => {
+    setOpen(false);
+    if (persistDismissal) {
+      localStorage.setItem(BANNER_STORAGE_KEY, "true");
+    }
+  };
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    console.log(latest);
-    if (hideOnScroll && latest > 40) {
-      setOpen(false);
-    } else {
-      setOpen(true);
+    if (hideOnScroll && latest > 40 && open) {
+      handleClose();
     }
   });
 
@@ -95,7 +116,7 @@ export const StickyBanner = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="ml-1 md:ml-2 cursor-pointer rounded-full p-1 md:p-1.5 transition-colors hover:bg-muted/80"
-            onClick={() => setOpen(!open)}
+            onClick={handleClose}
             aria-label="Close banner"
           >
             <CloseIcon className="h-3 w-3 md:h-3.5 md:w-3.5 text-foreground/60" />
