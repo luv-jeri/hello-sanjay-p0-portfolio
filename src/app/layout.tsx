@@ -94,7 +94,7 @@ export default function RootLayout({
         >
           <FontProvider>
             <TerminalProvider>
-              <StickyBanner autoHideAfter={4000}>
+              <StickyBanner autoHideAfter={4000} persistDismissal={true}>
                 <div className="flex items-center gap-2 md:gap-3">
                   <div className="relative flex h-2 w-2 md:h-2.5 md:w-2.5 shrink-0">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60 opacity-75"></span>

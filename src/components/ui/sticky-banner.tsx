@@ -1,9 +1,15 @@
 "use client";
-import React, { SVGProps, useState, useEffect } from "react";
+import React, { SVGProps, useState, useEffect, useCallback, useRef } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const BANNER_STORAGE_KEY = "sticky-banner-dismissed";
+
+// Helper to check if banner was dismissed (outside component to avoid recreation)
+const isBannerDismissed = () => {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem(BANNER_STORAGE_KEY) === "true";
+};
 
 export const StickyBanner = ({
   className,
@@ -18,20 +24,40 @@ export const StickyBanner = ({
   autoHideAfter?: number;
   persistDismissal?: boolean;
 }) => {
+  // Start with false for both server and client to avoid hydration mismatch
+  const [shouldRender, setShouldRender] = useState(true);
   const [open, setOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const { scrollY } = useScroll();
+  const hasClosedRef = useRef(false);
 
-  // Check localStorage on mount
-  useEffect(() => {
+  const handleClose = useCallback(() => {
+    if (hasClosedRef.current) return; // Prevent multiple closes
+    hasClosedRef.current = true;
+
+    setOpen(false);
     if (persistDismissal) {
-      const isDismissed = localStorage.getItem(BANNER_STORAGE_KEY);
-      if (!isDismissed) {
-        setOpen(true);
-      }
-    } else {
-      setOpen(true);
+      localStorage.setItem(BANNER_STORAGE_KEY, "true");
     }
+    // Completely remove from DOM after animation
+    setTimeout(() => setShouldRender(false), 500);
   }, [persistDismissal]);
+
+  // Hydration and initial check
+  useEffect(() => {
+    setIsHydrated(true);
+
+    // Check if banner was already dismissed
+    if (persistDismissal && isBannerDismissed()) {
+      setShouldRender(false);
+      hasClosedRef.current = true;
+      return;
+    }
+
+    // Show the banner
+    setOpen(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Auto-hide timer
   useEffect(() => {
@@ -42,20 +68,16 @@ export const StickyBanner = ({
 
       return () => clearTimeout(timer);
     }
-  }, [autoHideAfter, open]);
-
-  const handleClose = () => {
-    setOpen(false);
-    if (persistDismissal) {
-      localStorage.setItem(BANNER_STORAGE_KEY, "true");
-    }
-  };
+  }, [autoHideAfter, open, handleClose]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (hideOnScroll && latest > 40 && open) {
+    if (hideOnScroll && latest > 40 && open && !hasClosedRef.current) {
       handleClose();
     }
   });
+
+  // Don't render if dismissed or not hydrated yet
+  if (!isHydrated || !shouldRender) return null;
 
   return (
     <motion.div
