@@ -65,6 +65,10 @@ const FloatingDockMobile = ({
                   href={item.href}
                   key={item.title}
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  {...(item.href.startsWith('http') && {
+                    target: '_blank',
+                    rel: 'noopener noreferrer'
+                  })}
                 >
                   <div className="h-4 w-4">{item.icon}</div>
                 </a>
@@ -159,9 +163,16 @@ function IconContainer({
   });
 
   const [hovered, setHovered] = useState(false);
+  const isExternal = href.startsWith('http');
 
   return (
-    <a href={href}>
+    <a
+      href={href}
+      {...(isExternal && {
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      })}
+    >
       <motion.div
         ref={ref}
         style={{ width, height }}

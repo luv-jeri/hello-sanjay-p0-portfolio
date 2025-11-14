@@ -10,7 +10,7 @@ export const SITE_CONFIG = {
   education: "B.Tech, RGPV",
   social: {
     linkedin: "https://www.linkedin.com/in/luv-jeri",
-    github: "[ADD GITHUB LINK]",
+    github: "https://github.com/luv-jeri",
     youtube: "[ADD YOUTUBE LINK]",
   },
 } as const
