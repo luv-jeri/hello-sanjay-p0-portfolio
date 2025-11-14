@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
-import { MapPin, Clock, Mail, Linkedin, Calendar, CheckCircle2, AlertCircle, Sparkles } from "lucide-react"
+import { MapPin, Clock, Mail, Linkedin, CheckCircle2, AlertCircle, Sparkles } from "lucide-react"
 import { copy } from "@/content/copy"
 import { SITE_CONFIG } from "@/lib/constants"
 import { ProgressiveBlur } from "@/components/ui/progressive-blur"
@@ -22,23 +22,10 @@ type FormState = {
   honeypot: string // spam trap
 }
 
-type ScheduleCallFormState = {
-  name: string
-  email: string
-  phone: string
-  preferredTime: string
-  description: string
-  honeypot: string // spam trap
-}
-
 type FormStatus = "idle" | "submitting" | "success" | "error"
 
 type ValidationErrors = {
   [K in keyof FormState]?: string
-}
-
-type ScheduleCallValidationErrors = {
-  [K in keyof ScheduleCallFormState]?: string
 }
 
 // ============================================================================
@@ -98,26 +85,6 @@ const validateForm = (formState: FormState): ValidationErrors => {
   return errors
 }
 
-const validateScheduleCallForm = (formState: ScheduleCallFormState): ScheduleCallValidationErrors => {
-  const errors: ScheduleCallValidationErrors = {}
-
-  if (!formState.name.trim()) {
-    errors.name = copy.contact.validationNameRequired
-  }
-
-  if (!formState.email.trim()) {
-    errors.email = copy.contact.validationEmailRequired
-  } else if (!validateEmail(formState.email)) {
-    errors.email = copy.contact.validationEmailInvalid
-  }
-
-  if (!formState.description.trim()) {
-    errors.description = copy.contact.validationDescriptionRequired
-  }
-
-  return errors
-}
-
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
@@ -135,23 +102,9 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<ValidationErrors>({})
   const formStartTime = useRef<number | null>(null)
 
-  // Schedule call form state
-  const [scheduleCallFormState, setScheduleCallFormState] = useState<ScheduleCallFormState>({
-    name: "",
-    email: "",
-    phone: "",
-    preferredTime: "",
-    description: "",
-    honeypot: "",
-  })
-  const [scheduleCallStatus, setScheduleCallStatus] = useState<FormStatus>("idle")
-  const [scheduleCallErrors, setScheduleCallErrors] = useState<ScheduleCallValidationErrors>({})
-  const scheduleCallFormStartTime = useRef<number | null>(null)
-
   // Track when user starts interacting with forms (spam heuristic)
   useEffect(() => {
     formStartTime.current = Date.now()
-    scheduleCallFormStartTime.current = Date.now()
   }, [])
 
   const handleChange = (
@@ -236,90 +189,6 @@ export default function ContactPage() {
     }
   }
 
-  const handleScheduleCallChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setScheduleCallFormState((prev) => ({ ...prev, [name]: value }))
-
-    // Clear error for this field
-    if (scheduleCallErrors[name as keyof ScheduleCallFormState]) {
-      setScheduleCallErrors((prev) => {
-        const newErrors = { ...prev }
-        delete newErrors[name as keyof ScheduleCallFormState]
-        return newErrors
-      })
-    }
-  }
-
-  const handleScheduleCallSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    // Spam check: honeypot
-    if (scheduleCallFormState.honeypot) {
-      console.warn("[Schedule Call] Honeypot triggered")
-      return
-    }
-
-    // Spam check: time heuristic (submitted too quickly)
-    const timeElapsed = scheduleCallFormStartTime.current
-      ? Date.now() - scheduleCallFormStartTime.current
-      : 0
-    if (timeElapsed < 2000) {
-      console.warn("[Schedule Call] Form submitted too quickly")
-      return
-    }
-
-    // Validate
-    const validationErrors = validateScheduleCallForm(scheduleCallFormState)
-    if (Object.keys(validationErrors).length > 0) {
-      setScheduleCallErrors(validationErrors)
-      return
-    }
-
-    setScheduleCallStatus("submitting")
-
-    try {
-      const response = await fetch("/api/schedule-call", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(scheduleCallFormState),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send request")
-      }
-
-      console.log("[Schedule Call] Form submitted successfully:", data.id)
-
-      setScheduleCallStatus("success")
-      setScheduleCallFormState({
-        name: "",
-        email: "",
-        phone: "",
-        preferredTime: "",
-        description: "",
-        honeypot: "",
-      })
-
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setScheduleCallStatus("idle")
-      }, 5000)
-    } catch (error) {
-      console.error("[Schedule Call] Submission failed:", error)
-      setScheduleCallStatus("error")
-
-      // Reset error state after 5 seconds
-      setTimeout(() => {
-        setScheduleCallStatus("idle")
-      }, 5000)
-    }
-  }
 
   return (
     <div className="relative overflow-hidden">
@@ -390,19 +259,6 @@ export default function ContactPage() {
                 className="flex flex-wrap items-center justify-center gap-6 text-base md:text-lg"
               >
                 <a
-                  href="[ADD CALENDLY LINK]"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 text-foreground transition-colors hover:text-primary"
-                >
-                  <Calendar className="h-5 w-5" />
-                  <span className="underline underline-offset-4 decoration-foreground/30 group-hover:decoration-primary transition-colors">
-                    Schedule a call
-                  </span>
-                  <span className="text-foreground/50">→</span>
-                </a>
-
-                <a
                   href={`mailto:${SITE_CONFIG.email}`}
                   className="group inline-flex items-center gap-2 text-foreground transition-colors hover:text-primary"
                 >
@@ -459,7 +315,7 @@ export default function ContactPage() {
                 <div className="text-center space-y-6">
                   <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                      Or send a message<span className="text-blue-500">.</span>
+                      Send a message<span className="text-blue-500">.</span>
                     </h2>
 
                     {/* Decorative Line */}
@@ -714,258 +570,8 @@ export default function ContactPage() {
             </div>
           </BlurFade>
 
-          {/* Schedule a Call Form */}
-          <BlurFade delay={0.6} inView>
-            <motion.section
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="py-16 md:py-20"
-            >
-              <div className="mx-auto max-w-3xl space-y-8">
-                <div className="text-center space-y-6">
-                  <div className="space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                      Or schedule a call<span className="text-red-500">.</span>
-                    </h2>
-
-                    {/* Decorative Line */}
-                    <div className="mx-auto w-fit">
-                      <div className="relative h-0.5 w-12">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent blur-sm" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-muted-foreground">
-                    Prefer a conversation? Share your details and I&apos;ll reach out to schedule a time.
-                  </p>
-                </div>
-
-                <form
-                  onSubmit={handleScheduleCallSubmit}
-                  className="space-y-8"
-                  aria-describedby="schedule-call-note"
-                >
-                  {/* Honeypot (hidden from users, visible to bots) */}
-                  <input
-                    type="text"
-                    name="honeypot"
-                    value={scheduleCallFormState.honeypot}
-                    onChange={handleScheduleCallChange}
-                    tabIndex={-1}
-                    autoComplete="off"
-                    className="hidden"
-                    aria-hidden="true"
-                  />
-
-                  {/* Name & Email */}
-                  <div className="grid gap-8 md:grid-cols-2">
-                    <label className="block group">
-                      <span className="block text-sm font-medium mb-3 text-foreground/90">
-                        Name <span className="text-red-500">*</span>
-                      </span>
-                      <input
-                        name="name"
-                        value={scheduleCallFormState.name}
-                        onChange={handleScheduleCallChange}
-                        required
-                        className={cn(
-                          "w-full border-b-2 bg-transparent py-3 outline-none transition-colors",
-                          "placeholder:text-muted-foreground/50",
-                          scheduleCallErrors.name
-                            ? "border-red-500 focus:border-red-500"
-                            : "border-border focus:border-primary"
-                        )}
-                        placeholder="Your name"
-                        aria-required="true"
-                        aria-invalid={!!scheduleCallErrors.name}
-                        aria-describedby={scheduleCallErrors.name ? "schedule-name-error" : undefined}
-                      />
-                      {scheduleCallErrors.name && (
-                        <p id="schedule-name-error" className="mt-2 text-sm text-red-500" role="alert">
-                          {scheduleCallErrors.name}
-                        </p>
-                      )}
-                    </label>
-
-                    <label className="block group">
-                      <span className="block text-sm font-medium mb-3 text-foreground/90">
-                        Email <span className="text-red-500">*</span>
-                      </span>
-                      <input
-                        type="email"
-                        name="email"
-                        value={scheduleCallFormState.email}
-                        onChange={handleScheduleCallChange}
-                        required
-                        className={cn(
-                          "w-full border-b-2 bg-transparent py-3 outline-none transition-colors",
-                          "placeholder:text-muted-foreground/50",
-                          scheduleCallErrors.email
-                            ? "border-red-500 focus:border-red-500"
-                            : "border-border focus:border-primary"
-                        )}
-                        placeholder="your.email@example.com"
-                        aria-required="true"
-                        aria-invalid={!!scheduleCallErrors.email}
-                        aria-describedby={scheduleCallErrors.email ? "schedule-email-error" : undefined}
-                      />
-                      {scheduleCallErrors.email && (
-                        <p id="schedule-email-error" className="mt-2 text-sm text-red-500" role="alert">
-                          {scheduleCallErrors.email}
-                        </p>
-                      )}
-                    </label>
-                  </div>
-
-                  {/* Phone & Preferred Time */}
-                  <div className="grid gap-8 md:grid-cols-2">
-                    <label className="block group">
-                      <span className="flex items-center gap-2 text-sm font-medium mb-3 text-foreground/90">
-                        Phone Number
-                        <span className="text-xs text-muted-foreground">(optional)</span>
-                      </span>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={scheduleCallFormState.phone}
-                        onChange={handleScheduleCallChange}
-                        className={cn(
-                          "w-full border-b-2 bg-transparent py-3 outline-none transition-colors",
-                          "placeholder:text-muted-foreground/50",
-                          "border-border focus:border-primary"
-                        )}
-                        placeholder="+1 (555) 123-4567"
-                        aria-label="Phone number (optional)"
-                      />
-                    </label>
-
-                    <label className="block group">
-                      <span className="flex items-center gap-2 text-sm font-medium mb-3 text-foreground/90">
-                        Preferred Contact Time
-                        <span className="text-xs text-muted-foreground">(optional)</span>
-                      </span>
-                      <input
-                        type="text"
-                        name="preferredTime"
-                        value={scheduleCallFormState.preferredTime}
-                        onChange={handleScheduleCallChange}
-                        className={cn(
-                          "w-full border-b-2 bg-transparent py-3 outline-none transition-colors",
-                          "placeholder:text-muted-foreground/50",
-                          "border-border focus:border-primary"
-                        )}
-                        placeholder="e.g., Weekdays 2-4 PM IST"
-                        aria-label="Preferred contact time (optional)"
-                      />
-                    </label>
-                  </div>
-
-                  {/* Brief Description */}
-                  <label className="block group">
-                    <span className="block text-sm font-medium mb-3 text-foreground/90">
-                      Brief Description <span className="text-red-500">*</span>
-                    </span>
-                    <textarea
-                      name="description"
-                      value={scheduleCallFormState.description}
-                      onChange={handleScheduleCallChange}
-                      rows={4}
-                      required
-                      className={cn(
-                        "w-full border-b-2 bg-transparent py-3 outline-none transition-colors resize-none",
-                        "placeholder:text-muted-foreground/50",
-                        scheduleCallErrors.description
-                          ? "border-red-500 focus:border-red-500"
-                          : "border-border focus:border-primary"
-                      )}
-                      placeholder="What would you like to discuss?"
-                      aria-required="true"
-                      aria-invalid={!!scheduleCallErrors.description}
-                      aria-describedby={scheduleCallErrors.description ? "schedule-description-error" : undefined}
-                    />
-                    {scheduleCallErrors.description && (
-                      <p id="schedule-description-error" className="mt-2 text-sm text-red-500" role="alert">
-                        {scheduleCallErrors.description}
-                      </p>
-                    )}
-                  </label>
-
-                  {/* Submit Button */}
-                  <div className="pt-4 flex items-center justify-between">
-                    <button
-                      type="submit"
-                      disabled={scheduleCallStatus === "submitting"}
-                      className={cn(
-                        "group inline-flex items-center gap-2 text-lg font-medium transition-all relative",
-                        "underline underline-offset-4 decoration-foreground/30",
-                        scheduleCallStatus === "submitting"
-                          ? "opacity-50 cursor-not-allowed"
-                          : "hover:decoration-red-500 hover:text-red-500"
-                      )}
-                    >
-                      <Calendar className="h-5 w-5" />
-                      <span>
-                        {scheduleCallStatus === "submitting" ? "Sending..." : "Request a call"}
-                      </span>
-                      <span className={cn(
-                        "transition-colors",
-                        scheduleCallStatus === "submitting"
-                          ? "text-foreground/50"
-                          : "text-foreground/50 group-hover:text-blue-500"
-                      )}>
-                        →
-                      </span>
-                    </button>
-
-                    {/* Status Messages */}
-                    {scheduleCallStatus === "success" && (
-                      <motion.div
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-2"
-                        role="status"
-                      >
-                        <CheckCircle2 className="h-4 w-4 text-red-500" />
-                        <p className="text-sm font-medium">
-                          <span className="text-red-500">Request sent</span>
-                          <span className="text-muted-foreground">. I&apos;ll reach out shortly.</span>
-                        </p>
-                      </motion.div>
-                    )}
-
-                    {scheduleCallStatus === "error" && (
-                      <motion.div
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-2"
-                        role="alert"
-                      >
-                        <AlertCircle className="h-4 w-4 text-red-500" />
-                        <p className="text-sm font-medium">
-                          <span className="text-red-500">Something went wrong</span>
-                          <span className="text-muted-foreground">. Please try again.</span>
-                        </p>
-                      </motion.div>
-                    )}
-                  </div>
-                </form>
-              </div>
-            </motion.section>
-          </BlurFade>
-
-          {/* Divider */}
-          <BlurFade delay={0.7} inView>
-            <div className="relative h-px w-full">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border to-transparent" />
-            </div>
-          </BlurFade>
-
           {/* Contact Meta / Trust Builders */}
-          <BlurFade delay={0.8} inView>
+          <BlurFade delay={0.6} inView>
             <motion.address
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}

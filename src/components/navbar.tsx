@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { MAIN_NAV_ITEMS, RESOURCES_NAV_GROUP } from "@/lib/constants"
 import { ThemeToggleButton2 } from "@/components/ui/skiper-theme-toggles"
 import { ResumeDownloadButton } from "@/components/resume-download-button"
+import { Logo } from "@/components/logo"
 import { copy } from "@/content/copy"
 import {
   DropdownMenu,
@@ -42,8 +43,7 @@ export function Navbar() {
       {/* Desktop Navigation */}
       <NavBody>
         <NavbarLogo href="/">
-          <span className="text-xl font-bold">{copy.brand.initials}</span>
-          <span className="text-sm font-medium">{copy.brand.fullName}</span>
+          <Logo variant="filled" size="sm" animated />
         </NavbarLogo>
 
         <div className="flex items-center gap-6">
@@ -131,8 +131,7 @@ export function Navbar() {
       <MobileNav>
         <MobileNavHeader>
           <NavbarLogo href="/">
-            <span className="text-xl font-bold">{copy.brand.initials}</span>
-            <span className="text-sm font-medium">{copy.brand.fullName}</span>
+            <Logo variant="filled" size="sm" animated />
           </NavbarLogo>
           <div className="flex items-center gap-2">
             <ThemeToggleButton2 className="h-10 w-10 p-2" />
