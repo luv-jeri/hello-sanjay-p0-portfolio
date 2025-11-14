@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { useTheme } from "next-themes"
 
 export type LogoVariant = "primary" | "filled" | "simple" | "with-text" | "horizontal" | "gradient" | "glow" | "orbit" | "offset"
 export type LogoSize = "xs" | "sm" | "md" | "lg" | "xl"
@@ -38,7 +37,6 @@ export function Logo({
   showText = false,
   animated = false,
 }: LogoProps) {
-  const { theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
@@ -46,9 +44,6 @@ export function Logo({
   }, [])
 
   const dimensions = variant === "horizontal" ? horizontalSizeMap[size] : sizeMap[size]
-
-  // Use theme colors with red-blue gradient theme
-  const isDarkMode = mounted && (theme === "dark" || resolvedTheme === "dark")
 
   const renderLogoContent = () => {
     const baseTransform = variant === "horizontal" ? "translate(24, 24)" : "translate(24, 24)"
